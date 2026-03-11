@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أكاديمية النخبة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F0D060;--gold-d:#A07820;--navy:#0A1628;--navy-m:#142040;--navy-c:#0F1E38;--accent:#00D4FF;--accent2:#FF6B35;--white:#F8F4EC;--muted:#8899BB;--success:#00C896;--danger:#FF4466;--shadow:0 20px 60px rgba(0,0,0,.5)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--navy-m)}::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:10px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;transition:all .2s}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);box-shadow:0 4px 18px rgba(212,175,55,.35)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,175,55,.55)}
+.btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:rgba(212,175,55,.1)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#cc2244}
+.btn-accent{background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);color:var(--accent)}
+.btn-sm{padding:6px 13px;font-size:12px}
+.btn-xs{padding:4px 9px;font-size:11px;border-radius:7px}
+.btn-icon{padding:7px;border-radius:8px;background:rgba(255,255,255,.07);border:none;color:var(--white);cursor:pointer;transition:all .2s}
+.btn-icon:hover{background:rgba(255,255,255,.15)}
+
+/* INPUTS */
+.inp,.sel,textarea{width:100%;padding:11px 14px;background:rgba(255,255,255,.05);border:1.5px solid rgba(212,175,55,.22);border-radius:10px;color:var(--white);font-family:'Cairo',sans-serif;font-size:13px;transition:border-color .2s;outline:none}
+.inp:focus,.sel:focus,textarea:focus{border-color:var(--gold);background:rgba(255,255,255,.08)}
+.inp::placeholder,textarea::placeholder{color:var(--muted)}
+.sel option{background:var(--navy-m);color:var(--white)}
+label{display:block;margin-bottom:5px;font-size:12px;color:var(--muted);font-weight:700}
+.fg{margin-bottom:16px}
+
+/* CARDS */
+.card{background:var(--navy-c);border:1px solid rgba(212,175,55,.14);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.bg{background:rgba(212,175,55,.14);color:var(--gold)}
+.ba{background:rgba(0,212,255,.12);color:var(--accent)}
+.bs{background:rgba(0,200,150,.12);color:var(--success)}
+.bd{background:rgba(255,68,102,.12);color:var(--danger)}
+.bw{background:rgba(255,107,53,.12);color:var(--accent2)}
+
+/* TOAST */
+#tc{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:9px}
+.toast{padding:12px 22px;border-radius:11px;background:var(--navy-c);border:1px solid rgba(212,175,55,.28);color:var(--white);font-size:13px;font-weight:700;box-shadow:var(--shadow);animation:sd .3s ease;display:flex;align-items:center;gap:9px}
+.toast.s{border-color:var(--success)}.toast.e{border-color:var(--danger)}
+@keyframes sd{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;animation:fi .2s ease}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.md{background:var(--navy-m);border:1px solid rgba(212,175,55,.28);border-radius:20px;padding:30px;width:90%;max-width:500px;box-shadow:var(--shadow);animation:si .25s ease;max-height:92vh;overflow-y:auto}
+.md.lg{max-width:680px}
+@keyframes si{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.mt{font-size:18px;font-weight:900;color:var(--gold)}
+.mc{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;transition:color .2s}
+.mc:hover{color:var(--danger)}
+
+/* ====== LANDING ====== */
+#pl{min-height:100vh;background:radial-gradient(ellipse at 20% 50%,rgba(212,175,55,.08),transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,212,255,.05),transparent 50%),var(--navy)}
+.lnav{display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:rgba(10,22,40,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,.13);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:11px}
+.li{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--navy)}
+.lt{font-size:19px;font-weight:900}.lt span{color:var(--gold)}
+.hero{padding:90px 52px 70px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1280px;margin:0 auto}
+.hb{display:inline-flex;align-items:center;gap:7px;padding:5px 15px;border-radius:28px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.28);color:var(--gold);font-size:12px;font-weight:700;margin-bottom:22px}
+.hero h1{font-size:clamp(32px,4.5vw,58px);font-weight:900;line-height:1.12;margin-bottom:18px}
+.hero h1 .hl{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:var(--muted);line-height:1.85;margin-bottom:32px}
+.hbtns{display:flex;gap:13px;flex-wrap:wrap}
+.hv{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hc{background:var(--navy-c);border:1px solid rgba(212,175,55,.13);border-radius:15px;padding:18px;transition:all .3s}
+.hc:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.38)}
+.hc:nth-child(2){margin-top:28px}.hc:nth-child(4){margin-top:-28px}
+.hci{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:56px 52px;background:rgba(212,175,55,.03);border-top:1px solid rgba(212,175,55,.09);border-bottom:1px solid rgba(212,175,55,.09);max-width:1280px;margin:0 auto}
+.si{text-align:center}.sn{font-size:40px;font-weight:900;color:var(--gold)}.sl{font-size:13px;color:var(--muted);margin-top:4px}
+.feats{padding:72px 52px;max-width:1280px;margin:0 auto}
+.stitle{text-align:center;margin-bottom:52px}.stitle h2{font-size:34px;font-weight:900;margin-bottom:10px}.stitle p{color:var(--muted);font-size:15px}
+.fg3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.fc{background:var(--navy-c);border:1px solid rgba(212,175,55,.1);border-radius:19px;padding:26px;transition:all .3s}
+.fc:hover{transform:translateY(-5px);border-color:rgba(212,175,55,.32);box-shadow:0 18px 46px rgba(0,0,0,.38)}
+.fi2{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+.ft{font-size:16px;font-weight:700;margin-bottom:8px}.fd{font-size:13px;color:var(--muted);line-height:1.8}
+.lfooter{background:var(--navy-m);border-top:1px solid rgba(212,175,55,.13);padding:32px 52px;text-align:center}
+.lfooter p{color:var(--muted);font-size:13px}
+
+/* ====== AUTH ====== */
+#pa{min-height:100vh;background:radial-gradient(ellipse at 30% 30%,rgba(212,175,55,.09),transparent 60%),var(--navy);display:flex;align-items:center;justify-content:center;padding:36px}
+.ab{background:var(--navy-c);border:1px solid rgba(212,175,55,.18);border-radius:22px;padding:44px;width:100%;max-width:450px;box-shadow:var(--shadow)}
+.alo{text-align:center;margin-bottom:28px}
+.atabs{display:flex;margin-bottom:28px;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.18)}
+.atab{flex:1;padding:11px;text-align:center;background:transparent;border:none;color:var(--muted);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .22s}
+.atab.active{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)}
+.aback{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px;cursor:pointer;margin-bottom:20px;transition:color .2s}
+.aback:hover{color:var(--gold)}
+
+/* ====== USER DASHBOARD ====== */
+#pu{display:flex;min-height:100vh}
+.usb{width:255px;min-height:100vh;background:var(--navy-m);border-left:1px solid rgba(212,175,55,.11);padding:0;display:flex;flex-direction:column;position:fixed;right:0;top:0;bottom:0;z-index:50;overflow-y:auto}
+.um{flex:1;margin-right:255px;background:var(--navy)}
+.utb{display:flex;align-items:center;justify-content:space-between;padding:15px 28px;background:rgba(10,22,40,.82);backdrop-filter:blur(11px);border-bottom:1px solid rgba(212,175,55,.09);position:sticky;top:0;z-index:40}
+.uc{padding:28px}
+.sl2{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:11px;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-bottom:3px}
+.sl2:hover,.sl2.active{background:rgba(212,175,55,.09);color:var(--gold)}
+.sl2 .ic{width:19px;text-align:center}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--navy);flex-shrink:0}
+.av.lg{width:54px;height:54px;font-size:22px}
+
+/* LEVEL SELECTOR */
+.lvlsel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.lvlbtn{padding:18px;border-radius:14px;text-align:center;background:var(--navy-c);border:1.5px solid rgba(212,175,55,.13);cursor:pointer;transition:all .22s}
+.lvlbtn.active,.lvlbtn:hover{background:rgba(212,175,55,.09);border-color:var(--gold)}
+.lvlbtn .n{font-size:30px;font-weight:900;color:var(--gold)}
+.lvlbtn .nm{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* CONTENT TYPES */
+.ctypes{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:28px}
+.ctcard{background:var(--navy-c);border:1.5px solid rgba(212,175,55,.11);border-radius:15px;padding:22px;cursor:pointer;transition:all .28s;display:flex;align-items:center;gap:14px}
+.ctcard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cticon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ctinfo h3{font-size:15px;font-weight:700;margin-bottom:3px}.ctinfo p{font-size:12px;color:var(--muted)}
+.ctcount{margin-right:auto;font-size:22px;font-weight:900;color:var(--gold)}
+
+/* CONTENT LIST */
+.cl{display:flex;flex-direction:column;gap:11px}
+.ci{display:flex;align-items:center;gap:14px;background:var(--navy-c);border:1px solid rgba(212,175,55,.09);border-radius:13px;padding:14px 18px;transition:all .22s}
+.ci:hover{border-color:rgba(212,175,55,.28)}
+.cii{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.ciinfo{flex:1}.cit{font-size:14px;font-weight:600;margin-bottom:3px}.cim{font-size:11px;color:var(--muted);display:flex;gap:10px}
+.cia{display:flex;gap:7px}
+
+/* CHAT */
+.chatbox{display:flex;flex-direction:column;height:calc(100vh - 150px);background:var(--navy-c);border-radius:18px;border:1px solid rgba(212,175,55,.13);overflow:hidden}
+.chdr{padding:14px 22px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.11);display:flex;align-items:center;gap:11px}
+.chst{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chmsgs{flex:1;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:14px}
+.chmsg{display:flex;gap:9px;max-width:76%}
+.chmsg.own{flex-direction:row-reverse;margin-right:auto}
+.chmav{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--navy);flex-shrink:0}
+.chmbub{padding:11px 15px;border-radius:15px;font-size:13px;line-height:1.65;background:var(--navy-m)}
+.chmsg.own .chmbub{background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.28)}
+.chmtime{font-size:10px;color:var(--muted);margin-top:3px}
+.china{padding:14px 22px;background:var(--navy-m);border-top:1px solid rgba(212,175,55,.11);display:flex;gap:11px;align-items:center}
+.chinp{flex:1;padding:11px 15px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.18);border-radius:10px;color:var(--white);font-family:'Cairo',sans-serif;font-size:13px;outline:none}
+.chinp:focus{border-color:var(--gold)}
+.chsend{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;color:var(--navy);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.chsend:hover{transform:scale(1.07)}
+
+/* ====== ADMIN ====== */
+#padm{display:flex;min-height:100vh}
+.asb{width:265px;min-height:100vh;background:linear-gradient(180deg,var(--navy-m),var(--navy));border-left:1px solid rgba(212,175,55,.13);display:flex;flex-direction:column;position:fixed;right:0;top:0;bottom:0;z-index:50;overflow-y:auto}
+.am{flex:1;margin-right:265px;background:var(--navy)}
+.atb{display:flex;align-items:center;justify-content:space-between;padding:16px 30px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.11);position:sticky;top:0;z-index:40}
+.ac{padding:28px}
+.ssl{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:1px;padding:7px 15px;margin-bottom:3px}
+.stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}
+.stcard{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:15px;padding:20px;display:flex;align-items:center;gap:14px;transition:all .22s}
+.stcard:hover{border-color:rgba(212,175,55,.3);transform:translateY(-2px)}
+.stci{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.stcn{font-size:26px;font-weight:900}.stcl{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse}
+th{background:rgba(212,175,55,.06);padding:12px 18px;text-align:right;font-size:12px;color:var(--muted);font-weight:900;border-bottom:1px solid rgba(212,175,55,.09)}
+td{padding:12px 18px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.035)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.018)}
+.tdf{display:flex;align-items:center;gap:9px}
+.tc{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:15px;overflow:hidden}
+.tch{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(212,175,55,.09)}
+.tcti{font-size:15px;font-weight:700}
+
+/* UPLOAD */
+.upz{border:2px dashed rgba(212,175,55,.28);border-radius:13px;padding:44px;text-align:center;cursor:pointer;transition:all .28s}
+.upz:hover{border-color:var(--gold);background:rgba(212,175,55,.04)}
+.upi{font-size:44px;color:var(--gold);opacity:.5;margin-bottom:10px}
+.upt{font-size:15px;font-weight:600;color:var(--muted)}.ups{font-size:12px;color:var(--muted);opacity:.7;margin-top:5px}
+
+/* TABS */
+.tabs{display:flex;gap:3px;margin-bottom:22px;background:rgba(255,255,255,.035);border-radius:11px;padding:4px}
+.tbtn{flex:1;padding:9px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.tbtn.active{background:var(--navy-c);color:var(--gold);box-shadow:0 2px 9px rgba(0,0,0,.28)}
+
+/* PERM */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pi{display:flex;align-items:center;gap:9px;padding:9px 13px;background:rgba(255,255,255,.04);border-radius:9px;cursor:pointer}
+.pchk{width:17px;height:17px;border-radius:4px;border:1.5px solid rgba(212,175,55,.38);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.pchk.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-size:10px}
+.plbl{font-size:12px;font-weight:700}
+
+/* TOGGLE */
+.tgl{display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,.04);border-radius:11px;margin-bottom:11px}
+.tsw{width:46px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;transition:background .28s}
+.tsw.on{background:var(--success)}
+.tkn{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .28s}
+.tsw.on .tkn{transform:translateX(-22px)}
+
+/* SUBJECTS */
+.subj-list{display:flex;flex-direction:column;gap:10px}
+.subj-item{background:var(--navy-m);border:1px solid rgba(212,175,55,.15);border-radius:13px;overflow:hidden}
+.subj-hdr{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .2s}
+.subj-hdr:hover{background:rgba(212,175,55,.06)}
+.subj-hdr .sname{font-size:14px;font-weight:700;flex:1}
+.subj-body{padding:0 18px 14px;border-top:1px solid rgba(212,175,55,.08)}
+.subj-tabs{display:flex;gap:8px;padding:12px 0 8px;flex-wrap:wrap}
+.stab{padding:6px 13px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;transition:all .2s}
+.stab.active{background:rgba(212,175,55,.1);color:var(--gold);border-color:var(--gold)}
+.subj-content{min-height:40px}
+.empty-subj{text-align:center;padding:28px;color:var(--muted);font-size:13px}
+
+/* BREADCRUMB */
+.bc{display:flex;align-items:center;gap:7px;margin-bottom:22px;font-size:12px}
+.bcc{color:var(--muted);cursor:pointer}.bcc:hover{color:var(--gold)}
+.bccu{color:var(--gold);font-weight:700}
+
+/* ADMIN CHAT */
+.adm-chat-wrap{display:grid;grid-template-columns:1fr 340px;gap:22px;height:calc(100vh-180px)}
+.adm-chat-main{background:var(--navy-c);border:1px solid rgba(212,175,55,.13);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;height:580px}
+.adm-chat-sidebar{background:var(--navy-c);border:1px solid rgba(212,175,55,.13);border-radius:16px;padding:18px;height:580px;overflow-y:auto}
+
+@media(max-width:900px){
+.lnav{padding:14px 18px}.hero{grid-template-columns:1fr;padding:52px 18px 36px;gap:36px}.hv{display:none}
+.stats{grid-template-columns:repeat(2,1fr);padding:36px 18px}.feats{padding:52px 18px}.fg3{grid-template-columns:1fr}
+.usb{display:none}.um{margin-right:0}.asb{display:none}.am{margin-right:0}
+.stgrid{grid-template-columns:repeat(2,1fr)}.lvlsel{grid-template-columns:repeat(2,1fr)}.ctypes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="tc"></div>
+
+<!-- ======== LANDING ======== -->
+<div id="pl">
+  <nav class="lnav">
+    <div class="logo"><div class="li">أ</div><div class="lt">أكاديمية <span>النخبة</span></div></div>
+    <div style="display:flex;gap:24px">
+      <span style="color:var(--muted);font-size:14px;font-weight:700;cursor:pointer" onclick="scrollTo('feats')">المميزات</span>
+      <span style="color:var(--muted);font-size:14px;font-weight:700;cursor:pointer" onclick="scrollTo('lvls')">الفرق</span>
+    </div>
+    <div style="display:flex;gap:11px">
+      <button class="btn btn-outline btn-sm" onclick="showAuth('login')">تسجيل الدخول</button>
+      <button class="btn btn-gold btn-sm" onclick="showAuth('register')">سجل الآن</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div>
+      <div class="hb"><i class="fas fa-star"></i> منصة التعليم الإلكتروني المتكاملة</div>
+      <h1>تعلّم بذكاء<br><span class="hl">وانطلق نحو النجاح</span></h1>
+      <p>منصة تعليمية متكاملة تضم محاضرات مكتوبة ومصورة وسكاشن وبنك أسئلة لجميع الفرق من الأولى حتى الرابعة</p>
+      <div class="hbtns">
+        <button class="btn btn-gold" onclick="showAuth('register')"><i class="fas fa-rocket"></i> ابدأ التعلم</button>
+        <button class="btn btn-outline" onclick="showAuth('login')"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+      </div>
+    </div>
+    <div class="hv" style="animation:float 4s ease-in-out infinite">
+      <div class="hc"><div class="hci" style="background:rgba(212,175,55,.13)">📚</div><div style="font-size:14px;font-weight:700">محاضرات</div><div style="font-size:12px;color:var(--muted)">مكتوبة ومصورة</div></div>
+      <div class="hc"><div class="hci" style="background:rgba(0,212,255,.11)">🎥</div><div style="font-size:14px;font-weight:700">فيديوهات</div><div style="font-size:12px;color:var(--muted)">تعليمية تفاعلية</div></div>
+      <div class="hc"><div class="hci" style="background:rgba(255,107,53,.11)">📝</div><div style="font-size:14px;font-weight:700">سكاشن</div><div style="font-size:12px;color:var(--muted)">مراجعات شاملة</div></div>
+      <div class="hc"><div class="hci" style="background:rgba(0,200,150,.11)">❓</div><div style="font-size:14px;font-weight:700">بنك أسئلة</div><div style="font-size:12px;color:var(--muted)">اختبر نفسك</div></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="si"><div class="sn">0</div><div class="sl">طالب مسجل</div></div>
+    <div class="si"><div class="sn">4</div><div class="sl">فرق دراسية</div></div>
+    <div class="si"><div class="sn">4</div><div class="sl">شعب متاحة</div></div>
+    <div class="si"><div class="sn">24/7</div><div class="sl">دعم مستمر</div></div>
+  </div>
+  <section class="feats" id="feats">
+    <div class="stitle"><h2>لماذا <span style="color:var(--gold)">أكاديمية النخبة؟</span></h2><p>كل ما تحتاجه في مكان واحد</p></div>
+    <div class="fg3">
+      <div class="fc"><div class="fi2" style="background:rgba(212,175,55,.12)">📖</div><div class="ft">محاضرات مكتوبة</div><div class="fd">ملفات PDF ومستندات منظمة لكل مادة</div></div>
+      <div class="fc"><div class="fi2" style="background:rgba(0,212,255,.11)">🎬</div><div class="ft">محاضرات مصورة</div><div class="fd">فيديوهات تعليمية بجودة عالية</div></div>
+      <div class="fc"><div class="fi2" style="background:rgba(255,107,53,.11)">✏️</div><div class="ft">سكاشن مكتوبة</div><div class="fd">ملخصات ومراجعات مكثفة</div></div>
+      <div class="fc"><div class="fi2" style="background:rgba(0,200,150,.11)">🎞️</div><div class="ft">سكاشن مصورة</div><div class="fd">شرح مرئي لضمان الاستيعاب</div></div>
+      <div class="fc"><div class="fi2" style="background:rgba(160,80,200,.11)">❓</div><div class="ft">بنك الأسئلة</div><div class="fd">أسئلة متنوعة لكل مادة للتدريب</div></div>
+      <div class="fc"><div class="fi2" style="background:rgba(212,175,55,.12)">💬</div><div class="ft">شات تفاعلي</div><div class="fd">تواصل مع الأساتذة والزملاء</div></div>
+    </div>
+  </section>
+  <section style="padding:0 52px 72px;max-width:1280px;margin:0 auto" id="lvls">
+    <div class="stitle"><h2>الفرق <span style="color:var(--gold)">الدراسية</span></h2><p>محتوى مخصص لكل فرقة وشعبة</p></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <div class="hc" style="text-align:center;cursor:pointer" onclick="showAuth('register')"><div style="font-size:50px;font-weight:900;color:var(--gold);opacity:.25">١</div><div style="font-size:17px;font-weight:700;margin-bottom:6px">الفرقة الأولى</div><div style="font-size:12px;color:var(--muted)">4 شعب دراسية</div></div>
+      <div class="hc" style="text-align:center;cursor:pointer" onclick="showAuth('register')"><div style="font-size:50px;font-weight:900;color:var(--gold);opacity:.25">٢</div><div style="font-size:17px;font-weight:700;margin-bottom:6px">الفرقة الثانية</div><div style="font-size:12px;color:var(--muted)">4 شعب دراسية</div></div>
+      <div class="hc" style="text-align:center;cursor:pointer" onclick="showAuth('register')"><div style="font-size:50px;font-weight:900;color:var(--gold);opacity:.25">٣</div><div style="font-size:17px;font-weight:700;margin-bottom:6px">الفرقة الثالثة</div><div style="font-size:12px;color:var(--muted)">4 شعب دراسية</div></div>
+      <div class="hc" style="text-align:center;cursor:pointer" onclick="showAuth('register')"><div style="font-size:50px;font-weight:900;color:var(--gold);opacity:.25">٤</div><div style="font-size:17px;font-weight:700;margin-bottom:6px">الفرقة الرابعة</div><div style="font-size:12px;color:var(--muted)">4 شعب دراسية</div></div>
+    </div>
+  </section>
+  <div class="lfooter">
+    <p>© 2025 أكاديمية النخبة — جميع الحقوق محفوظة | <span style="color:var(--gold);cursor:pointer" onclick="openAdminLoginModal()">دخول الإدارة</span></p>
+  </div>
+</div>
+
+<!-- ======== AUTH ======== -->
+<div id="pa" class="hidden">
+  <div class="ab">
+    <div class="alo">
+      <div class="li" style="margin:0 auto 11px;width:52px;height:52px;font-size:24px;border-radius:13px">أ</div>
+      <div style="font-size:22px;font-weight:900">أكاديمية النخبة</div>
+      <div style="color:var(--muted);font-size:13px;margin-top:4px">منصة التعليم الإلكتروني</div>
+    </div>
+    <div class="aback" onclick="showPage('l')"><i class="fas fa-arrow-right"></i> العودة للرئيسية</div>
+    <div class="atabs">
+      <button class="atab active" id="tl" onclick="swAuth('login')">تسجيل الدخول</button>
+      <button class="atab" id="tr" onclick="swAuth('register')">حساب جديد</button>
+    </div>
+    <!-- Login -->
+    <div id="fl">
+      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="lph" type="tel" placeholder="01xxxxxxxxx"></div>
+      <div class="fg"><label>كلمة المرور</label><input class="inp" id="lps" type="password" placeholder="••••••••"></div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:6px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+    </div>
+    <!-- Register -->
+    <div id="fr" class="hidden">
+      <div class="fg"><label>الاسم الرباعي</label><input class="inp" id="rn" type="text" placeholder="أدخل اسمك الرباعي كاملاً"></div>
+      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="rph" type="tel" placeholder="01xxxxxxxxx"></div>
+      <div class="fg"><label>كلمة المرور</label><input class="inp" id="rps" type="password" placeholder="••••••••"></div>
+      <div class="fg"><label>تأكيد كلمة المرور</label><input class="inp" id="rps2" type="password" placeholder="••••••••"></div>
+      <div class="fg">
+        <label>الفرقة الدراسية</label>
+        <select class="sel" id="rlv">
+          <option value="">اختر الفرقة...</option>
+          <option value="1">الفرقة الأولى</option>
+          <option value="2">الفرقة الثانية</option>
+          <option value="3">الفرقة الثالثة</option>
+          <option value="4">الفرقة الرابعة</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>الشعبة</label>
+        <select class="sel" id="rdv">
+          <option value="">اختر الشعبة...</option>
+          <option value="تربوي">تربوي</option>
+          <option value="تسويق">تسويق</option>
+          <option value="نظم ومعلومات">نظم ومعلومات</option>
+          <option value="إدارة واقتصاد">إدارة واقتصاد</option>
+        </select>
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:6px" onclick="doReg()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== USER DASHBOARD ======== -->
+<div id="pu" class="hidden">
+  <aside class="usb">
+    <div style="padding:22px 22px 18px;border-bottom:1px solid rgba(212,175,55,.1)">
+      <div class="logo"><div class="li" style="width:34px;height:34px;font-size:16px;border-radius:9px">أ</div><div class="lt" style="font-size:15px">أكاديمية <span>النخبة</span></div></div>
+    </div>
+    <div style="padding:14px 18px;display:flex;align-items:center;gap:11px;margin-bottom:6px">
+      <div class="av" id="uavs">ط</div>
+      <div><div style="font-size:13px;font-weight:700" id="uns">طالب</div><div style="font-size:11px;color:var(--muted)" id="uls">الفرقة الأولى</div></div>
+    </div>
+    <nav style="flex:1;padding:6px 11px">
+      <div class="sl2 active" onclick="uNav('home',this)"><span class="ic"><i class="fas fa-home"></i></span> الرئيسية</div>
+      <div class="sl2" onclick="uNav('content',this)"><span class="ic"><i class="fas fa-book-open"></i></span> المحتوى التعليمي</div>
+      <div class="sl2" onclick="uNav('chat',this)"><span class="ic"><i class="fas fa-comments"></i></span> الشات</div>
+      <div class="sl2" onclick="uNav('profile',this)"><span class="ic"><i class="fas fa-user"></i></span> ملفي الشخصي</div>
+    </nav>
+    <div style="padding:18px;border-top:1px solid rgba(212,175,55,.1)">
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+    </div>
+  </aside>
+  <main class="um">
+    <div class="utb">
+      <div style="font-size:17px;font-weight:700" id="uptitle">لوحة الطالب</div>
+      <div style="display:flex;gap:11px;align-items:center">
+        <div class="badge bg" id="ulbadge">الفرقة الأولى</div>
+        <div class="av" style="width:34px;height:34px;font-size:14px" id="uavt">ط</div>
+      </div>
+    </div>
+    <div class="uc">
+      <!-- HOME -->
+      <div id="uh">
+        <h2 style="font-size:21px;font-weight:900;margin-bottom:7px">مرحباً <span style="color:var(--gold)" id="ugn">طالب</span> 👋</h2>
+        <p style="color:var(--muted);margin-bottom:24px">اختر فرقتك للوصول للمحتوى</p>
+        <div class="lvlsel" id="ulvlsel"></div>
+        <div class="ctypes" id="uctypes"></div>
+      </div>
+      <!-- CONTENT -->
+      <div id="uco" class="hidden">
+        <div class="bc"><span class="bcc" onclick="uNav('home',null)">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="ucbct">المحتوى</span></div>
+        <div id="usubjects-view"></div>
+      </div>
+      <!-- CHAT -->
+      <div id="ucht" class="hidden">
+        <div class="chatbox">
+          <div class="chdr"><div class="chst"></div><div><div style="font-size:14px;font-weight:700">قناة النقاش العام</div><div style="font-size:11px;color:var(--muted)">للجميع</div></div></div>
+          <div class="chmsgs" id="uchatmsgs"></div>
+          <div class="china">
+            <input class="chinp" id="uchatinp" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter')uSend()">
+            <button class="chsend" onclick="uSend()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+      <!-- PROFILE -->
+      <div id="upr" class="hidden">
+        <div class="card" style="max-width:500px">
+          <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px">
+            <div class="av lg" id="pavatar">ط</div>
+            <div>
+              <div style="font-size:19px;font-weight:900" id="pname">طالب</div>
+              <div style="color:var(--muted);font-size:13px" id="pphone">رقم الهاتف</div>
+              <div class="badge bg" style="margin-top:7px" id="plvl">الفرقة الأولى</div>
+            </div>
+          </div>
+          <hr style="border-color:rgba(212,175,55,.1);margin-bottom:22px">
+          <div class="fg"><label>الاسم الرباعي</label><input class="inp" id="en" type="text"></div>
+          <div class="fg"><label>رقم الهاتف</label><input class="inp" id="eph" type="tel"></div>
+          <div class="fg"><label>الفرقة الدراسية</label><select class="sel" id="elv"><option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option><option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option></select></div>
+          <div class="fg"><label>الشعبة</label><select class="sel" id="edv"><option value="تربوي">تربوي</option><option value="تسويق">تسويق</option><option value="نظم ومعلومات">نظم ومعلومات</option><option value="إدارة واقتصاد">إدارة واقتصاد</option></select></div>
+          <button class="btn btn-gold" onclick="saveProf()"><i class="fas fa-save"></i> حفظ التغييرات</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ======== ADMIN PANEL ======== -->
+<div id="padm" class="hidden">
+  <aside class="asb">
+    <div style="padding:24px 22px;border-bottom:1px solid rgba(212,175,55,.13);background:rgba(212,175,55,.04)">
+      <div class="logo" style="margin-bottom:3px"><div class="li" style="width:36px;height:36px;font-size:17px;border-radius:9px">أ</div><div class="lt" style="font-size:15px">أكاديمية <span>النخبة</span></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px">لوحة التحكم الإدارية</div>
+    </div>
+    <nav style="flex:1;padding:14px 11px">
+      <div class="ssl">الرئيسية</div>
+      <div class="sl2 active" onclick="aN('dash',this)"><span class="ic"><i class="fas fa-chart-line"></i></span> لوحة التحكم</div>
+      <div class="ssl">الفرق الدراسية</div>
+      <div class="sl2" onclick="aN('l1',this)"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الأولى</div>
+      <div class="sl2" onclick="aN('l2',this)"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الثانية</div>
+      <div class="sl2" onclick="aN('l3',this)"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الثالثة</div>
+      <div class="sl2" onclick="aN('l4',this)"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الرابعة</div>
+      <div class="ssl">الإدارة</div>
+      <div class="sl2" onclick="aN('users',this)"><span class="ic"><i class="fas fa-users"></i></span> الطلاب</div>
+      <div class="sl2" onclick="aN('admins',this)"><span class="ic"><i class="fas fa-user-shield"></i></span> المشرفون</div>
+      <div class="sl2" onclick="aN('achat',this)"><span class="ic"><i class="fas fa-comments"></i></span> الشات</div>
+      <div class="ssl">الإعدادات</div>
+      <div class="sl2" onclick="aN('settings',this)"><span class="ic"><i class="fas fa-cog"></i></span> الإعدادات</div>
+    </nav>
+    <div style="padding:16px;border-top:1px solid rgba(212,175,55,.11)">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;padding:11px;background:rgba(212,175,55,.06);border-radius:11px">
+        <div class="av" style="width:34px;height:34px;font-size:14px;background:linear-gradient(135deg,var(--accent),#0090CC)">م</div>
+        <div><div style="font-size:12px;font-weight:700" id="adn">مشرف</div><div style="font-size:11px;color:var(--gold)">مدير النظام</div></div>
+      </div>
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+    </div>
+  </aside>
+  <main class="am">
+    <div class="atb">
+      <div style="font-size:17px;font-weight:700" id="aptitle">لوحة التحكم</div>
+      <div style="display:flex;gap:13px;align-items:center">
+        <div class="badge bg">مدير النظام</div>
+      </div>
+    </div>
+    <div class="ac">
+      <!-- DASHBOARD -->
+      <div id="adash">
+        <div class="stgrid">
+          <div class="stcard"><div class="stci" style="background:rgba(212,175,55,.12)"><i class="fas fa-users" style="color:var(--gold)"></i></div><div><div class="stcn" style="color:var(--gold)" id="dstu">0</div><div class="stcl">الطلاب</div></div></div>
+          <div class="stcard"><div class="stci" style="background:rgba(0,212,255,.1)"><i class="fas fa-book" style="color:var(--accent)"></i></div><div><div class="stcn" style="color:var(--accent)" id="dstf">0</div><div class="stcl">المواد</div></div></div>
+          <div class="stcard"><div class="stci" style="background:rgba(0,200,150,.1)"><i class="fas fa-file" style="color:var(--success)"></i></div><div><div class="stcn" style="color:var(--success)" id="dstc">0</div><div class="stcl">الملفات</div></div></div>
+          <div class="stcard"><div class="stci" style="background:rgba(160,80,200,.1)"><i class="fas fa-comments" style="color:#A050C8"></i></div><div><div class="stcn" style="color:#A050C8" id="dstm">0</div><div class="stcl">الرسائل</div></div></div>
+        </div>
+        <div class="tc">
+          <div class="tch"><div class="tcti">آخر الطلاب المسجلين</div></div>
+          <div id="dusers" style="padding:18px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب مسجلون بعد</div>
+        </div>
+      </div>
+
+      <!-- LEVEL PAGE -->
+      <div id="alevel" class="hidden">
+        <div class="bc"><span class="bcc" onclick="aN('dash',null)">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="alvlbc">الفرقة الأولى</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div style="font-size:18px;font-weight:900" id="alvlname">الفرقة الأولى</div>
+          <button class="btn btn-gold" onclick="openAddSubject()"><i class="fas fa-plus"></i> إضافة مادة</button>
+        </div>
+        <div class="subj-list" id="subjlist"></div>
+      </div>
+
+      <!-- USERS -->
+      <div id="ausers" class="hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+          <div><h2 style="font-size:19px;font-weight:900">إدارة الطلاب</h2><p style="color:var(--muted);font-size:13px">جميع الطلاب المسجلين</p></div>
+          <input class="inp" style="width:200px" placeholder="بحث..." oninput="filterU(this.value)">
+        </div>
+        <div class="tc"><table><thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="utbody"></tbody></table></div>
+      </div>
+
+      <!-- ADMINS -->
+      <div id="aadmins" class="hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+          <div><h2 style="font-size:19px;font-weight:900">إدارة المشرفين</h2><p style="color:var(--muted);font-size:13px">أضف مشرفين بصلاحيات محددة</p></div>
+          <button class="btn btn-gold" onclick="openAddAdmin()"><i class="fas fa-plus"></i> إضافة مشرف</button>
+        </div>
+        <div class="tc"><table><thead><tr><th>المشرف</th><th>الهاتف</th><th>الصلاحيات</th><th>إجراءات</th></tr></thead><tbody id="atbody"></tbody></table></div>
+      </div>
+
+      <!-- FILE VIEWER MODAL -->
+<div id="fvModal" class="mo hidden">
+  <div class="md lg" style="max-width:820px;width:96vw;padding:0;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.15)">
+      <div style="font-size:14px;font-weight:700;color:var(--gold)" id="fvtitle">عرض الملف</div>
+      <div style="display:flex;gap:9px;align-items:center">
+        <button class="btn btn-sm btn-gold" id="fvdlbtn"><i class="fas fa-download"></i> تحميل</button>
+        <button class="mc" onclick="cm('fvModal');stopMedia()">×</button>
+      </div>
+    </div>
+    <div id="fvbody" style="min-height:320px;max-height:78vh;overflow:auto;background:#000;display:flex;align-items:center;justify-content:center"></div>
+  </div>
+</div>
+
+      <!-- ADMIN CHAT -->
+      <div id="aachat" class="hidden">
+        <h2 style="font-size:19px;font-weight:900;margin-bottom:22px">إدارة الشات</h2>
+        <div class="adm-chat-wrap">
+          <div class="adm-chat-main">
+            <div class="chdr"><div class="chst"></div><div><div style="font-size:14px;font-weight:700">قناة النقاش العام</div><div style="font-size:11px;color:var(--muted)">يمكنك حذف أي رسالة</div></div></div>
+            <div class="chmsgs" id="achatmsgs"></div>
+            <div class="china">
+              <input class="chinp" id="achatinp" placeholder="اكتب رسالة كمشرف..." onkeypress="if(event.key==='Enter')aSend()">
+              <button class="chsend" onclick="aSend()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <div class="adm-chat-sidebar">
+            <div style="font-size:14px;font-weight:700;margin-bottom:14px;color:var(--gold)"><i class="fas fa-info-circle"></i> معلومات</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.9">
+              • يمكنك الكتابة في الشات كمشرف<br>
+              • اضغط على <span style="color:var(--danger)">🗑️</span> لحذف أي رسالة<br>
+              • الرسائل المحذوفة لا يمكن استردادها<br>
+              • الرسائل المسيئة يجب حذفها فوراً
+            </div>
+            <hr style="border-color:rgba(212,175,55,.1);margin:16px 0">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px">إحصائيات</div>
+            <div style="font-size:12px;color:var(--muted)">إجمالي الرسائل: <span style="color:var(--gold);font-weight:700" id="totmsgs">0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="asettings" class="hidden">
+        <h2 style="font-size:19px;font-weight:900;margin-bottom:22px">الإعدادات العامة</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--gold)"><i class="fas fa-globe"></i> إعدادات المنصة</div>
+            <div class="fg"><label>اسم المنصة</label><input class="inp" id="sname" value="أكاديمية النخبة"></div>
+            <div class="fg"><label>الوصف</label><textarea class="inp" id="sdesc" rows="2">منصة التعليم الإلكتروني المتكاملة</textarea></div>
+            <div class="fg"><label>رقم التواصل</label><input class="inp" id="sphone" type="tel" placeholder="01xxxxxxxxx"></div>
+            <div class="fg"><label>البريد الإلكتروني</label><input class="inp" id="semail" type="email" placeholder="info@academy.com"></div>
+            <button class="btn btn-gold" onclick="saveSettings()"><i class="fas fa-save"></i> حفظ</button>
+          </div>
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--gold)"><i class="fas fa-lock"></i> بيانات تسجيل دخول الإدارة</div>
+            <div class="fg"><label>رقم هاتف المدير</label><input class="inp" id="anphone" type="tel"></div>
+            <div class="fg"><label>كلمة المرور الجديدة</label><input class="inp" id="anpass" type="password" placeholder="اتركه فارغاً للإبقاء على الحالي"></div>
+            <div class="fg"><label>تأكيد كلمة المرور</label><input class="inp" id="anpass2" type="password" placeholder="تأكيد كلمة المرور الجديدة"></div>
+            <button class="btn btn-gold" onclick="saveAdminCreds()"><i class="fas fa-key"></i> تحديث البيانات</button>
+            <hr style="border-color:rgba(212,175,55,.1);margin:18px 0">
+            <div style="font-size:14px;font-weight:700;margin-bottom:14px;color:var(--gold)"><i class="fas fa-shield-alt"></i> إعدادات الأمان</div>
+            <div class="tgl"><div><div style="font-weight:700;font-size:13px">تسجيل مفتوح</div><div style="font-size:11px;color:var(--muted)">السماح بالتسجيل للجميع</div></div><div class="tsw on" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
+            <div class="tgl"><div><div style="font-weight:700;font-size:13px">وضع الصيانة</div><div style="font-size:11px;color:var(--muted)">إيقاف الموقع مؤقتاً</div></div><div class="tsw" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ======== MODALS ======== -->
+
+<!-- Admin Login -->
+<div id="alm" class="mo hidden">
+  <div class="md" style="max-width:360px">
+    <div class="mh"><div class="mt">دخول الإدارة</div><button class="mc" onclick="cm('alm')">×</button></div>
+    <div class="fg"><label>رقم الهاتف</label><input class="inp" id="alph" type="tel" placeholder="رقم هاتف المدير"></div>
+    <div class="fg"><label>كلمة المرور</label><input class="inp" id="alps" type="password" placeholder="••••••••"></div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="doAdminLogin()"><i class="fas fa-shield-alt"></i> دخول</button>
+  </div>
+</div>
+
+<!-- Add Subject -->
+<div id="asmModal" class="mo hidden">
+  <div class="md">
+    <div class="mh"><div class="mt">إضافة مادة جديدة</div><button class="mc" onclick="cm('asmModal')">×</button></div>
+    <div class="fg"><label>اسم المادة</label><input class="inp" id="subjname" placeholder="مثال: رياضيات — تفاضل وتكامل"></div>
+    <div class="fg"><label>الكود (اختياري)</label><input class="inp" id="subjcode" placeholder="مثال: MATH101"></div>
+    <div style="display:flex;gap:11px;justify-content:flex-end;margin-top:6px">
+      <button class="btn btn-outline" onclick="cm('asmModal')">إلغاء</button>
+      <button class="btn btn-gold" onclick="addSubject()"><i class="fas fa-plus"></i> إضافة</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Content -->
+<div id="upModal" class="mo hidden">
+  <div class="md">
+    <div class="mh"><div class="mt" id="upmtitle">رفع محتوى</div><button class="mc" onclick="cm('upModal')">×</button></div>
+    <div class="fg"><label>العنوان</label><input class="inp" id="uptitle" placeholder="عنوان المحتوى"></div>
+    <div class="fg"><label>الوصف (اختياري)</label><textarea class="inp" id="updesc" rows="2" placeholder="وصف مختصر..."></textarea></div>
+    <div class="fg">
+      <label>الملف</label>
+      <div class="upz" onclick="document.getElementById('ufile').click()" id="updz">
+        <div class="upi"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="upt">اضغط لرفع الملف أو اسحبه هنا</div>
+        <div class="ups">يدعم: PDF، Word، صور، فيديو، والمزيد</div>
+      </div>
+      <input type="file" id="ufile" style="display:none" onchange="handleFile(this)" accept="*/*">
+      <div id="ufpreview" style="margin-top:10px"></div>
+    </div>
+    <!-- For questions bank -->
+    <div id="qbank-area" class="hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <label style="margin:0">الأسئلة</label>
+        <button class="btn btn-sm btn-accent" onclick="addQ()"><i class="fas fa-plus"></i> سؤال</button>
+      </div>
+      <div id="qlist"></div>
+    </div>
+    <div style="display:flex;gap:11px;justify-content:flex-end;margin-top:8px">
+      <button class="btn btn-outline" onclick="cm('upModal')">إلغاء</button>
+      <button class="btn btn-gold" onclick="submitUp()"><i class="fas fa-upload"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Admin -->
+<div id="aaModal" class="mo hidden">
+  <div class="md">
+    <div class="mh"><div class="mt">إضافة مشرف</div><button class="mc" onclick="cm('aaModal')">×</button></div>
+    <div class="fg"><label>الاسم</label><input class="inp" id="aan" placeholder="اسم المشرف"></div>
+    <div class="fg"><label>رقم الهاتف</label><input class="inp" id="aaph" type="tel" placeholder="01xxxxxxxxx"></div>
+    <div class="fg"><label>كلمة المرور</label><input class="inp" id="aaps" type="password" placeholder="••••••••"></div>
+    <div class="fg">
+      <label>الصلاحيات</label>
+      <div class="pgrid" id="pgrid">
+        <div class="pi" onclick="tPerm(this)"><div class="pchk on"><i class="fas fa-check"></i></div><div class="plbl" data-p="view">عرض المحتوى</div></div>
+        <div class="pi" onclick="tPerm(this)"><div class="pchk on"><i class="fas fa-check"></i></div><div class="plbl" data-p="upload">رفع محتوى</div></div>
+        <div class="pi" onclick="tPerm(this)"><div class="pchk"><i class="fas fa-check"></i></div><div class="plbl" data-p="delete">حذف محتوى</div></div>
+        <div class="pi" onclick="tPerm(this)"><div class="pchk"><i class="fas fa-check"></i></div><div class="plbl" data-p="users">إدارة الطلاب</div></div>
+        <div class="pi" onclick="tPerm(this)"><div class="pchk"><i class="fas fa-check"></i></div><div class="plbl" data-p="chat">إدارة الشات</div></div>
+        <div class="pi" onclick="tPerm(this)"><div class="pchk"><i class="fas fa-check"></i></div><div class="plbl" data-p="settings">الإعدادات</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:11px;justify-content:flex-end;margin-top:8px">
+      <button class="btn btn-outline" onclick="cm('aaModal')">إلغاء</button>
+      <button class="btn btn-gold" onclick="submitAdmin()"><i class="fas fa-user-plus"></i> إضافة</button>
+    </div>
+  </div>
+</div>
+
+<style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}</style>
+<script>
+// ======== DATA ========
+const DB = {
+  users: [],
+  admins: [{ id:1, name:'مدير النظام', phone:'01100000000', pass:'admin111', perms:['view','upload','delete','users','chat','settings'], joined:today() }],
+  subjects: { 1:[], 2:[], 3:[], 4:[] }, // {id, name, code, content:{lw,lv,sw,sv,qb}}
+  messages: [],
+  settings: { name:'أكاديمية النخبة', desc:'منصة التعليم الإلكتروني المتكاملة', phone:'', email:'' },
+  nextId: 10
+};
+
+function today(){ return new Date().toISOString().split('T')[0]; }
+function nid(){ return ++DB.nextId; }
+
+let cUser=null, cAdmin=null, cLvl=1, cCType='lw', cSubjId=null, upCtx={}, selFiles=[], qCount=0;
+
+// ======== NAV ========
+function showPage(p){
+  ['l','a','u','adm'].forEach(x=>document.getElementById('p'+x).classList.add('hidden'));
+  if(p==='l') document.getElementById('pl').classList.remove('hidden');
+  else if(p==='a') document.getElementById('pa').classList.remove('hidden');
+  else if(p==='u') document.getElementById('pu').classList.remove('hidden');
+  else if(p==='adm') document.getElementById('padm').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+function scrollTo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function showAuth(t){ showPage('a'); swAuth(t); }
+function logout(){ cUser=null; cAdmin=null; showPage('l'); toast('تم تسجيل الخروج','s'); }
+function cm(id){ document.getElementById(id).classList.add('hidden'); }
+function openM(id){ document.getElementById(id).classList.remove('hidden'); }
+
+// ======== AUTH ========
+function swAuth(t){
+  document.getElementById('fl').classList.toggle('hidden',t!=='login');
+  document.getElementById('fr').classList.toggle('hidden',t!=='register');
+  document.getElementById('tl').classList.toggle('active',t==='login');
+  document.getElementById('tr').classList.toggle('active',t==='register');
+}
+
+function doLogin(){
+  const ph=document.getElementById('lph').value.trim();
+  const ps=document.getElementById('lps').value.trim();
+  const u=DB.users.find(x=>x.phone===ph&&x.pass===ps);
+  if(!u){ toast('بيانات غير صحيحة','e'); return; }
+  cUser=u; loadUser(); toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
+}
+
+function doReg(){
+  const n=document.getElementById('rn').value.trim();
+  const ph=document.getElementById('rph').value.trim();
+  const ps=document.getElementById('rps').value.trim();
+  const ps2=document.getElementById('rps2').value.trim();
+  const lv=document.getElementById('rlv').value;
+  const dv=document.getElementById('rdv').value;
+  if(n.split(' ').length<4){ toast('أدخل الاسم الرباعي كاملاً','e'); return; }
+  if(!ph||ph.length<11){ toast('رقم هاتف غير صحيح','e'); return; }
+  if(ps.length<6){ toast('كلمة المرور 6 أحرف على الأقل','e'); return; }
+  if(ps!==ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
+  if(!lv){ toast('اختر الفرقة الدراسية','e'); return; }
+  if(!dv){ toast('اختر الشعبة','e'); return; }
+  if(DB.users.find(x=>x.phone===ph)){ toast('رقم الهاتف مسجل مسبقاً','e'); return; }
+  const u={ id:nid(), name:n, phone:ph, pass:ps, level:parseInt(lv), division:dv, joined:today(), active:true };
+  DB.users.push(u); cUser=u; loadUser(); toast('تم إنشاء حسابك 🎉','s');
+}
+
+function openAdminLoginModal(){ openM('alm'); }
+function doAdminLogin(){
+  const ph=document.getElementById('alph').value.trim();
+  const ps=document.getElementById('alps').value.trim();
+  const a=DB.admins.find(x=>x.phone===ph&&x.pass===ps);
+  if(!a){ toast('بيانات غير صحيحة','e'); return; }
+  cAdmin=a; cm('alm'); loadAdmin(); toast('مرحباً '+a.name.split(' ')[0]+' 👋','s');
+}
+
+// ======== USER DASHBOARD ========
+function getLvlName(l){ return ['الفرقة الأولى','الفرقة الثانية','الفرقة الثالثة','الفرقة الرابعة'][l-1]||''; }
+
+function loadUser(){
+  showPage('u');
+  const u=cUser, ini=u.name.charAt(0);
+  ['uavs','uavt','pavatar'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent=ini; });
+  document.getElementById('uns').textContent=u.name.split(' ').slice(0,2).join(' ');
+  document.getElementById('ugn').textContent=u.name.split(' ')[0];
+  const ln=getLvlName(u.level);
+  document.getElementById('uls').textContent=ln+' — '+u.division;
+  document.getElementById('ulbadge').textContent=ln;
+  document.getElementById('pname').textContent=u.name;
+  document.getElementById('pphone').textContent=u.phone;
+  document.getElementById('plvl').textContent=ln+' — '+u.division;
+  document.getElementById('en').value=u.name;
+  document.getElementById('eph').value=u.phone;
+  document.getElementById('elv').value=u.level;
+  document.getElementById('edv').value=u.division;
+  cLvl=u.level;
+  renderLvlSel(); renderCTypes(); loadUChat();
+}
+
+function renderLvlSel(){
+  const c=document.getElementById('ulvlsel');
+  c.innerHTML=[1,2,3,4].map(l=>`
+    <div class="lvlbtn${l===cLvl?' active':''}" onclick="selLvl(${l},this)">
+      <div class="n">${['١','٢','٣','٤'][l-1]}</div>
+      <div class="nm">${getLvlName(l)}</div>
+    </div>`).join('');
+}
+
+function selLvl(l,el){
+  cLvl=l;
+  document.querySelectorAll('.lvlbtn').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderCTypes();
+}
+
+function renderCTypes(){
+  const subjs=DB.subjects[cLvl]||[];
+  let lw=0,lv=0,sw=0,sv=0,qb=0;
+  subjs.forEach(s=>{ lw+=s.content.lw.length; lv+=s.content.lv.length; sw+=s.content.sw.length; sv+=s.content.sv.length; qb+=s.content.qb.length; });
+  const types=[
+    {k:'lw',icon:'📖',bg:'rgba(212,175,55,.12)',name:'محاضرات مكتوبة',sub:'ملفات PDF',cnt:lw},
+    {k:'lv',icon:'🎥',bg:'rgba(0,212,255,.12)',name:'محاضرات مصورة',sub:'فيديوهات',cnt:lv},
+    {k:'sw',icon:'✏️',bg:'rgba(255,107,53,.12)',name:'سكاشن مكتوبة',sub:'مراجعات',cnt:sw},
+    {k:'sv',icon:'🎞️',bg:'rgba(0,200,150,.12)',name:'سكاشن مصورة',sub:'شرح مرئي',cnt:sv},
+    {k:'qb',icon:'❓',bg:'rgba(160,80,200,.12)',name:'بنك الأسئلة',sub:'اختبر نفسك',cnt:qb},
+  ];
+  document.getElementById('uctypes').innerHTML=types.map(t=>`
+    <div class="ctcard" onclick="uNav('content',null,'${t.k}')">
+      <div class="cticon" style="background:${t.bg}">${t.icon}</div>
+      <div class="ctinfo"><h3>${t.name}</h3><p>${t.sub}</p></div>
+      <div class="ctcount">${t.cnt}</div>
+    </div>`).join('');
+}
+
+function uNav(pg,el,tab){
+  ['uh','uco','ucht','upr'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  document.getElementById('u'+{home:'h',content:'co',chat:'cht',profile:'pr'}[pg]).classList.remove('hidden');
+  document.querySelectorAll('.usb .sl2').forEach(l=>l.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const titles={home:'لوحة الطالب',content:'المحتوى التعليمي',chat:'الشات',profile:'ملفي الشخصي'};
+  document.getElementById('uptitle').textContent=titles[pg];
+  if(pg==='content'){ cCType=tab||cCType; renderUContent(); }
+  if(pg==='chat'){ scrollChat('uchatmsgs'); }
+}
+
+function renderUContent(){
+  const names={lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
+  document.getElementById('ucbct').textContent=names[cCType]||'';
+  const subjs=DB.subjects[cLvl]||[];
+  const container=document.getElementById('usubjects-view');
+  if(!subjs.length){ container.innerHTML=`<div style="text-align:center;padding:56px;color:var(--muted)"><div style="font-size:44px;margin-bottom:11px">📭</div><div>لا يوجد محتوى في هذه الفرقة بعد</div></div>`; return; }
+  let html='<div class="subj-list">';
+  subjs.forEach(s=>{
+    const items=s.content[cCType]||[];
+    html+=`<div class="subj-item">
+      <div class="subj-hdr" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.12);display:flex;align-items:center;justify-content:center;font-size:18px">📚</div>
+        <div class="sname">${s.name}</div>
+        ${s.code?`<span class="badge ba">${s.code}</span>`:''}
+        <span style="color:var(--muted);font-size:13px"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="subj-body hidden">
+        ${items.length?items.map(it=>{
+          if(cCType==='qb') return renderQItem(it, false);
+          return `<div class="ci" style="margin-top:10px">
+            <div class="cii" style="background:rgba(212,175,55,.1)">${it.icon||'📄'}</div>
+            <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim"><span>${it.desc||''}</span><span>${it.size||''}</span></div></div>
+            <div class="cia">
+              <button class="btn btn-sm btn-accent" onclick="viewItem(${it.id})"><i class="fas fa-eye"></i> عرض</button>
+              <button class="btn btn-sm btn-outline" onclick="dlItem(${it.id})"><i class="fas fa-download"></i></button>
+            </div>
+          </div>`;
+        }).join(''):`<div class="empty-subj">لا يوجد محتوى هنا بعد</div>`}
+      </div>
+    </div>`;
+  });
+  html+='</div>';
+  container.innerHTML=html;
+}
+
+function renderQItem(it, isAdmin){
+  return `<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:13px;margin-top:9px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px">${it.q}</div>
+    ${it.opts?it.opts.map((o,i)=>`<div style="padding:7px 11px;border-radius:7px;margin-bottom:5px;font-size:12px;cursor:pointer;background:${o===it.ans?'rgba(0,200,150,.12)':'rgba(255,255,255,.04)'};border:1px solid ${o===it.ans?'rgba(0,200,150,.3)':'rgba(255,255,255,.08)'}${isAdmin?';pointer-events:none':''}">
+      ${o===it.ans?'✅ ':''} ${o}
+    </div>`).join(''):''}
+    ${isAdmin?`<button class="btn btn-xs btn-danger" style="margin-top:5px" onclick="delQ(${it.id})"><i class="fas fa-trash"></i> حذف</button>`:''}
+  </div>`;
+}
+
+// ======== CHAT ========
+function renderChat(cid, isAdmin){
+  const c=document.getElementById(cid);
+  c.innerHTML=DB.messages.map(m=>`
+    <div class="chmsg ${isAdmin?m.isAdmin:cUser&&m.uid===cUser.id?'own':''}" data-mid="${m.id}">
+      <div class="chmav" style="${m.isAdmin?'background:linear-gradient(135deg,var(--accent),#0090CC)':''}">
+        ${m.av}
+      </div>
+      <div>
+        ${!(isAdmin?m.isAdmin:cUser&&m.uid===cUser.id)?`<div style="font-size:11px;color:var(--muted);margin-bottom:3px;font-weight:700">${m.user}</div>`:''}
+        <div class="chmbub">${m.text}</div>
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="chmtime">${m.time}</div>
+          ${isAdmin?`<button class="btn-icon" style="padding:3px 6px;font-size:11px;color:var(--danger)" onclick="delMsg(${m.id})" title="حذف الرسالة">🗑️</button>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+  scrollChat(cid);
+  if(document.getElementById('totmsgs')) document.getElementById('totmsgs').textContent=DB.messages.length;
+}
+function scrollChat(id){ setTimeout(()=>{ const e=document.getElementById(id); if(e) e.scrollTop=e.scrollHeight; },50); }
+function loadUChat(){ renderChat('uchatmsgs',false); }
+function uSend(){
+  const inp=document.getElementById('uchatinp'), t=inp.value.trim();
+  if(!t) return;
+  const now=new Date();
+  DB.messages.push({ id:nid(), uid:cUser.id, user:cUser.name.split(' ')[0], av:cUser.name.charAt(0), text:t, time:`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`, isAdmin:false });
+  inp.value=''; renderChat('uchatmsgs',false);
+  syncAdminChat();
+}
+function aSend(){
+  const inp=document.getElementById('achatinp'), t=inp.value.trim();
+  if(!t) return;
+  const now=new Date();
+  DB.messages.push({ id:nid(), uid:0, user:'المشرف', av:'م', text:t, time:`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`, isAdmin:true });
+  inp.value=''; renderChat('achatmsgs',true);
+}
+function delMsg(id){
+  const i=DB.messages.findIndex(m=>m.id===id);
+  if(i!==-1){ DB.messages.splice(i,1); renderChat('achatmsgs',true); toast('تم حذف الرسالة','s'); }
+}
+function syncAdminChat(){ const e=document.getElementById('achatmsgs'); if(e) renderChat('achatmsgs',true); }
+
+// ======== PROFILE ========
+function saveProf(){
+  const n=document.getElementById('en').value.trim();
+  if(!n){ toast('أدخل الاسم','e'); return; }
+  cUser.name=n; cUser.phone=document.getElementById('eph').value.trim();
+  cUser.level=parseInt(document.getElementById('elv').value);
+  cUser.division=document.getElementById('edv').value;
+  const u=DB.users.find(x=>x.id===cUser.id);
+  if(u){ u.name=cUser.name; u.phone=cUser.phone; u.level=cUser.level; u.division=cUser.division; }
+  loadUser(); toast('تم حفظ التغييرات','s');
+}
+
+// ======== ADMIN ========
+function loadAdmin(){
+  showPage('adm');
+  document.getElementById('adn').textContent=cAdmin.name.split(' ').slice(0,2).join(' ');
+  aN('dash', document.querySelector('.asb .sl2'));
+  loadAdminSettings();
+}
+
+function aN(pg, el){
+  ['adash','alevel','ausers','aadmins','aachat','asettings'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  document.querySelectorAll('.asb .sl2').forEach(l=>l.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const map={dash:'adash',l1:'alevel',l2:'alevel',l3:'alevel',l4:'alevel',users:'ausers',admins:'aadmins',achat:'aachat',settings:'asettings'};
+  const el2=document.getElementById(map[pg]); if(el2) el2.classList.remove('hidden');
+  const titles={dash:'لوحة التحكم',users:'إدارة الطلاب',admins:'إدارة المشرفين',achat:'إدارة الشات',settings:'الإعدادات'};
+  const lmap={l1:1,l2:2,l3:3,l4:4};
+  if(lmap[pg]){
+    cLvl=lmap[pg];
+    const ln=getLvlName(cLvl);
+    document.getElementById('alvlbc').textContent=ln;
+    document.getElementById('alvlname').textContent=ln;
+    document.getElementById('aptitle').textContent=ln;
+    renderAdminSubjects();
+    return;
+  }
+  document.getElementById('aptitle').textContent=titles[pg]||'';
+  if(pg==='dash'){ updStats(); renderDashUsers(); }
+  if(pg==='users'){ renderUsers(); }
+  if(pg==='admins'){ renderAdmins(); }
+  if(pg==='achat'){ renderChat('achatmsgs',true); }
+}
+
+function updStats(){
+  document.getElementById('dstu').textContent=DB.users.length;
+  let subjs=0,files=0;
+  [1,2,3,4].forEach(l=>{ subjs+=DB.subjects[l].length; DB.subjects[l].forEach(s=>{ Object.values(s.content).forEach(a=>files+=a.length); }); });
+  document.getElementById('dstf').textContent=subjs;
+  document.getElementById('dstc').textContent=files;
+  document.getElementById('dstm').textContent=DB.messages.length;
+}
+
+function renderDashUsers(){
+  const c=document.getElementById('dusers');
+  if(!DB.users.length){ c.innerHTML=`<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">لا يوجد طلاب مسجلون بعد</div>`; return; }
+  c.innerHTML=`<table><thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الحالة</th></tr></thead><tbody>
+  ${DB.users.slice(-6).reverse().map(u=>`<tr>
+    <td><div class="tdf"><div class="av" style="width:30px;height:30px;font-size:12px">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
+    <td>${u.phone}</td>
+    <td><span class="badge bg">${getLvlName(u.level)}</span></td>
+    <td><span class="badge ba">${u.division}</span></td>
+    <td><span class="badge ${u.active?'bs':'bd'}">${u.active?'نشط':'غير نشط'}</span></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function renderUsers(f=''){
+  const list=f?DB.users.filter(u=>u.name.includes(f)||u.phone.includes(f)):DB.users;
+  const tbody=document.getElementById('utbody');
+  if(!list.length){ tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--muted)">لا يوجد طلاب</td></tr>`; return; }
+  tbody.innerHTML=list.map(u=>`<tr>
+    <td><div class="tdf"><div class="av" style="width:30px;height:30px;font-size:12px">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
+    <td>${u.phone}</td>
+    <td><span class="badge bg">${getLvlName(u.level)}</span></td>
+    <td><span class="badge ba">${u.division}</span></td>
+    <td><span class="badge ${u.active?'bs':'bd'}">${u.active?'نشط':'غير نشط'}</span></td>
+    <td><div style="display:flex;gap:7px">
+      <button class="btn btn-xs" style="background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.28)" onclick="togUser(${u.id})">${u.active?'تعطيل':'تفعيل'}</button>
+      <button class="btn btn-xs btn-danger" onclick="delUser(${u.id})"><i class="fas fa-trash"></i></button>
+    </div></td>
+  </tr>`).join('');
+}
+function filterU(v){ renderUsers(v); }
+function togUser(id){ const u=DB.users.find(x=>x.id===id); if(u){ u.active=!u.active; renderUsers(); toast(`تم ${u.active?'تفعيل':'تعطيل'} الحساب`,'s'); } }
+function delUser(id){ if(!confirm('تأكيد الحذف؟')) return; const i=DB.users.findIndex(x=>x.id===id); if(i!==-1){ DB.users.splice(i,1); renderUsers(); updStats(); toast('تم حذف الطالب','s'); } }
+
+function renderAdmins(){
+  const tbody=document.getElementById('atbody');
+  tbody.innerHTML=DB.admins.map(a=>`<tr>
+    <td><div class="tdf"><div class="av" style="width:30px;height:30px;font-size:12px;background:linear-gradient(135deg,var(--accent),#0090CC)">${a.name.charAt(0)}</div>${a.name.split(' ').slice(0,2).join(' ')}</div></td>
+    <td>${a.phone}</td>
+    <td><div style="display:flex;gap:5px;flex-wrap:wrap">${a.perms.slice(0,3).map(p=>`<span class="badge ba" style="font-size:10px">${pLabel(p)}</span>`).join('')}${a.perms.length>3?`<span class="badge bg">+${a.perms.length-3}</span>`:''}</div></td>
+    <td>${a.id===cAdmin?.id?'<span class="badge bg">أنت</span>':`<button class="btn btn-xs btn-danger" onclick="delAdmin(${a.id})"><i class="fas fa-trash"></i></button>`}</td>
+  </tr>`).join('');
+}
+const pLabel=p=>({view:'عرض',upload:'رفع',delete:'حذف',users:'طلاب',chat:'شات',settings:'إعدادات'}[p]||p);
+function delAdmin(id){ if(!confirm('تأكيد الحذف؟')) return; const i=DB.admins.findIndex(x=>x.id===id); if(i!==-1){ DB.admins.splice(i,1); renderAdmins(); toast('تم حذف المشرف','s'); } }
+function openAddAdmin(){ openM('aaModal'); }
+function tPerm(el){ el.querySelector('.pchk').classList.toggle('on'); }
+function submitAdmin(){
+  const n=document.getElementById('aan').value.trim();
+  const ph=document.getElementById('aaph').value.trim();
+  const ps=document.getElementById('aaps').value.trim();
+  if(!n||!ph||!ps){ toast('أكمل البيانات','e'); return; }
+  const perms=Array.from(document.querySelectorAll('#pgrid .pchk.on')).map(el=>el.nextElementSibling.dataset.p);
+  DB.admins.push({ id:nid(), name:n, phone:ph, pass:ps, perms, joined:today() });
+  cm('aaModal'); renderAdmins(); toast('تم إضافة المشرف','s');
+}
+
+// ======== SUBJECTS ========
+function openAddSubject(){ openM('asmModal'); document.getElementById('subjname').value=''; document.getElementById('subjcode').value=''; }
+function addSubject(){
+  const name=document.getElementById('subjname').value.trim();
+  if(!name){ toast('أدخل اسم المادة','e'); return; }
+  const code=document.getElementById('subjcode').value.trim();
+  DB.subjects[cLvl].push({ id:nid(), name, code, content:{lw:[],lv:[],sw:[],sv:[],qb:[]} });
+  cm('asmModal'); renderAdminSubjects(); updStats(); toast('تم إضافة المادة','s');
+}
+
+function renderAdminSubjects(){
+  const subjs=DB.subjects[cLvl]||[];
+  const c=document.getElementById('subjlist');
+  if(!subjs.length){ c.innerHTML=`<div style="text-align:center;padding:52px;color:var(--muted)"><div style="font-size:44px;margin-bottom:11px">📚</div><div>لا توجد مواد بعد. اضغط "إضافة مادة"</div></div>`; return; }
+  c.innerHTML=subjs.map(s=>`
+    <div class="subj-item">
+      <div class="subj-hdr" onclick="toggleSubj(this)">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.12);display:flex;align-items:center;justify-content:center;font-size:18px">📚</div>
+        <div class="sname">${s.name}</div>
+        ${s.code?`<span class="badge ba">${s.code}</span>`:''}
+        <div style="display:flex;gap:7px;margin-right:auto">
+          <button class="btn btn-xs btn-danger" onclick="event.stopPropagation();delSubj(${s.id})"><i class="fas fa-trash"></i></button>
+          <span style="color:var(--muted);font-size:13px"><i class="fas fa-chevron-down"></i></span>
+        </div>
+      </div>
+      <div class="subj-body" id="sb-${s.id}">
+        <div class="subj-tabs">
+          <span class="stab active" onclick="swSubjTab(this,${s.id},'lw')">📖 محاضرات مكتوبة</span>
+          <span class="stab" onclick="swSubjTab(this,${s.id},'lv')">🎥 محاضرات مصورة</span>
+          <span class="stab" onclick="swSubjTab(this,${s.id},'sw')">✏️ سكاشن مكتوبة</span>
+          <span class="stab" onclick="swSubjTab(this,${s.id},'sv')">🎞️ سكاشن مصورة</span>
+          <span class="stab" onclick="swSubjTab(this,${s.id},'qb')">❓ بنك الأسئلة</span>
+          <button class="btn btn-sm btn-gold" style="margin-right:auto" onclick="openUpload(${s.id},'lw')"><i class="fas fa-plus"></i> إضافة</button>
+        </div>
+        <div class="subj-content" id="sc-${s.id}-lw">${renderSubjContent(s,'lw')}</div>
+        <div class="subj-content hidden" id="sc-${s.id}-lv">${renderSubjContent(s,'lv')}</div>
+        <div class="subj-content hidden" id="sc-${s.id}-sw">${renderSubjContent(s,'sw')}</div>
+        <div class="subj-content hidden" id="sc-${s.id}-sv">${renderSubjContent(s,'sv')}</div>
+        <div class="subj-content hidden" id="sc-${s.id}-qb">${renderSubjContent(s,'qb')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleSubj(el){ el.nextElementSibling.classList.toggle('hidden'); }
+
+function swSubjTab(tab, sid, type){
+  const body=document.getElementById('sb-'+sid);
+  body.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  ['lw','lv','sw','sv','qb'].forEach(t=>{ const e=document.getElementById(`sc-${sid}-${t}`); if(e) e.classList.toggle('hidden',t!==type); });
+  // Update add button
+  const addBtn=body.querySelector('.btn-gold');
+  if(addBtn) addBtn.onclick=function(){ openUpload(sid,type); };
+}
+
+function renderSubjContent(s, type){
+  const items=s.content[type]||[];
+  if(!items.length) return `<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
+  if(type==='qb') return items.map(it=>renderQItem(it,true)).join('');
+  const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
+  return items.map(it=>`
+    <div class="ci" style="margin-top:9px">
+      <div class="cii" style="background:rgba(212,175,55,.1)">${icons[type]}</div>
+      <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim"><span>${it.desc||''}</span><span>${it.size||''}</span></div></div>
+      <div class="cia">
+        <button class="btn btn-xs btn-danger" onclick="delContent(${s.id},'${type}',${it.id})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function delSubj(id){
+  if(!confirm('حذف المادة وكل محتواها؟')) return;
+  const i=DB.subjects[cLvl].findIndex(x=>x.id===id);
+  if(i!==-1){ DB.subjects[cLvl].splice(i,1); renderAdminSubjects(); updStats(); toast('تم حذف المادة','s'); }
+}
+function delContent(sid, type, cid){
+  const s=DB.subjects[cLvl].find(x=>x.id===sid);
+  if(!s) return;
+  const i=s.content[type].findIndex(x=>x.id===cid);
+  if(i!==-1){ s.content[type].splice(i,1); renderAdminSubjects(); updStats(); toast('تم الحذف','s'); }
+}
+// ======== FIND ITEM BY ID ========
+function findItem(id){
+  for(let l=1;l<=4;l++) for(const s of DB.subjects[l]) for(const t of Object.keys(s.content)){ const it=s.content[t].find(x=>x.id===id); if(it) return it; }
+  return null;
+}
+function viewItem(id){ const it=findItem(id); if(it) openFileViewer(it); else toast('الملف غير موجود','e'); }
+function dlItem(id){
+  const it=findItem(id);
+  if(!it){ toast('الملف غير موجود','e'); return; }
+  if(!it.fileObj){ toast('لا يوجد ملف للتحميل','e'); return; }
+  const a=document.createElement('a'); a.href=it.fileObj.url; a.download=it.fileObj.name||it.title; a.click(); toast('جاري التحميل...','s');
+}
+
+// ======== FILE VIEWER ========
+function openFileViewer(item){
+  const fo=item.fileObj;
+  document.getElementById('fvtitle').textContent=item.title||(fo?fo.name:'الملف');
+  const body=document.getElementById('fvbody');
+  body.innerHTML='';
+  const dlBtn=document.getElementById('fvdlbtn');
+
+  if(!fo){
+    body.style.background='var(--navy-m)';
+    body.innerHTML=`<div style="text-align:center;padding:52px;color:var(--muted)"><div style="font-size:52px;margin-bottom:14px">📄</div><div style="font-size:15px;font-weight:700">${item.title}</div><div style="font-size:13px;margin-top:8px">لا يوجد ملف مرفوع للعرض</div></div>`;
+    dlBtn.onclick=()=>toast('لا يوجد ملف للتحميل','e');
+    openM('fvModal'); return;
+  }
+
+  const url=fo.url, type=fo.type||'', name=fo.name||item.title||'file';
+  dlBtn.onclick=()=>{ const a=document.createElement('a'); a.href=url; a.download=name; a.click(); toast('جاري التحميل...','s'); };
+
+  if(type.startsWith('image/')){
+    body.style.background='#111';
+    body.innerHTML=`<img src="${url}" style="max-width:100%;max-height:76vh;display:block;object-fit:contain">`;
+  } else if(type.startsWith('video/')){
+    body.style.background='#000';
+    body.innerHTML=`<video id="fvvid" src="${url}" controls style="max-width:100%;max-height:76vh;display:block;outline:none" autoplay></video>`;
+  } else if(type.startsWith('audio/')){
+    body.style.background='var(--navy-m)';
+    body.innerHTML=`<div style="padding:40px;text-align:center"><div style="font-size:52px;margin-bottom:16px">🎵</div><div style="font-size:15px;font-weight:700;margin-bottom:20px">${name}</div><audio id="fvaud" src="${url}" controls style="width:100%;max-width:400px"></audio></div>`;
+  } else if(type==='application/pdf' || name.toLowerCase().endsWith('.pdf')){
+    body.style.background='#fff';
+    body.style.padding='0';
+    body.innerHTML=`<iframe src="${url}" style="width:100%;height:76vh;border:none;display:block"></iframe>`;
+  } else {
+    body.style.background='var(--navy-m)';
+    const ext=name.split('.').pop().toUpperCase();
+    const icons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃'};
+    body.innerHTML=`<div style="text-align:center;padding:52px;color:var(--white)"><div style="font-size:56px;margin-bottom:14px">${icons[ext]||'📎'}</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">${name}</div><div class="badge ba">${ext}</div><div style="margin-top:20px"><button class="btn btn-gold" onclick="document.getElementById('fvdlbtn').click()"><i class="fas fa-download"></i> تحميل الملف</button></div></div>`;
+  }
+  openM('fvModal');
+}
+function stopMedia(){
+  const v=document.getElementById('fvvid'); if(v){ v.pause(); v.src=''; }
+  const a=document.getElementById('fvaud'); if(a){ a.pause(); a.src=''; }
+}
+
+function delQ(cid){
+  for(let l=1;l<=4;l++){ for(const s of DB.subjects[l]){ const i=s.content.qb.findIndex(x=>x.id===cid); if(i!==-1){ s.content.qb.splice(i,1); renderAdminSubjects(); return; } } }
+}
+
+// ======== UPLOAD ========
+let _upSid=null, _upType='lw'; selFiles=[];
+function openUpload(sid, type){
+  _upSid=sid; _upType=type; selFiles=[];
+  document.getElementById('uptitle').value='';
+  document.getElementById('updesc').value='';
+  document.getElementById('ufpreview').innerHTML='';
+  document.getElementById('qlist').innerHTML=''; qCount=0;
+  const names={lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
+  document.getElementById('upmtitle').textContent='إضافة: '+names[type];
+  document.getElementById('qbank-area').classList.toggle('hidden', type!=='qb');
+  document.getElementById('updz').parentElement.classList.toggle('hidden', type==='qb');
+  openM('upModal');
+}
+function handleFile(inp){
+  selFiles=Array.from(inp.files);
+  const p=document.getElementById('ufpreview');
+  p.innerHTML=selFiles.map(f=>`<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px;margin-bottom:7px;font-size:12px">
+    <span>${f.type.startsWith('image')?'🖼️':f.type.startsWith('video')?'🎥':'📄'}</span>
+    <div style="flex:1"><div style="font-weight:700">${f.name}</div><div style="color:var(--muted)">${fmtSize(f.size)}</div></div>
+  </div>`).join('');
+}
+function fmtSize(b){ return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
+function addQ(){
+  qCount++;
+  const id='q'+qCount;
+  const div=document.createElement('div');
+  div.id='qwrap-'+id;
+  div.style.cssText='background:rgba(255,255,255,.04);border-radius:10px;padding:13px;margin-bottom:10px';
+  div.innerHTML=`
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:700;color:var(--gold)">سؤال ${qCount}</div>
+      <button class="btn btn-xs btn-danger" onclick="this.closest('[id^=qwrap]').remove()">حذف</button>
+    </div>
+    <div class="fg"><label>السؤال</label><input class="inp" id="qtxt-${id}" placeholder="نص السؤال"></div>
+    <div class="fg"><label>الخيار الأول</label><input class="inp" id="qo1-${id}" placeholder="الإجابة 1"></div>
+    <div class="fg"><label>الخيار الثاني</label><input class="inp" id="qo2-${id}" placeholder="الإجابة 2"></div>
+    <div class="fg"><label>الخيار الثالث</label><input class="inp" id="qo3-${id}" placeholder="الإجابة 3"></div>
+    <div class="fg"><label>الخيار الرابع</label><input class="inp" id="qo4-${id}" placeholder="الإجابة 4"></div>
+    <div class="fg"><label>الإجابة الصحيحة</label>
+      <select class="sel" id="qans-${id}">
+        <option value="1">الخيار الأول</option><option value="2">الخيار الثاني</option>
+        <option value="3">الخيار الثالث</option><option value="4">الخيار الرابع</option>
+      </select>
+    </div>`;
+  document.getElementById('qlist').appendChild(div);
+}
+function submitUp(){
+  const s=DB.subjects[cLvl]?.find(x=>x.id===_upSid);
+  if(!s){ toast('خطأ','e'); return; }
+  if(_upType==='qb'){
+    const wraps=document.querySelectorAll('[id^=qwrap-]');
+    if(!wraps.length){ toast('أضف سؤالاً واحداً على الأقل','e'); return; }
+    wraps.forEach(w=>{
+      const id=w.id.replace('qwrap-','');
+      const q=document.getElementById('qtxt-'+id)?.value.trim();
+      const opts=[1,2,3,4].map(i=>document.getElementById(`qo${i}-${id}`)?.value.trim()).filter(Boolean);
+      const ansIdx=parseInt(document.getElementById('qans-'+id)?.value||'1')-1;
+      if(q&&opts.length>=2) s.content.qb.push({ id:nid(), q, opts, ans:opts[ansIdx] });
+    });
+  } else {
+    const title=document.getElementById('uptitle').value.trim();
+    if(!title){ toast('أدخل العنوان','e'); return; }
+    const f=selFiles[0];
+    const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
+    s.content[_upType].push({ id:nid(), title, desc:document.getElementById('updesc').value.trim(), size:f?fmtSize(f.size):'', icon:icons[_upType], date:today(), fileObj:f?{url:URL.createObjectURL(f),type:f.type}:null });
+  }
+  cm('upModal'); renderAdminSubjects(); updStats(); toast('تم الحفظ ✅','s');
+}
+
+// ======== SETTINGS ========
+function loadAdminSettings(){
+  document.getElementById('sname').value=DB.settings.name;
+  document.getElementById('sdesc').value=DB.settings.desc;
+  document.getElementById('sphone').value=DB.settings.phone;
+  document.getElementById('semail').value=DB.settings.email;
+  if(cAdmin){ document.getElementById('anphone').value=cAdmin.phone; }
+}
+function saveSettings(){
+  DB.settings.name=document.getElementById('sname').value.trim()||DB.settings.name;
+  DB.settings.desc=document.getElementById('sdesc').value.trim();
+  DB.settings.phone=document.getElementById('sphone').value.trim();
+  DB.settings.email=document.getElementById('semail').value.trim();
+  // Update logo/title text on page
+  document.querySelectorAll('.lt span').forEach(el=>{ if(el.closest('.logo')) el.textContent=DB.settings.name.split(' ').slice(-1)[0]||'النخبة'; });
+  toast('تم حفظ الإعدادات ✅','s');
+}
+function saveAdminCreds(){
+  const ph=document.getElementById('anphone').value.trim();
+  const ps=document.getElementById('anpass').value.trim();
+  const ps2=document.getElementById('anpass2').value.trim();
+  if(!ph){ toast('أدخل رقم الهاتف','e'); return; }
+  if(ps&&ps!==ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
+  cAdmin.phone=ph;
+  if(ps) cAdmin.pass=ps;
+  document.getElementById('anpass').value=''; document.getElementById('anpass2').value='';
+  toast('تم تحديث بيانات الدخول ✅','s');
+}
+
+// ======== TOAST ========
+function toast(msg, t='s'){
+  const icons={s:'✅',e:'❌',i:'ℹ️'};
+  const el=document.createElement('div');
+  el.className=`toast ${t}`; el.innerHTML=`<span>${icons[t]}</span><span>${msg}</span>`;
+  document.getElementById('tc').appendChild(el);
+  setTimeout(()=>el.remove(),3300);
+}
+
+// ======== CLOSE MODALS ON BG CLICK ========
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.add('hidden'); }));
+
+// Drag drop upload
+document.addEventListener('DOMContentLoaded',()=>{
+  const dz=document.getElementById('updz');
+  if(dz){
+    dz.addEventListener('dragover',e=>{ e.preventDefault(); dz.style.borderColor='var(--gold)'; });
+    dz.addEventListener('dragleave',()=>dz.style.borderColor='');
+    dz.addEventListener('drop',e=>{ e.preventDefault(); dz.style.borderColor=''; const fi=document.getElementById('ufile'); fi.files=e.dataTransfer.files; handleFile(fi); });
+  }
+});
+</script>
+</body>
+</html>
