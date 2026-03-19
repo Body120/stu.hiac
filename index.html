@@ -47,6 +47,7 @@ input[type="tel"]{direction:ltr;text-align:right}
 .ba{background:rgba(0,212,255,.12);color:var(--accent)}
 .bs{background:rgba(0,200,150,.12);color:var(--success)}
 .bd{background:rgba(255,68,102,.12);color:var(--danger)}
+.bsem{background:rgba(160,80,200,.14);color:#C080FF}
 
 /* ── AVATAR ── */
 .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--navy);flex-shrink:0}
@@ -85,6 +86,22 @@ input[type="tel"]{direction:ltr;text-align:right}
 .pi{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:9px;cursor:pointer}
 .pchk{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(212,175,55,.38);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .pchk.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-size:10px}
+
+/* ── SEMESTER SWITCHER ── */
+.sem-bar{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid rgba(212,175,55,.22);margin-bottom:18px}
+.sem-btn{flex:1;padding:11px;text-align:center;background:transparent;border:none;color:var(--muted);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:6px}
+.sem-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)}
+.sem-btn:not(.active):hover{background:rgba(212,175,55,.08)}
+
+/* ── SEMESTER BADGE IN HEADER ── */
+.sem-badge-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 16px;background:rgba(160,80,200,.08);border-bottom:1px solid rgba(160,80,200,.2)}
+.sem-badge-bar span{font-size:12px;color:#C080FF;font-weight:700}
+
+/* ── DB STATUS ── */
+.db-status{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700}
+.db-status.connected{background:rgba(0,200,150,.1);color:var(--success);border:1px solid rgba(0,200,150,.2)}
+.db-status.error{background:rgba(255,68,102,.1);color:var(--danger);border:1px solid rgba(255,68,102,.2)}
+.db-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pu 2s infinite}
 
 /* ════════════════════════════════
    LANDING
@@ -141,13 +158,9 @@ input[type="tel"]{direction:ltr;text-align:right}
    USER DASHBOARD
 ════════════════════════════════ */
 #pu{min-height:100vh;display:flex;flex-direction:column}
-
-/* TOP BAR */
 .utb{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1);position:sticky;top:0;z-index:50}
 .utb-title{flex:1;font-size:16px;font-weight:700;text-align:center}
 .uc{padding:16px;flex:1}
-
-/* BOTTOM NAV */
 .bnav{display:flex;background:var(--navy-m);border-top:1px solid rgba(212,175,55,.12);position:fixed;bottom:0;left:0;right:0;z-index:50;padding-bottom:env(safe-area-inset-bottom)}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;cursor:pointer;color:var(--muted);transition:color .2s;font-size:10px;font-weight:700;border:none;background:none;font-family:'Cairo',sans-serif}
 .bnav-item i{font-size:18px;transition:all .2s}
@@ -155,14 +168,12 @@ input[type="tel"]{direction:ltr;text-align:right}
 .bnav-item.active i{transform:scale(1.12)}
 .u-content-area{padding-bottom:80px}
 
-/* LEVEL SELECT */
 .lvlsel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 .lvlbtn{padding:12px 6px;border-radius:12px;text-align:center;background:var(--navy-c);border:1.5px solid rgba(212,175,55,.13);cursor:pointer;transition:all .22s}
 .lvlbtn.active,.lvlbtn:active{background:rgba(212,175,55,.1);border-color:var(--gold)}
 .lvlbtn .n{font-size:24px;font-weight:900;color:var(--gold)}
 .lvlbtn .nm{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* CONTENT TYPE CARDS */
 .ctypes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .ctcard{background:var(--navy-c);border:1.5px solid rgba(212,175,55,.11);border-radius:14px;padding:14px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
 .ctcard:active{border-color:var(--gold);transform:scale(.98)}
@@ -171,14 +182,12 @@ input[type="tel"]{direction:ltr;text-align:right}
 .ctsub{font-size:11px;color:var(--muted)}
 .ctcount{margin-right:auto;font-size:20px;font-weight:900;color:var(--gold)}
 
-/* CONTENT ITEM */
 .cl{display:flex;flex-direction:column;gap:10px}
 .ci{display:flex;align-items:center;gap:12px;background:var(--navy-c);border:1px solid rgba(212,175,55,.1);border-radius:13px;padding:12px 14px}
 .cii{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .ciinfo{flex:1;min-width:0}.cit{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cim{font-size:11px;color:var(--muted)}
 .cia{display:flex;gap:6px;flex-shrink:0}
 
-/* SUBJECT */
 .subj-list{display:flex;flex-direction:column;gap:10px}
 .subj-item{background:var(--navy-m);border:1px solid rgba(212,175,55,.14);border-radius:14px;overflow:hidden}
 .subj-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer}
@@ -215,7 +224,6 @@ input[type="tel"]{direction:ltr;text-align:right}
 .ahnav::-webkit-scrollbar{display:none}
 .ahnav-btn{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;font-family:'Cairo',sans-serif;transition:all .2s}
 .ahnav-btn.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:var(--gold)}
-
 .ac{padding:16px;padding-bottom:24px}
 
 /* STAT CARDS */
@@ -234,10 +242,6 @@ th{background:rgba(212,175,55,.06);padding:11px 14px;text-align:right;font-size:
 td{padding:11px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,.035);white-space:nowrap}
 tr:last-child td{border-bottom:none}
 .tdf{display:flex;align-items:center;gap:8px}
-
-/* ADMIN CHAT */
-.achat-wrap{display:flex;flex-direction:column;gap:14px}
-.achat-info{background:var(--navy-c);border:1px solid rgba(212,175,55,.13);border-radius:14px;padding:14px}
 
 /* UPLOAD */
 .upz{border:2px dashed rgba(212,175,55,.28);border-radius:13px;padding:36px 18px;text-align:center;cursor:pointer;transition:all .28s}
@@ -269,7 +273,7 @@ tr:last-child td{border-bottom:none}
 /* SECTION LABELS */
 .ssl{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:1px;padding:8px 4px 4px}
 
-/* DRAWER (sidebar on desktop becomes drawer on mobile) */
+/* DRAWER */
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;animation:fi .2s ease}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(280px,85vw);background:var(--navy-m);border-left:1px solid rgba(212,175,55,.15);z-index:201;display:flex;flex-direction:column;overflow-y:auto;animation:drIn .28s ease}
 @keyframes drIn{from{transform:translateX(100%)}to{transform:translateY(0)}}
@@ -287,14 +291,27 @@ tr:last-child td{border-bottom:none}
 .empty-state p{font-size:13px}
 .empty-subj{padding:20px;text-align:center;color:var(--muted);font-size:12px}
 
+/* DB PANEL */
+.db-panel{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:14px;padding:16px;margin-bottom:16px}
+.db-panel-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.db-log{background:rgba(0,0,0,.3);border-radius:8px;padding:12px;font-size:11px;color:var(--muted);font-family:monospace;max-height:160px;overflow-y:auto;line-height:1.8}
+.db-log .ok{color:var(--success)}.db-log .err{color:var(--danger)}.db-log .info{color:var(--accent)}
+
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 </style>
 </head>
 <body>
 <div id="tc"></div>
 
+<!-- DB Loading Overlay -->
+<div id="dbloader" style="position:fixed;inset:0;background:var(--navy);z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+  <div style="font-size:48px;animation:float 2s infinite">🗄️</div>
+  <div style="font-size:16px;font-weight:700;color:var(--gold)">جاري تهيئة قاعدة البيانات...</div>
+  <div style="font-size:12px;color:var(--muted)" id="dbloadmsg">تحميل محرك SQL...</div>
+</div>
+
 <!-- ══════════ LANDING ══════════ -->
-<div id="pl">
+<div id="pl" class="hidden">
   <nav class="lnav">
     <div class="logo"><div class="li">أ</div><div class="lt">طلاب المعهد العالي <span>للتعاون الزراعي</span></div></div>
     <div style="display:flex;gap:8px">
@@ -306,7 +323,7 @@ tr:last-child td{border-bottom:none}
   <div class="hero">
     <div class="hbadge"><i class="fas fa-star"></i> منصة تجمع المحتوي التعليمي</div>
     <h1>منصة<br><span class="hl">لكل طالب بالمعهد العالي للتعاون الزراعي</span></h1>
-    <p>محاضرات مكتوبة ومصورة، سكاشن، وبنك أسئلة لجميع الفرق من الأولى حتى الرابعة</p>
+    <p>محاضرات مكتوبة ومصورة، سكاشن، وبنك أسئلة لجميع الفرق من الأولى حتى الرابعة — الفصل الأول والثاني</p>
     <div class="hbtns">
       <button class="btn btn-gold" onclick="showAuth('register')"><i class="fas fa-rocket"></i> ابدأ مجاناً</button>
       <button class="btn btn-outline" onclick="showAuth('login')"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
@@ -314,14 +331,14 @@ tr:last-child td{border-bottom:none}
   </div>
 
   <div class="stats-row">
-    <div class="si"><div class="sn">0</div><div class="sl">طالب مسجل</div></div>
+    <div class="si"><div class="sn" id="landstu">0</div><div class="sl">طالب مسجل</div></div>
     <div class="si"><div class="sn">4</div><div class="sl">فرق دراسية</div></div>
-    <div class="si"><div class="sn">4</div><div class="sl">شعب متاحة</div></div>
+    <div class="si"><div class="sn">2</div><div class="sl">فصول دراسية</div></div>
     <div class="si"><div class="sn">24/7</div><div class="sl">دعم مستمر</div></div>
   </div>
 
   <div style="padding:0 18px 24px">
-    <div class="sec-title"><h2>محتويات منصة <span style="color:var(--gold)">طلاب المعهد العالي للتعاون الزراعي</span></h2></div>
+    <div class="sec-title"><h2>محتويات منصة <span style="color:var(--gold)">طلاب المعهد</span></h2></div>
     <div class="feat-grid">
       <div class="fc"><div class="fci">📖</div><div class="fct">محاضرات مكتوبة</div><div class="fcd">ملفات PDF منظمة لكل مادة</div></div>
       <div class="fc"><div class="fci">🎥</div><div class="fct">محاضرات مصورة</div><div class="fcd">فيديوهات تعليمية بجودة عالية</div></div>
@@ -334,11 +351,11 @@ tr:last-child td{border-bottom:none}
 
   <div style="padding:0 18px 16px">
     <div class="sec-title"><h2>الفرق <span style="color:var(--gold)">الدراسية</span></h2></div>
-    <div class="lvl-grid">
-      <div class="lc" onclick="showAuth('register')"><div class="ln">١</div><div class="lname">الفرقة الأولى</div><div class="lsub">4 شعب دراسية</div></div>
-      <div class="lc" onclick="showAuth('register')"><div class="ln">٢</div><div class="lname">الفرقة الثانية</div><div class="lsub">4 شعب دراسية</div></div>
-      <div class="lc" onclick="showAuth('register')"><div class="ln">٣</div><div class="lname">الفرقة الثالثة</div><div class="lsub">4 شعب دراسية</div></div>
-      <div class="lc" onclick="showAuth('register')"><div class="ln">٤</div><div class="lname">الفرقة الرابعة</div><div class="lsub">4 شعب دراسية</div></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 0 52px">
+      <div class="lc" onclick="showAuth('register')"><div class="ln">١</div><div class="lname">الفرقة الأولى</div><div class="lsub">فصل أول • فصل ثاني</div></div>
+      <div class="lc" onclick="showAuth('register')"><div class="ln">٢</div><div class="lname">الفرقة الثانية</div><div class="lsub">فصل أول • فصل ثاني</div></div>
+      <div class="lc" onclick="showAuth('register')"><div class="ln">٣</div><div class="lname">الفرقة الثالثة</div><div class="lsub">فصل أول • فصل ثاني</div></div>
+      <div class="lc" onclick="showAuth('register')"><div class="ln">٤</div><div class="lname">الفرقة الرابعة</div><div class="lsub">فصل أول • فصل ثاني</div></div>
     </div>
   </div>
 
@@ -379,6 +396,10 @@ tr:last-child td{border-bottom:none}
         <label>الشعبة</label>
         <select class="sel" id="rdv"><option value="">اختر الشعبة...</option><option value="تربوي">تربوي</option><option value="تسويق">تسويق</option><option value="نظم ومعلومات">نظم ومعلومات</option><option value="إدارة واقتصاد">إدارة واقتصاد</option></select>
       </div>
+      <div class="fg">
+        <label>الفصل الدراسي</label>
+        <select class="sel" id="rsem"><option value="1">الفصل الدراسي الأول</option><option value="2">الفصل الدراسي الثاني</option></select>
+      </div>
       <button class="btn btn-gold btn-w" onclick="doReg()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
     </div>
   </div>
@@ -391,6 +412,12 @@ tr:last-child td{border-bottom:none}
     <div class="utb-title" id="uptitle">لوحة الطالب</div>
     <div class="av sm" id="uavt">ط</div>
   </div>
+  <!-- Semester indicator bar -->
+  <div class="sem-badge-bar" id="usembadge">
+    <i class="fas fa-calendar-alt" style="color:#C080FF;font-size:12px"></i>
+    <span id="usembadgetext">الفصل الدراسي الأول</span>
+    <button class="btn btn-xs" style="background:rgba(160,80,200,.15);border:1px solid rgba(160,80,200,.3);color:#C080FF;padding:3px 10px" onclick="uNav('profile')"><i class="fas fa-exchange-alt"></i> تغيير</button>
+  </div>
   <div class="uc u-content-area">
     <!-- HOME -->
     <div id="uh">
@@ -399,11 +426,21 @@ tr:last-child td{border-bottom:none}
         <div style="color:var(--muted);font-size:13px;margin-top:3px">اختر فرقتك للوصول للمحتوى</div>
       </div>
       <div class="lvlsel" id="ulvlsel"></div>
+      <!-- Semester quick switch -->
+      <div class="sem-bar" id="uhomesem">
+        <button class="sem-btn active" id="usb1" onclick="uSelSem(1)"><i class="fas fa-moon"></i> الفصل الأول</button>
+        <button class="sem-btn" id="usb2" onclick="uSelSem(2)"><i class="fas fa-sun"></i> الفصل الثاني</button>
+      </div>
       <div class="ctypes" id="uctypes"></div>
     </div>
     <!-- CONTENT -->
     <div id="uco" class="hidden">
       <div class="bc"><span class="bcc" onclick="uNav('home')">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="ucbct">المحتوى</span></div>
+      <!-- Semester switch in content view -->
+      <div class="sem-bar" style="margin-bottom:12px">
+        <button class="sem-btn" id="cob1" onclick="uSelSem(1)" style="font-size:12px"><i class="fas fa-moon"></i> الفصل الأول</button>
+        <button class="sem-btn" id="cob2" onclick="uSelSem(2)" style="font-size:12px"><i class="fas fa-sun"></i> الفصل الثاني</button>
+      </div>
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none" id="ucontenttabs"></div>
       <div id="usubjects-view" style="margin-top:4px"></div>
     </div>
@@ -430,11 +467,17 @@ tr:last-child td{border-bottom:none}
         <div class="fg"><label>رقم الهاتف</label><input class="inp" id="eph" type="tel"></div>
         <div class="fg"><label>الفرقة</label><select class="sel" id="elv"><option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option><option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option></select></div>
         <div class="fg"><label>الشعبة</label><select class="sel" id="edv"><option value="تربوي">تربوي</option><option value="تسويق">تسويق</option><option value="نظم ومعلومات">نظم ومعلومات</option><option value="إدارة واقتصاد">إدارة واقتصاد</option></select></div>
+        <div class="fg">
+          <label>الفصل الدراسي</label>
+          <div class="sem-bar" style="margin-bottom:0">
+            <button class="sem-btn active" id="esb1" onclick="uSelSem(1,true)"><i class="fas fa-moon"></i> الفصل الأول</button>
+            <button class="sem-btn" id="esb2" onclick="uSelSem(2,true)"><i class="fas fa-sun"></i> الفصل الثاني</button>
+          </div>
+        </div>
         <button class="btn btn-gold btn-w" onclick="saveProf()"><i class="fas fa-save"></i> حفظ</button>
       </div>
     </div>
   </div>
-  <!-- Bottom Nav -->
   <div class="bnav">
     <button class="bnav-item active" id="bn-home" onclick="uNav('home',this)"><i class="fas fa-home"></i>الرئيسية</button>
     <button class="bnav-item" id="bn-content" onclick="uNav('content',this)"><i class="fas fa-book-open"></i>المحتوى</button>
@@ -450,11 +493,16 @@ tr:last-child td{border-bottom:none}
     <div class="atopbar-title" id="aptitle">لوحة التحكم</div>
     <div class="badge bg">أدمن</div>
   </div>
-  <!-- Horizontal nav -->
-  <div style="padding:10px 14px 0;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1)">
+  <!-- Admin Semester Bar -->
+  <div style="padding:10px 14px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.08)">
+    <div class="sem-bar" style="margin-bottom:0">
+      <button class="sem-btn active" id="asb1" onclick="aSelSem(1)"><i class="fas fa-moon"></i> الفصل الدراسي الأول</button>
+      <button class="sem-btn" id="asb2" onclick="aSelSem(2)"><i class="fas fa-sun"></i> الفصل الدراسي الثاني</button>
+    </div>
+  </div>
+  <div style="padding:8px 14px 0;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1)">
     <div class="ahnav" id="ahnav"></div>
   </div>
-
   <div class="ac">
     <!-- DASHBOARD -->
     <div id="adash">
@@ -463,6 +511,17 @@ tr:last-child td{border-bottom:none}
         <div class="stcard"><div class="stci" style="background:rgba(0,212,255,.1)"><i class="fas fa-book" style="color:var(--accent)"></i></div><div><div class="stcn" style="color:var(--accent)" id="dstf">0</div><div class="stcl">المواد</div></div></div>
         <div class="stcard"><div class="stci" style="background:rgba(0,200,150,.1)"><i class="fas fa-file" style="color:var(--success)"></i></div><div><div class="stcn" style="color:var(--success)" id="dstc">0</div><div class="stcl">الملفات</div></div></div>
         <div class="stcard"><div class="stci" style="background:rgba(160,80,200,.1)"><i class="fas fa-comments" style="color:#A050C8"></i></div><div><div class="stcn" style="color:#A050C8" id="dstm">0</div><div class="stcl">الرسائل</div></div></div>
+      </div>
+      <!-- DB Status -->
+      <div class="db-panel">
+        <div class="db-panel-title"><i class="fas fa-database"></i> حالة قاعدة البيانات</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div id="dbstatus" class="db-status connected"><span class="db-dot"></span>متصلة وتعمل</div>
+          <button class="btn btn-xs btn-accent" onclick="exportDB()"><i class="fas fa-download"></i> تصدير SQL</button>
+        </div>
+        <div class="db-log" id="dblog">
+          <div class="info">نظام قاعدة البيانات جاهز</div>
+        </div>
       </div>
       <div class="tc">
         <div class="tch"><div class="tcti">آخر المسجلين</div></div>
@@ -473,9 +532,12 @@ tr:last-child td{border-bottom:none}
     <!-- LEVEL PAGE -->
     <div id="alevel" class="hidden">
       <div class="bc"><span class="bcc" onclick="aN('dash')">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="alvlbc">الفرقة</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <div style="font-size:16px;font-weight:900" id="alvlname">الفرقة</div>
         <button class="btn btn-gold btn-sm" onclick="openAddSubj()"><i class="fas fa-plus"></i> مادة</button>
+      </div>
+      <div style="margin-bottom:14px">
+        <span class="badge bsem" id="alvlsem">الفصل الأول</span>
       </div>
       <div class="subj-list" id="subjlist"></div>
     </div>
@@ -484,9 +546,9 @@ tr:last-child td{border-bottom:none}
     <div id="ausers" class="hidden">
       <div style="margin-bottom:14px">
         <div style="font-size:16px;font-weight:900;margin-bottom:6px">إدارة الطلاب</div>
-        <input class="inp" placeholder="بحث..." oninput="filterU(this.value)">
+        <input class="inp" placeholder="بحث بالاسم أو الهاتف..." oninput="filterU(this.value)">
       </div>
-      <div class="tc"><div class="tscroll"><table><thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="utbody"></tbody></table></div></div>
+      <div class="tc"><div class="tscroll"><table><thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="utbody"></tbody></table></div></div>
     </div>
 
     <!-- ADMINS -->
@@ -500,7 +562,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- ADMIN CHAT -->
     <div id="aachat" class="hidden">
-      <div class="chatbox" style="height:calc(100vh - 200px)">
+      <div class="chatbox" style="height:calc(100vh - 260px)">
         <div class="chdr"><div class="chst"></div><div><div style="font-size:13px;font-weight:700">قناة النقاش — إدارة</div><div style="font-size:11px;color:var(--muted)">اضغط 🗑️ لحذف أي رسالة</div></div></div>
         <div class="chmsgs" id="achatmsgs"></div>
         <div class="china">
@@ -533,6 +595,15 @@ tr:last-child td{border-bottom:none}
           <div class="tgl"><div class="tgl-txt"><div class="tgl-ttl">تسجيل مفتوح</div><div class="tgl-sub">السماح بالتسجيل للجميع</div></div><div class="tsw on" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
           <div class="tgl"><div class="tgl-txt"><div class="tgl-ttl">وضع الصيانة</div><div class="tgl-sub">إيقاف الموقع مؤقتاً</div></div><div class="tsw" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
         </div>
+        <div class="card">
+          <div style="font-size:14px;font-weight:700;margin-bottom:14px;color:var(--gold)"><i class="fas fa-database"></i> قاعدة البيانات</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn btn-accent btn-w" onclick="exportDB()"><i class="fas fa-download"></i> تصدير قاعدة البيانات (SQL)</button>
+            <button class="btn btn-outline btn-w" onclick="showDBStats()"><i class="fas fa-chart-bar"></i> إحصائيات قاعدة البيانات</button>
+            <button class="btn btn-danger btn-w" onclick="resetDB()"><i class="fas fa-trash-alt"></i> إعادة تعيين قاعدة البيانات</button>
+          </div>
+          <div class="db-log" style="margin-top:14px" id="settingsdblog">جاهز</div>
+        </div>
       </div>
     </div>
   </div>
@@ -541,7 +612,7 @@ tr:last-child td{border-bottom:none}
 <!-- ══════════ DRAWER ══════════ -->
 <div id="drawer-overlay" class="drawer-overlay hidden" onclick="closeDrawer()"></div>
 <div id="drawer" class="drawer hidden">
-  <div class="dr-logo"><div class="logo"><div class="li">أ</div><div class="lt">طلاب المعهد العالي <span>للتعاون الزراعي</span></div></div></div>
+  <div class="dr-logo"><div class="logo"><div class="li">أ</div><div class="lt">طلاب المعهد <span>الزراعي</span></div></div></div>
   <div class="dr-user">
     <div class="av" id="dr-av">م</div>
     <div><div style="font-size:13px;font-weight:700" id="dr-name">المستخدم</div><div style="font-size:11px;color:var(--muted)" id="dr-role">الدور</div></div>
@@ -553,7 +624,6 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <!-- ══════════ MODALS ══════════ -->
-
 <!-- Admin Login -->
 <div id="alm" class="mo center hidden">
   <div class="md centered" style="max-width:360px">
@@ -582,7 +652,7 @@ tr:last-child td{border-bottom:none}
   <div class="md">
     <div class="mh"><div class="mt" id="upmtitle">رفع محتوى</div><button class="mc" onclick="cm('upModal')">×</button></div>
     <div id="upFileArea">
-      <div class="fg"><label>العنوان</label><input class="inp" id="uptitle" placeholder="عنوان المحتوى"></div>
+      <div class="fg"><label>العنوان</label><input class="inp" id="uptitle2" placeholder="عنوان المحتوى"></div>
       <div class="fg"><label>الوصف</label><textarea class="inp" id="updesc" rows="2" placeholder="وصف مختصر..."></textarea></div>
       <div class="fg">
         <label>الملف</label>
@@ -645,69 +715,518 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <script>
-// ══════════ DATA ══════════
-const DB={
-  users:[],
-  admins:[{id:1,name:'مدير النظام',phone:'01100000000',pass:'admin111',perms:['view','upload','delete','users','chat','settings'],joined:td()}],
-  subjects:{1:[],2:[],3:[],4:[]},
-  messages:[],
-  settings:{name:'طلاب المعهد العالي للتعاون الزراعي',desc:'منصة التعليم الإلكتروني المتكاملة',phone:'',email:''},
-  nid:10
-};
-function td(){return new Date().toISOString().split('T')[0];}
-function nid(){return ++DB.nid;}
+// ══════════════════════════════════════════
+//  SQL DATABASE ENGINE (sql.js via CDN)
+// ══════════════════════════════════════════
+let SQL = null, db = null;
+let cSemester = 1; // current semester (1 or 2)
+let cUser = null, cAdmin = null, cLvl = 1, cCType = 'lw', selFiles = [], qCount = 0, _upSid = null, _upType = 'lw';
 
-let cUser=null,cAdmin=null,cLvl=1,cCType='lw',selFiles=[],qCount=0,_upSid=null,_upType='lw';
-const lvlName=l=>['الفرقة الأولى','الفرقة الثانية','الFرقة الثالثة','الفرقة الرابعة'][l-1]||'';
-const LN=l=>['الفرقة الأولى','الفرقة الثانية','الفرقة الثالثة','الفرقة الرابعة'][l-1]||'';
+function dbLog(msg, type='info') {
+  const log = document.getElementById('dblog');
+  if(log) {
+    const line = document.createElement('div');
+    line.className = type;
+    line.textContent = `[${new Date().toLocaleTimeString('ar')}] ${msg}`;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  }
+  const slog = document.getElementById('settingsdblog');
+  if(slog) {
+    const line = document.createElement('div');
+    line.className = type;
+    line.textContent = msg;
+    slog.appendChild(line);
+  }
+}
 
-// ══════════ PAGE NAV ══════════
-function showPage(p){
-  document.getElementById('pl').classList.add('hidden');
-  document.getElementById('pa').classList.add('hidden');
-  document.getElementById('pu').classList.add('hidden');
-  document.getElementById('padm').classList.add('hidden');
-  const map={l:'pl',a:'pa',u:'pu',adm:'padm'};
+async function initDB() {
+  const loadmsg = document.getElementById('dbloadmsg');
+  try {
+    loadmsg.textContent = 'تحميل محرك sql.js...';
+    // Load sql.js from CDN
+    const initSqlJs = await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
+      script.onload = () => resolve(window.initSqlJs);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    loadmsg.textContent = 'تهيئة قاعدة البيانات...';
+    SQL = await initSqlJs({
+      locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${file}`
+    });
+
+    // Try to load existing DB from localStorage
+    const saved = localStorage.getItem('agricultureDB');
+    if (saved) {
+      const arr = JSON.parse(saved);
+      db = new SQL.Database(new Uint8Array(arr));
+      loadmsg.textContent = 'استعادة قاعدة بيانات محفوظة...';
+    } else {
+      db = new SQL.Database();
+      loadmsg.textContent = 'إنشاء قاعدة بيانات جديدة...';
+    }
+
+    createTables();
+    seedAdminIfNeeded();
+    saveDB();
+
+    document.getElementById('dbloader').style.display = 'none';
+    showPage('l');
+    updateLandingStats();
+    dbLog('✅ قاعدة البيانات تعمل بنجاح', 'ok');
+  } catch(err) {
+    loadmsg.textContent = 'خطأ في تحميل قاعدة البيانات — وضع بديل';
+    console.error(err);
+    // Fallback to in-memory mode
+    initFallback();
+    document.getElementById('dbloader').style.display = 'none';
+    showPage('l');
+  }
+}
+
+function createTables() {
+  db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    phone TEXT UNIQUE NOT NULL,
+    pass TEXT NOT NULL,
+    level INTEGER NOT NULL DEFAULT 1,
+    division TEXT NOT NULL DEFAULT 'تربوي',
+    semester INTEGER NOT NULL DEFAULT 1,
+    active INTEGER NOT NULL DEFAULT 1,
+    joined TEXT NOT NULL
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS admins (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    phone TEXT UNIQUE NOT NULL,
+    pass TEXT NOT NULL,
+    perms TEXT NOT NULL DEFAULT '[]',
+    joined TEXT NOT NULL
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS subjects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    code TEXT DEFAULT '',
+    level INTEGER NOT NULL,
+    semester INTEGER NOT NULL DEFAULT 1,
+    created TEXT NOT NULL
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS content (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject_id INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    file_name TEXT DEFAULT '',
+    file_size TEXT DEFAULT '',
+    file_data TEXT DEFAULT '',
+    file_type TEXT DEFAULT '',
+    date TEXT NOT NULL,
+    FOREIGN KEY(subject_id) REFERENCES subjects(id)
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS questions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject_id INTEGER NOT NULL,
+    semester INTEGER NOT NULL DEFAULT 1,
+    question TEXT NOT NULL,
+    options TEXT NOT NULL DEFAULT '[]',
+    answer TEXT NOT NULL,
+    date TEXT NOT NULL,
+    FOREIGN KEY(subject_id) REFERENCES subjects(id)
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    user_name TEXT NOT NULL,
+    user_av TEXT NOT NULL,
+    text TEXT NOT NULL,
+    time TEXT NOT NULL,
+    is_admin INTEGER NOT NULL DEFAULT 0
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+  )`);
+
+  // Default settings
+  const defaultSettings = [
+    ['platform_name', 'طلاب المعهد العالي للتعاون الزراعي'],
+    ['platform_desc', 'منصة التعليم الإلكتروني المتكاملة'],
+    ['platform_phone', ''],
+    ['platform_email', ''],
+  ];
+  defaultSettings.forEach(([k, v]) => {
+    db.run(`INSERT OR IGNORE INTO settings(key, value) VALUES (?, ?)`, [k, v]);
+  });
+}
+
+function seedAdminIfNeeded() {
+  const result = db.exec(`SELECT COUNT(*) as cnt FROM admins`);
+  const cnt = result[0]?.values[0]?.[0] || 0;
+  if (cnt === 0) {
+    db.run(`INSERT INTO admins(name, phone, pass, perms, joined) VALUES (?, ?, ?, ?, ?)`,
+      ['مدير النظام', '01100000000', 'admin111',
+       JSON.stringify(['view','upload','delete','users','chat','settings']), td()]);
+    dbLog('تم إنشاء حساب المشرف الرئيسي', 'ok');
+  }
+}
+
+function saveDB() {
+  if (!db) return;
+  try {
+    const data = db.export();
+    localStorage.setItem('agricultureDB', JSON.stringify(Array.from(data)));
+  } catch(e) { console.warn('Failed to save DB:', e); }
+}
+
+// ── FALLBACK (in-memory) ──
+let FB = null;
+function initFallback() {
+  FB = {
+    users: [],
+    admins: [{id:1, name:'مدير النظام', phone:'01100000000', pass:'admin111',
+               perms:['view','upload','delete','users','chat','settings'], joined:td()}],
+    subjects: {1:{1:[],2:[]}, 2:{1:[],2:[]}, 3:{1:[],2:[]}, 4:{1:[],2:[]}},
+    messages: [],
+    settings: {name:'طلاب المعهد العالي للتعاون الزراعي', desc:'', phone:'', email:''},
+    nid: 10
+  };
+  dbLog('⚠️ وضع الذاكرة المؤقتة (لا يوجد حفظ دائم)', 'err');
+}
+
+function isSQL() { return db !== null; }
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+function td() { return new Date().toISOString().split('T')[0]; }
+const LN = l => ['الفرقة الأولى','الفرقة الثانية','الفرقة الثالثة','الفرقة الرابعة'][l-1] || '';
+const SN = s => s == 1 ? 'الفصل الأول' : 'الفصل الثاني';
+
+// ══════════════════════════════════════════
+//  DB QUERIES
+// ══════════════════════════════════════════
+function dbGetAll(sql, params=[]) {
+  if (!db) return [];
+  const res = db.exec(sql, params);
+  if (!res.length) return [];
+  const cols = res[0].columns;
+  return res[0].values.map(row => {
+    const obj = {};
+    cols.forEach((c, i) => obj[c] = row[i]);
+    return obj;
+  });
+}
+function dbGet(sql, params=[]) { return dbGetAll(sql, params)[0] || null; }
+function dbRun(sql, params=[]) {
+  if (!db) return;
+  db.run(sql, params);
+  saveDB();
+}
+
+// USERS
+function dbAddUser(name, phone, pass, level, division, semester) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO users(name,phone,pass,level,division,semester,active,joined) VALUES(?,?,?,?,?,?,1,?)`,
+      [name, phone, pass, level, division, semester, td()]);
+    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
+  } else {
+    const u = {id: ++FB.nid, name, phone, pass, level, division, semester, active:true, joined:td()};
+    FB.users.push(u); return u.id;
+  }
+}
+function dbFindUser(phone, pass) {
+  if (isSQL()) return dbGet(`SELECT * FROM users WHERE phone=? AND pass=?`, [phone, pass]);
+  return FB?.users.find(x => x.phone===phone && x.pass===pass) || null;
+}
+function dbGetUsers(filter='') {
+  if (isSQL()) {
+    if (filter) return dbGetAll(`SELECT * FROM users WHERE name LIKE ? OR phone LIKE ? ORDER BY id DESC`, [`%${filter}%`, `%${filter}%`]);
+    return dbGetAll(`SELECT * FROM users ORDER BY id DESC`);
+  }
+  const list = FB?.users || [];
+  return filter ? list.filter(u => u.name.includes(filter) || u.phone.includes(filter)) : [...list].reverse();
+}
+function dbUpdateUser(id, name, phone, level, division, semester) {
+  if (isSQL()) dbRun(`UPDATE users SET name=?,phone=?,level=?,division=?,semester=? WHERE id=?`, [name,phone,level,division,semester,id]);
+  else { const u=FB.users.find(x=>x.id===id); if(u){u.name=name;u.phone=phone;u.level=level;u.division=division;u.semester=semester;} }
+}
+function dbToggleUser(id) {
+  if (isSQL()) {
+    const u = dbGet(`SELECT active FROM users WHERE id=?`, [id]);
+    const nv = u.active ? 0 : 1;
+    dbRun(`UPDATE users SET active=? WHERE id=?`, [nv, id]);
+    return nv;
+  } else { const u=FB.users.find(x=>x.id===id); if(u)u.active=!u.active; return u?.active; }
+}
+function dbDeleteUser(id) {
+  if (isSQL()) dbRun(`DELETE FROM users WHERE id=?`, [id]);
+  else { const i=FB?.users.findIndex(x=>x.id===id); if(i!==-1)FB.users.splice(i,1); }
+}
+function dbCountUsers() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM users`)?.cnt || 0;
+  return FB?.users.length || 0;
+}
+
+// ADMINS
+function dbFindAdmin(phone, pass) {
+  if (isSQL()) {
+    const a = dbGet(`SELECT * FROM admins WHERE phone=? AND pass=?`, [phone, pass]);
+    if (a) a.perms = JSON.parse(a.perms || '[]');
+    return a;
+  }
+  return FB?.admins.find(x=>x.phone===phone&&x.pass===pass) || null;
+}
+function dbGetAdmins() {
+  if (isSQL()) return dbGetAll(`SELECT * FROM admins`).map(a => ({...a, perms:JSON.parse(a.perms||'[]')}));
+  return FB?.admins || [];
+}
+function dbAddAdmin(name, phone, pass, perms) {
+  if (isSQL()) { dbRun(`INSERT INTO admins(name,phone,pass,perms,joined) VALUES(?,?,?,?,?)`, [name,phone,pass,JSON.stringify(perms),td()]); }
+  else { FB.admins.push({id:++FB.nid,name,phone,pass,perms,joined:td()}); }
+}
+function dbDeleteAdmin(id) {
+  if (isSQL()) dbRun(`DELETE FROM admins WHERE id=?`, [id]);
+  else { const i=FB?.admins.findIndex(x=>x.id===id); if(i!==-1)FB.admins.splice(i,1); }
+}
+function dbUpdateAdminCreds(id, phone, pass) {
+  if (isSQL()) {
+    if (pass) dbRun(`UPDATE admins SET phone=?,pass=? WHERE id=?`, [phone,pass,id]);
+    else dbRun(`UPDATE admins SET phone=? WHERE id=?`, [phone,id]);
+  } else { const a=FB?.admins.find(x=>x.id===id); if(a){a.phone=phone;if(pass)a.pass=pass;} }
+}
+
+// SUBJECTS
+function dbGetSubjects(level, semester) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM subjects WHERE level=? AND semester=? ORDER BY id ASC`, [level, semester]);
+  return FB?.subjects?.[level]?.[semester] || [];
+}
+function dbAddSubject(name, code, level, semester) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO subjects(name,code,level,semester,created) VALUES(?,?,?,?,?)`, [name,code,level,semester,td()]);
+    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
+  } else {
+    const s={id:++FB.nid,name,code,level,semester,content:{lw:[],lv:[],sw:[],sv:[],qb:[]}};
+    if(!FB.subjects[level])FB.subjects[level]={};
+    if(!FB.subjects[level][semester])FB.subjects[level][semester]=[];
+    FB.subjects[level][semester].push(s); return s.id;
+  }
+}
+function dbDeleteSubject(id) {
+  if (isSQL()) { dbRun(`DELETE FROM content WHERE subject_id=?`, [id]); dbRun(`DELETE FROM questions WHERE subject_id=?`, [id]); dbRun(`DELETE FROM subjects WHERE id=?`, [id]); }
+  else { for(const l of Object.values(FB.subjects||{})) for(const sem of Object.values(l||{})) { const i=sem.findIndex(x=>x.id===id); if(i!==-1)sem.splice(i,1); } }
+}
+
+// CONTENT
+function dbGetContent(subjectId, type) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM content WHERE subject_id=? AND type=? ORDER BY id ASC`, [subjectId, type]);
+  // fallback: find subject
+  for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) { const s=sem.find(x=>x.id===subjectId); if(s) return s.content[type]||[]; }
+  return [];
+}
+function dbAddContent(subjectId, type, title, desc, fname, fsize, fdata, ftype) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO content(subject_id,type,title,description,file_name,file_size,file_data,file_type,date) VALUES(?,?,?,?,?,?,?,?,?)`,
+      [subjectId,type,title,desc,fname,fsize,fdata,ftype,td()]);
+    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
+  } else {
+    const it={id:++FB.nid,title,desc,file_name:fname,file_size:fsize,fileObj:null,date:td()};
+    for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) { const s=sem.find(x=>x.id===subjectId); if(s){s.content[type].push(it);return it.id;} }
+  }
+}
+function dbDeleteContent(id) {
+  if (isSQL()) dbRun(`DELETE FROM content WHERE id=?`, [id]);
+}
+function dbCountContent() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM content`)?.cnt || 0;
+  let c=0; for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) sem.forEach(s=>Object.values(s.content||{}).forEach(a=>c+=a.length));
+  return c;
+}
+function dbCountSubjects() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM subjects`)?.cnt || 0;
+  let c=0; for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) c+=sem.length;
+  return c;
+}
+
+// QUESTIONS
+function dbGetQuestions(subjectId) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM questions WHERE subject_id=? ORDER BY id ASC`, [subjectId]).map(q=>({...q,opts:JSON.parse(q.options||'[]')}));
+  for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) { const s=sem.find(x=>x.id===subjectId); if(s) return s.content.qb||[]; }
+  return [];
+}
+function dbAddQuestion(subjectId, semester, q, opts, ans) {
+  if (isSQL()) dbRun(`INSERT INTO questions(subject_id,semester,question,options,answer,date) VALUES(?,?,?,?,?,?)`, [subjectId,semester,q,JSON.stringify(opts),ans,td()]);
+  else {
+    const it={id:++FB.nid,q,opts,ans};
+    for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) { const s=sem.find(x=>x.id===subjectId); if(s){s.content.qb.push(it);return;} }
+  }
+}
+function dbDeleteQuestion(id) {
+  if (isSQL()) dbRun(`DELETE FROM questions WHERE id=?`, [id]);
+}
+
+// MESSAGES
+function dbGetMessages() {
+  if (isSQL()) return dbGetAll(`SELECT * FROM messages ORDER BY id ASC`);
+  return FB?.messages || [];
+}
+function dbAddMessage(userId, userName, av, text, time, isAdmin) {
+  if (isSQL()) { dbRun(`INSERT INTO messages(user_id,user_name,user_av,text,time,is_admin) VALUES(?,?,?,?,?,?)`, [userId,userName,av,text,time,isAdmin?1:0]); }
+  else { FB.messages.push({id:++FB.nid,user_id:userId,user_name:userName,user_av:av,text,time,is_admin:isAdmin?1:0}); }
+}
+function dbDeleteMessage(id) {
+  if (isSQL()) dbRun(`DELETE FROM messages WHERE id=?`, [id]);
+  else { const i=FB?.messages.findIndex(m=>m.id===id); if(i!==-1)FB.messages.splice(i,1); }
+}
+function dbCountMessages() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM messages`)?.cnt || 0;
+  return FB?.messages.length || 0;
+}
+
+// SETTINGS
+function dbGetSetting(key, def='') {
+  if (isSQL()) return dbGet(`SELECT value FROM settings WHERE key=?`, [key])?.value ?? def;
+  return FB?.settings?.[key.replace('platform_','')] ?? def;
+}
+function dbSetSetting(key, value) {
+  if (isSQL()) dbRun(`INSERT OR REPLACE INTO settings(key,value) VALUES(?,?)`, [key,value]);
+  else if(FB?.settings) FB.settings[key.replace('platform_','')] = value;
+}
+
+// ══════════════════════════════════════════
+//  EXPORT DB
+// ══════════════════════════════════════════
+function exportDB() {
+  if (!db) { toast('قاعدة البيانات غير متاحة', 'e'); return; }
+  const data = db.export();
+  const blob = new Blob([data], {type:'application/octet-stream'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `agriculture_db_${td()}.sqlite`;
+  a.click();
+  toast('تم تصدير قاعدة البيانات ✅', 's');
+  dbLog('تم تصدير قاعدة البيانات', 'ok');
+}
+
+function showDBStats() {
+  const users = dbCountUsers();
+  const subjs = dbCountSubjects();
+  const files = dbCountContent();
+  const msgs = dbCountMessages();
+  const info = `📊 إحصائيات:\n👥 طلاب: ${users}\n📚 مواد: ${subjs}\n📁 ملفات: ${files}\n💬 رسائل: ${msgs}`;
+  alert(info);
+  dbLog(`إحصائيات: ${users} طلاب، ${subjs} مواد، ${files} ملفات`, 'info');
+}
+
+function resetDB() {
+  if (!confirm('⚠️ هذا سيحذف جميع البيانات نهائياً! هل أنت متأكد؟')) return;
+  if (!confirm('تأكيد أخير: حذف كل البيانات؟')) return;
+  localStorage.removeItem('agricultureDB');
+  location.reload();
+}
+
+// ══════════════════════════════════════════
+//  SEMESTER
+// ══════════════════════════════════════════
+function uSelSem(s, fromProfile=false) {
+  cSemester = s;
+  // Update all sem buttons
+  ['usb1','usb2','cob1','cob2','esb1','esb2','asb1','asb2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const n = parseInt(id.replace(/\D/g,'').slice(-1));
+    el.classList.toggle('active', n === s);
+  });
+  // Update badge
+  const badge = document.getElementById('usembadgetext');
+  if (badge) badge.textContent = SN(s);
+  // If user is logged in, update profile sem buttons
+  if (cUser) { cUser._viewSem = s; }
+  renderCTypes();
+  if (document.getElementById('uco') && !document.getElementById('uco').classList.contains('hidden')) {
+    renderUContent();
+  }
+  toast(`تم التبديل إلى ${SN(s)}`, 's');
+}
+
+function aSelSem(s) {
+  cSemester = s;
+  ['asb1','asb2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const n = parseInt(id.replace(/\D/g,'').slice(-1));
+    el.classList.toggle('active', n === s);
+  });
+  const badge = document.getElementById('alvlsem');
+  if (badge) badge.textContent = SN(s);
+  // Re-render current level if visible
+  if (!document.getElementById('alevel').classList.contains('hidden')) {
+    renderAdminSubjs();
+  }
+  renderCTypes();
+}
+
+// ══════════════════════════════════════════
+//  PAGE NAV
+// ══════════════════════════════════════════
+function showPage(p) {
+  ['pl','pa','pu','padm'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  const map = {l:'pl', a:'pa', u:'pu', adm:'padm'};
   document.getElementById(map[p]).classList.remove('hidden');
   window.scrollTo(0,0);
+  if (p === 'l') updateLandingStats();
 }
-function showAuth(t){showPage('a');swAuth(t);}
-function logout(){cUser=null;cAdmin=null;closeDrawer();showPage('l');toast('تم تسجيل الخروج','s');}
-function cm(id){document.getElementById(id).classList.add('hidden');}
-function openM(id){document.getElementById(id).classList.remove('hidden');}
+function showAuth(t) { showPage('a'); swAuth(t); }
+function logout() { cUser=null; cAdmin=null; closeDrawer(); showPage('l'); updateLandingStats(); toast('تم تسجيل الخروج','s'); }
+function cm(id) { document.getElementById(id).classList.add('hidden'); }
+function openM(id) { document.getElementById(id).classList.remove('hidden'); }
 
-// ══════════ DRAWER ══════════
-let drawerMode='user';
-function openDrawer(mode){
-  drawerMode=mode;
-  const nav=document.getElementById('dr-nav');
-  const drAv=document.getElementById('dr-av');
-  const drName=document.getElementById('dr-name');
-  const drRole=document.getElementById('dr-role');
-  if(mode==='user'&&cUser){
-    drAv.textContent=cUser.name.charAt(0);
-    drAv.className='av';
-    drName.textContent=cUser.name.split(' ').slice(0,2).join(' ');
-    drRole.textContent=LN(cUser.level)+' — '+cUser.division;
-    nav.innerHTML=`
+function updateLandingStats() {
+  const el = document.getElementById('landstu');
+  if (el) el.textContent = dbCountUsers();
+}
+
+// ══════════════════════════════════════════
+//  DRAWER
+// ══════════════════════════════════════════
+let drawerMode = 'user';
+function openDrawer(mode) {
+  drawerMode = mode;
+  const nav = document.getElementById('dr-nav');
+  const drAv = document.getElementById('dr-av');
+  const drName = document.getElementById('dr-name');
+  const drRole = document.getElementById('dr-role');
+  if (mode==='user' && cUser) {
+    drAv.textContent = cUser.name.charAt(0);
+    drAv.className = 'av';
+    drName.textContent = cUser.name.split(' ').slice(0,2).join(' ');
+    drRole.textContent = LN(cUser.level)+' — '+cUser.division+' — '+SN(cSemester);
+    nav.innerHTML = `
       <div class="sl2" onclick="uNav('home');closeDrawer()"><span class="ic"><i class="fas fa-home"></i></span> الرئيسية</div>
       <div class="sl2" onclick="uNav('content');closeDrawer()"><span class="ic"><i class="fas fa-book-open"></i></span> المحتوى</div>
       <div class="sl2" onclick="uNav('chat');closeDrawer()"><span class="ic"><i class="fas fa-comments"></i></span> الشات</div>
       <div class="sl2" onclick="uNav('profile');closeDrawer()"><span class="ic"><i class="fas fa-user"></i></span> ملفي الشخصي</div>`;
   }
-  if(mode==='admin'&&cAdmin){
-    drAv.textContent=cAdmin.name.charAt(0);
-    drAv.className='av blue';
-    drName.textContent=cAdmin.name.split(' ').slice(0,2).join(' ');
-    drRole.textContent='مدير النظام';
-    nav.innerHTML=`
+  if (mode==='admin' && cAdmin) {
+    drAv.textContent = cAdmin.name.charAt(0);
+    drAv.className = 'av blue';
+    drName.textContent = cAdmin.name.split(' ').slice(0,2).join(' ');
+    drRole.textContent = 'مدير النظام';
+    nav.innerHTML = `
       <div class="ssl">الرئيسية</div>
       <div class="sl2" onclick="aN('dash');closeDrawer()"><span class="ic"><i class="fas fa-chart-line"></i></span> لوحة التحكم</div>
       <div class="ssl">الفرق</div>
-      <div class="sl2" onclick="aN('l1');closeDrawer()"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الأولى</div>
-      <div class="sl2" onclick="aN('l2');closeDrawer()"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الثانية</div>
-      <div class="sl2" onclick="aN('l3');closeDrawer()"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الثالثة</div>
-      <div class="sl2" onclick="aN('l4');closeDrawer()"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة الرابعة</div>
+      ${[1,2,3,4].map(l=>`<div class="sl2" onclick="aN('l${l}');closeDrawer()"><span class="ic"><i class="fas fa-layer-group"></i></span> الفرقة ${['الأولى','الثانية','الثالثة','الرابعة'][l-1]}</div>`).join('')}
       <div class="ssl">الإدارة</div>
       <div class="sl2" onclick="aN('users');closeDrawer()"><span class="ic"><i class="fas fa-users"></i></span> الطلاب</div>
       <div class="sl2" onclick="aN('admins');closeDrawer()"><span class="ic"><i class="fas fa-user-shield"></i></span> المشرفون</div>
@@ -717,95 +1236,133 @@ function openDrawer(mode){
   document.getElementById('drawer-overlay').classList.remove('hidden');
   document.getElementById('drawer').classList.remove('hidden');
 }
-function closeDrawer(){
+function closeDrawer() {
   document.getElementById('drawer-overlay').classList.add('hidden');
   document.getElementById('drawer').classList.add('hidden');
 }
 
-// ══════════ AUTH ══════════
-function swAuth(t){
-  document.getElementById('fl').classList.toggle('hidden',t!=='login');
-  document.getElementById('fr').classList.toggle('hidden',t!=='register');
-  document.getElementById('tl').classList.toggle('active',t==='login');
-  document.getElementById('tr').classList.toggle('active',t==='register');
-}
-function doLogin(){
-  const ph=document.getElementById('lph').value.trim();
-  const ps=document.getElementById('lps').value.trim();
-  const u=DB.users.find(x=>x.phone===ph&&x.pass===ps);
-  if(!u){toast('بيانات غير صحيحة','e');return;}
-  cUser=u;loadUser();toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
-}
-function doReg(){
-  const n=document.getElementById('rn').value.trim();
-  const ph=document.getElementById('rph').value.trim();
-  const ps=document.getElementById('rps').value.trim();
-  const ps2=document.getElementById('rps2').value.trim();
-  const lv=document.getElementById('rlv').value;
-  const dv=document.getElementById('rdv').value;
-  if(n.split(' ').length<4){toast('أدخل الاسم الرباعي كاملاً','e');return;}
-  if(!ph||ph.length<11){toast('رقم هاتف غير صحيح','e');return;}
-  if(ps.length<6){toast('كلمة المرور 6 أحرف على الأقل','e');return;}
-  if(ps!==ps2){toast('كلمتا المرور غير متطابقتان','e');return;}
-  if(!lv){toast('اختر الفرقة الدراسية','e');return;}
-  if(!dv){toast('اختر الشعبة','e');return;}
-  if(DB.users.find(x=>x.phone===ph)){toast('رقم الهاتف مسجل مسبقاً','e');return;}
-  const u={id:nid(),name:n,phone:ph,pass:ps,level:parseInt(lv),division:dv,joined:td(),active:true};
-  DB.users.push(u);cUser=u;loadUser();toast('تم إنشاء حسابك 🎉','s');
-}
-function openAdminLogin(){openM('alm');}
-function doAdminLogin(){
-  const ph=document.getElementById('alph').value.trim();
-  const ps=document.getElementById('alps').value.trim();
-  const a=DB.admins.find(x=>x.phone===ph&&x.pass===ps);
-  if(!a){toast('بيانات غير صحيحة','e');return;}
-  cAdmin=a;cm('alm');loadAdmin();toast('مرحباً '+a.name.split(' ')[0]+' 👋','s');
+// ══════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════
+function swAuth(t) {
+  document.getElementById('fl').classList.toggle('hidden', t!=='login');
+  document.getElementById('fr').classList.toggle('hidden', t!=='register');
+  document.getElementById('tl').classList.toggle('active', t==='login');
+  document.getElementById('tr').classList.toggle('active', t==='register');
 }
 
-// ══════════ USER DASHBOARD ══════════
-function loadUser(){
+function doLogin() {
+  const ph = document.getElementById('lph').value.trim();
+  const ps = document.getElementById('lps').value.trim();
+  const u = dbFindUser(ph, ps);
+  if (!u) { toast('بيانات غير صحيحة','e'); return; }
+  if (!u.active && u.active !== 1) { toast('الحساب معطّل','e'); return; }
+  cUser = u;
+  cSemester = u.semester || 1;
+  loadUser();
+  toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
+}
+
+function doReg() {
+  const n = document.getElementById('rn').value.trim();
+  const ph = document.getElementById('rph').value.trim();
+  const ps = document.getElementById('rps').value.trim();
+  const ps2 = document.getElementById('rps2').value.trim();
+  const lv = document.getElementById('rlv').value;
+  const dv = document.getElementById('rdv').value;
+  const sem = document.getElementById('rsem').value;
+  if (n.split(' ').length < 4) { toast('أدخل الاسم الرباعي كاملاً','e'); return; }
+  if (!ph || ph.length < 11) { toast('رقم هاتف غير صحيح','e'); return; }
+  if (ps.length < 6) { toast('كلمة المرور 6 أحرف على الأقل','e'); return; }
+  if (ps !== ps2) { toast('كلمتا المرور غير متطابقتان','e'); return; }
+  if (!lv) { toast('اختر الفرقة الدراسية','e'); return; }
+  if (!dv) { toast('اختر الشعبة','e'); return; }
+  // Check duplicate
+  const existing = dbFindUser(ph, ps) || dbGetAll && dbGetAll(`SELECT id FROM users WHERE phone=?`, [ph])?.[0];
+  if (isSQL()) {
+    const ex = dbGet(`SELECT id FROM users WHERE phone=?`, [ph]);
+    if (ex) { toast('رقم الهاتف مسجل مسبقاً','e'); return; }
+  } else {
+    if (FB?.users.find(x=>x.phone===ph)) { toast('رقم الهاتف مسجل مسبقاً','e'); return; }
+  }
+  const uid = dbAddUser(n, ph, ps, parseInt(lv), dv, parseInt(sem));
+  cUser = dbFindUser(ph, ps) || {id:uid,name:n,phone:ph,level:parseInt(lv),division:dv,semester:parseInt(sem),active:1};
+  cSemester = parseInt(sem);
+  // تحديث عداد الطلاب في صفحة الهبوط فوراً
+  updateLandingStats();
+  loadUser();
+  dbLog(`تسجيل جديد: ${n}`, 'ok');
+  toast('تم إنشاء حسابك 🎉','s');
+}
+
+function openAdminLogin() { openM('alm'); }
+function doAdminLogin() {
+  const ph = document.getElementById('alph').value.trim();
+  const ps = document.getElementById('alps').value.trim();
+  const a = dbFindAdmin(ph, ps);
+  if (!a) { toast('بيانات غير صحيحة','e'); return; }
+  cAdmin = a; cm('alm'); loadAdmin();
+  toast('مرحباً '+a.name.split(' ')[0]+' 👋','s');
+}
+
+// ══════════════════════════════════════════
+//  USER DASHBOARD
+// ══════════════════════════════════════════
+function loadUser() {
   showPage('u');
-  const u=cUser,ini=u.name.charAt(0);
-  document.getElementById('uavt').textContent=ini;
-  document.getElementById('ugn').textContent=u.name.split(' ')[0];
-  document.getElementById('pavatar').textContent=ini;
-  document.getElementById('pname').textContent=u.name;
-  document.getElementById('pphone').textContent=u.phone;
-  document.getElementById('plvl').textContent=LN(u.level)+' — '+u.division;
-  document.getElementById('en').value=u.name;
-  document.getElementById('eph').value=u.phone;
-  document.getElementById('elv').value=u.level;
-  document.getElementById('edv').value=u.division;
-  cLvl=u.level;
-  renderLvlSel();renderCTypes();loadUChat();
+  const u = cUser, ini = u.name.charAt(0);
+  document.getElementById('uavt').textContent = ini;
+  document.getElementById('ugn').textContent = u.name.split(' ')[0];
+  document.getElementById('pavatar').textContent = ini;
+  document.getElementById('pname').textContent = u.name;
+  document.getElementById('pphone').textContent = u.phone;
+  document.getElementById('plvl').textContent = LN(u.level)+' — '+u.division;
+  document.getElementById('en').value = u.name;
+  document.getElementById('eph').value = u.phone;
+  document.getElementById('elv').value = u.level;
+  document.getElementById('edv').value = u.division;
+  cLvl = u.level;
+  // Sync semester buttons
+  uSelSem(cSemester);
+  renderLvlSel();
+  renderCTypes();
+  loadUChat();
 }
 
-function renderLvlSel(){
-  const c=document.getElementById('ulvlsel');
-  c.innerHTML=[1,2,3,4].map(l=>`
+function renderLvlSel() {
+  const c = document.getElementById('ulvlsel');
+  c.innerHTML = [1,2,3,4].map(l => `
     <div class="lvlbtn${l===cLvl?' active':''}" onclick="selLvl(${l},this)">
       <div class="n">${['١','٢','٣','٤'][l-1]}</div>
       <div class="nm">${['أولى','ثانية','ثالثة','رابعة'][l-1]}</div>
     </div>`).join('');
 }
-function selLvl(l,el){
-  cLvl=l;
-  document.querySelectorAll('.lvlbtn').forEach(b=>b.classList.remove('active'));
-  if(el)el.classList.add('active');
+
+function selLvl(l, el) {
+  cLvl = l;
+  document.querySelectorAll('.lvlbtn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
   renderCTypes();
 }
-function renderCTypes(){
-  const s=DB.subjects[cLvl]||[];
-  let lw=0,lv=0,sw=0,sv=0,qb=0;
-  s.forEach(x=>{lw+=x.content.lw.length;lv+=x.content.lv.length;sw+=x.content.sw.length;sv+=x.content.sv.length;qb+=x.content.qb.length;});
-  const types=[
+
+function renderCTypes() {
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  let lw=0, lv=0, sw=0, sv=0, qb=0;
+  subjs.forEach(s => {
+    lw += dbGetContent(s.id,'lw').length;
+    lv += dbGetContent(s.id,'lv').length;
+    sw += dbGetContent(s.id,'sw').length;
+    sv += dbGetContent(s.id,'sv').length;
+    qb += dbGetQuestions(s.id).length;
+  });
+  const types = [
     {k:'lw',icon:'📖',bg:'rgba(212,175,55,.13)',name:'محاضرات مكتوبة',sub:'PDF وملفات',cnt:lw},
     {k:'lv',icon:'🎥',bg:'rgba(0,212,255,.12)',name:'محاضرات مصورة',sub:'فيديوهات',cnt:lv},
     {k:'sw',icon:'✏️',bg:'rgba(255,107,53,.12)',name:'سكاشن مكتوبة',sub:'مراجعات',cnt:sw},
     {k:'sv',icon:'🎞️',bg:'rgba(0,200,150,.12)',name:'سكاشن مصورة',sub:'شرح مرئي',cnt:sv},
     {k:'qb',icon:'❓',bg:'rgba(160,80,200,.12)',name:'بنك الأسئلة',sub:'اختبر نفسك',cnt:qb},
   ];
-  document.getElementById('uctypes').innerHTML=types.map(t=>`
+  document.getElementById('uctypes').innerHTML = types.map(t => `
     <div class="ctcard" onclick="uNav('content');setTimeout(()=>swCType('${t.k}'),50)">
       <div class="cticon" style="background:${t.bg}">${t.icon}</div>
       <div style="flex:1"><div class="ctname">${t.name}</div><div class="ctsub">${t.sub}</div></div>
@@ -813,51 +1370,73 @@ function renderCTypes(){
     </div>`).join('');
 }
 
-function uNav(pg,btnEl){
-  ['uh','uco','ucht','upr'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-  const map={home:'uh',content:'uco',chat:'ucht',profile:'upr'};
+function uNav(pg, btnEl) {
+  ['uh','uco','ucht','upr'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  const map = {home:'uh',content:'uco',chat:'ucht',profile:'upr'};
   document.getElementById(map[pg]).classList.remove('hidden');
-  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
-  const bid=document.getElementById('bn-'+pg);
-  if(bid)bid.classList.add('active');
-  const titles={home:'لوحة الطالب',content:'المحتوى',chat:'الشات',profile:'ملفي الشخصي'};
-  document.getElementById('uptitle').textContent=titles[pg]||'';
-  if(pg==='content')renderUContent();
-  if(pg==='chat'){scrollCh('uchatmsgs');}
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  const bid = document.getElementById('bn-'+pg);
+  if (bid) bid.classList.add('active');
+  const titles = {home:'لوحة الطالب',content:'المحتوى',chat:'الشات',profile:'ملفي الشخصي'};
+  document.getElementById('uptitle').textContent = titles[pg] || '';
+  if (pg==='content') renderUContent();
+  if (pg==='chat') scrollCh('uchatmsgs');
+  if (pg==='profile') {
+    // Sync profile sem buttons
+    ['esb1','esb2'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      const n=parseInt(id.replace(/\D/g,'').slice(-1));
+      el.classList.toggle('active', n===cSemester);
+    });
+  }
 }
 
-function swCType(t){
-  cCType=t;
-  const tabs=document.getElementById('ucontenttabs');
-  if(tabs){tabs.querySelectorAll('.stab').forEach(b=>b.classList.toggle('active',b.dataset.t===t));}
-  const names={lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
-  document.getElementById('ucbct').textContent=names[t]||'';
+function swCType(t) {
+  cCType = t;
+  const tabs = document.getElementById('ucontenttabs');
+  if (tabs) tabs.querySelectorAll('.stab').forEach(b => b.classList.toggle('active', b.dataset.t===t));
+  const names = {lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
+  document.getElementById('ucbct').textContent = names[t] || '';
   renderUContent();
 }
 
-function renderUContent(){
-  // build type tabs
-  const tabsEl=document.getElementById('ucontenttabs');
-  const types=[{k:'lw',l:'📖 مكتوبة'},{k:'lv',l:'🎥 مصورة'},{k:'sw',l:'✏️ سكاشن'},{k:'sv',l:'🎞️ سكاشن مرئي'},{k:'qb',l:'❓ أسئلة'}];
-  tabsEl.innerHTML=types.map(t=>`<span class="stab${t.k===cCType?' active':''}" data-t="${t.k}" onclick="swCType('${t.k}')">${t.l}</span>`).join('');
+function renderUContent() {
+  // Sync content view sem buttons
+  ['cob1','cob2'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    const n=parseInt(id.replace(/\D/g,'').slice(-1));
+    el.classList.toggle('active', n===cSemester);
+  });
+  const tabsEl = document.getElementById('ucontenttabs');
+  const types = [{k:'lw',l:'📖 مكتوبة'},{k:'lv',l:'🎥 مصورة'},{k:'sw',l:'✏️ سكاشن'},{k:'sv',l:'🎞️ سكاشن مرئي'},{k:'qb',l:'❓ أسئلة'}];
+  tabsEl.innerHTML = types.map(t => `<span class="stab${t.k===cCType?' active':''}" data-t="${t.k}" onclick="swCType('${t.k}')">${t.l}</span>`).join('');
 
-  const subjs=DB.subjects[cLvl]||[];
-  const c=document.getElementById('usubjects-view');
-  if(!subjs.length){c.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>لا يوجد محتوى في هذه الفرقة بعد</p></div>`;return;}
-  const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
-  c.innerHTML='<div class="subj-list">'+subjs.map(s=>{
-    const items=s.content[cCType]||[];
-    const body=cCType==='qb'
-      ?items.map(it=>renderQ(it,false)).join('') || `<div class="empty-subj">لا يوجد محتوى</div>`
-      :items.map(it=>`
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  const c = document.getElementById('usubjects-view');
+  if (!subjs.length) {
+    c.innerHTML = `<div class="empty-state"><div class="ei">📭</div><p>لا يوجد محتوى في هذه الفرقة (${SN(cSemester)}) بعد</p></div>`;
+    return;
+  }
+  const icons = {lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
+  c.innerHTML = '<div class="subj-list">' + subjs.map(s => {
+    let body = '';
+    if (cCType === 'qb') {
+      const qs = dbGetQuestions(s.id);
+      body = qs.length ? qs.map(it => renderQ(it, false)).join('') : `<div class="empty-subj">لا يوجد محتوى</div>`;
+    } else {
+      const items = dbGetContent(s.id, cCType);
+      body = items.length ? items.map(it => `
         <div class="ci" style="margin-top:9px">
           <div class="cii" style="background:rgba(212,175,55,.1)">${icons[cCType]}</div>
-          <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.size||''}</div></div>
+          <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.file_size||''}</div></div>
           <div class="cia">
-            <button class="btn btn-xs btn-accent" onclick="viewItem(${it.id})"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-xs btn-outline" onclick="dlItem(${it.id})"><i class="fas fa-download"></i></button>
+            <button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>
           </div>
-        </div>`).join('') || `<div class="empty-subj">لا يوجد محتوى</div>`;
+        </div>`).join('') : `<div class="empty-subj">لا يوجد محتوى</div>`;
+    }
     return `<div class="subj-item">
       <div class="subj-hdr" onclick="this.nextElementSibling.classList.toggle('hidden')">
         <div style="font-size:20px">📚</div>
@@ -867,19 +1446,22 @@ function renderUContent(){
       </div>
       <div class="subj-body hidden">${body}</div>
     </div>`;
-  }).join('')+'</div>';
+  }).join('') + '</div>';
 }
 
-// ══════════ CHAT ══════════
-function renderChat(cid,isAdmin){
-  const c=document.getElementById(cid);
-  if(!c)return;
-  c.innerHTML=DB.messages.map(m=>{
-    const own=isAdmin?m.isAdmin:(cUser&&m.uid===cUser.id);
+// ══════════════════════════════════════════
+//  CHAT
+// ══════════════════════════════════════════
+function renderChat(cid, isAdmin) {
+  const c = document.getElementById(cid);
+  if (!c) return;
+  const msgs = dbGetMessages();
+  c.innerHTML = msgs.map(m => {
+    const own = isAdmin ? m.is_admin : (cUser && m.user_id === cUser.id);
     return `<div class="chmsg${own?' own':''}">
-      <div class="chmav" style="${m.isAdmin?'background:linear-gradient(135deg,var(--accent),#0090CC)':''}">${m.av}</div>
+      <div class="chmav" style="${m.is_admin?'background:linear-gradient(135deg,var(--accent),#0090CC)':''}">${m.user_av}</div>
       <div>
-        ${!own?`<div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:700">${m.user}</div>`:''}
+        ${!own?`<div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:700">${m.user_name}</div>`:''}
         <div class="chmbub">${m.text}</div>
         <div style="display:flex;align-items:center;gap:6px">
           <div class="chmtime">${m.time}</div>
@@ -889,44 +1471,59 @@ function renderChat(cid,isAdmin){
     </div>`;
   }).join('');
   scrollCh(cid);
-  const tm=document.getElementById('totmsgs');if(tm)tm.textContent=DB.messages.length;
-}
-function scrollCh(id){setTimeout(()=>{const e=document.getElementById(id);if(e)e.scrollTop=e.scrollHeight;},50);}
-function loadUChat(){renderChat('uchatmsgs',false);}
-function uSend(){
-  const inp=document.getElementById('uchatinp'),t=inp.value.trim();
-  if(!t)return;
-  const now=new Date();
-  DB.messages.push({id:nid(),uid:cUser.id,user:cUser.name.split(' ')[0],av:cUser.name.charAt(0),text:t,time:`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`,isAdmin:false});
-  inp.value='';renderChat('uchatmsgs',false);
-  const ac=document.getElementById('achatmsgs');if(ac)renderChat('achatmsgs',true);
-}
-function aSend(){
-  const inp=document.getElementById('achatinp'),t=inp.value.trim();
-  if(!t)return;
-  const now=new Date();
-  DB.messages.push({id:nid(),uid:0,user:'المشرف',av:'م',text:t,time:`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`,isAdmin:true});
-  inp.value='';renderChat('achatmsgs',true);
-}
-function delMsg(id){
-  const i=DB.messages.findIndex(m=>m.id===id);
-  if(i!==-1){DB.messages.splice(i,1);renderChat('achatmsgs',true);toast('تم حذف الرسالة','s');}
 }
 
-// ══════════ PROFILE ══════════
-function saveProf(){
-  const n=document.getElementById('en').value.trim();
-  if(!n){toast('أدخل الاسم','e');return;}
-  cUser.name=n;cUser.phone=document.getElementById('eph').value.trim();
-  cUser.level=parseInt(document.getElementById('elv').value);
-  cUser.division=document.getElementById('edv').value;
-  const u=DB.users.find(x=>x.id===cUser.id);
-  if(u){u.name=n;u.phone=cUser.phone;u.level=cUser.level;u.division=cUser.division;}
-  loadUser();toast('تم حفظ التغييرات','s');
+function scrollCh(id) { setTimeout(() => { const e=document.getElementById(id); if(e)e.scrollTop=e.scrollHeight; }, 50); }
+function loadUChat() { renderChat('uchatmsgs', false); }
+
+function uSend() {
+  const inp = document.getElementById('uchatinp'), t = inp.value.trim();
+  if (!t) return;
+  const now = new Date();
+  const time = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  dbAddMessage(cUser.id, cUser.name.split(' ')[0], cUser.name.charAt(0), t, time, false);
+  inp.value = '';
+  renderChat('uchatmsgs', false);
+  const ac = document.getElementById('achatmsgs');
+  if (ac) renderChat('achatmsgs', true);
+  const tm = document.getElementById('dstm'); if(tm) tm.textContent = dbCountMessages();
 }
 
-// ══════════ ADMIN PANEL ══════════
-const aNavItems=[
+function aSend() {
+  const inp = document.getElementById('achatinp'), t = inp.value.trim();
+  if (!t) return;
+  const now = new Date();
+  const time = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  dbAddMessage(0, 'المشرف', 'م', t, time, true);
+  inp.value = '';
+  renderChat('achatmsgs', true);
+}
+
+function delMsg(id) {
+  dbDeleteMessage(id);
+  renderChat('achatmsgs', true);
+  toast('تم حذف الرسالة','s');
+}
+
+// ══════════════════════════════════════════
+//  PROFILE
+// ══════════════════════════════════════════
+function saveProf() {
+  const n = document.getElementById('en').value.trim();
+  if (!n) { toast('أدخل الاسم','e'); return; }
+  const phone = document.getElementById('eph').value.trim();
+  const level = parseInt(document.getElementById('elv').value);
+  const division = document.getElementById('edv').value;
+  dbUpdateUser(cUser.id, n, phone, level, division, cSemester);
+  cUser.name = n; cUser.phone = phone; cUser.level = level; cUser.division = division; cUser.semester = cSemester;
+  loadUser();
+  toast('تم حفظ التغييرات','s');
+}
+
+// ══════════════════════════════════════════
+//  ADMIN PANEL
+// ══════════════════════════════════════════
+const aNavItems = [
   {id:'dash',icon:'fa-chart-line',label:'لوحة التحكم'},
   {id:'l1',icon:'fa-layer-group',label:'فرقة 1'},
   {id:'l2',icon:'fa-layer-group',label:'فرقة 2'},
@@ -938,9 +1535,9 @@ const aNavItems=[
   {id:'settings',icon:'fa-cog',label:'الإعدادات'},
 ];
 
-function loadAdmin(){
+function loadAdmin() {
   showPage('adm');
-  document.getElementById('ahnav').innerHTML=aNavItems.map(it=>`
+  document.getElementById('ahnav').innerHTML = aNavItems.map(it => `
     <button class="ahnav-btn${it.id==='dash'?' active':''}" id="ahnb-${it.id}" onclick="aN('${it.id}')">
       <i class="fas ${it.icon}"></i> ${it.label}
     </button>`).join('');
@@ -948,108 +1545,137 @@ function loadAdmin(){
   loadAdminSettings();
 }
 
-function aN(pg){
-  ['adash','alevel','ausers','aadmins','aachat','asettings'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-  document.querySelectorAll('.ahnav-btn').forEach(b=>b.classList.remove('active'));
-  const lmap={l1:1,l2:2,l3:3,l4:4};
-  const map={dash:'adash',l1:'alevel',l2:'alevel',l3:'alevel',l4:'alevel',users:'ausers',admins:'aadmins',achat:'aachat',settings:'asettings'};
-  const el=document.getElementById(map[pg]);if(el)el.classList.remove('hidden');
-  const nb=document.getElementById('ahnb-'+pg);if(nb){nb.classList.add('active');nb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
-  const titles={dash:'لوحة التحكم',users:'الطلاب',admins:'المشرفون',achat:'الشات',settings:'الإعدادات'};
-  if(lmap[pg]){
-    cLvl=lmap[pg];
-    const ln=LN(cLvl);
-    document.getElementById('alvlbc').textContent=ln;
-    document.getElementById('alvlname').textContent=ln;
-    document.getElementById('aptitle').textContent=ln;
-    renderAdminSubjs();return;
+function aN(pg) {
+  ['adash','alevel','ausers','aadmins','aachat','asettings'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.querySelectorAll('.ahnav-btn').forEach(b => b.classList.remove('active'));
+  const lmap = {l1:1,l2:2,l3:3,l4:4};
+  const map = {dash:'adash',l1:'alevel',l2:'alevel',l3:'alevel',l4:'alevel',users:'ausers',admins:'aadmins',achat:'aachat',settings:'asettings'};
+  const el = document.getElementById(map[pg]); if(el) el.classList.remove('hidden');
+  const nb = document.getElementById('ahnb-'+pg);
+  if (nb) { nb.classList.add('active'); nb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  const titles = {dash:'لوحة التحكم',users:'الطلاب',admins:'المشرفون',achat:'الشات',settings:'الإعدادات'};
+  if (lmap[pg]) {
+    cLvl = lmap[pg];
+    const ln = LN(cLvl);
+    document.getElementById('alvlbc').textContent = ln;
+    document.getElementById('alvlname').textContent = ln;
+    document.getElementById('aptitle').textContent = ln;
+    const badge = document.getElementById('alvlsem');
+    if (badge) badge.textContent = SN(cSemester);
+    renderAdminSubjs(); return;
   }
-  document.getElementById('aptitle').textContent=titles[pg]||'';
-  if(pg==='dash'){updStats();renderDashUsers();}
-  if(pg==='users')renderUsers();
-  if(pg==='admins')renderAdmins();
-  if(pg==='achat')renderChat('achatmsgs',true);
+  document.getElementById('aptitle').textContent = titles[pg] || '';
+  if (pg==='dash') { updStats(); renderDashUsers(); }
+  if (pg==='users') renderUsers();
+  if (pg==='admins') renderAdmins();
+  if (pg==='achat') renderChat('achatmsgs', true);
 }
 
-function updStats(){
-  document.getElementById('dstu').textContent=DB.users.length;
-  let subjs=0,files=0;
-  [1,2,3,4].forEach(l=>{subjs+=DB.subjects[l].length;DB.subjects[l].forEach(s=>Object.values(s.content).forEach(a=>files+=a.length));});
-  document.getElementById('dstf').textContent=subjs;
-  document.getElementById('dstc').textContent=files;
-  document.getElementById('dstm').textContent=DB.messages.length;
+function updStats() {
+  document.getElementById('dstu').textContent = dbCountUsers();
+  document.getElementById('dstf').textContent = dbCountSubjects();
+  document.getElementById('dstc').textContent = dbCountContent();
+  document.getElementById('dstm').textContent = dbCountMessages();
 }
 
-function renderDashUsers(){
-  const c=document.getElementById('dusers');
-  if(!DB.users.length){c.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب بعد</div>';return;}
-  c.innerHTML=`<div class="tscroll"><table><thead><tr><th>الطالب</th><th>الفرقة</th><th>الشعبة</th><th>الحالة</th></tr></thead><tbody>
-  ${DB.users.slice(-6).reverse().map(u=>`<tr>
+function renderDashUsers() {
+  const c = document.getElementById('dusers');
+  const users = dbGetUsers();
+  if (!users.length) { c.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب بعد</div>'; return; }
+  c.innerHTML = `<div class="tscroll"><table><thead><tr><th>الطالب</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th></tr></thead><tbody>
+  ${users.slice(0,6).map(u=>`<tr>
     <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
     <td><span class="badge bg">${LN(u.level).replace('الفرقة ','')}</span></td>
     <td><span class="badge ba">${u.division}</span></td>
-    <td><span class="badge ${u.active?'bs':'bd'}">${u.active?'نشط':'معطّل'}</span></td>
+    <td><span class="badge bsem">${SN(u.semester||1)}</span></td>
+    <td><span class="badge ${(u.active||u.active===1)?'bs':'bd'}">${(u.active||u.active===1)?'نشط':'معطّل'}</span></td>
   </tr>`).join('')}</tbody></table></div>`;
 }
 
-function renderUsers(f=''){
-  const list=f?DB.users.filter(u=>u.name.includes(f)||u.phone.includes(f)):DB.users;
-  const tbody=document.getElementById('utbody');
-  if(!list.length){tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:22px;color:var(--muted)">لا يوجد طلاب</td></tr>`;return;}
-  tbody.innerHTML=list.map(u=>`<tr>
+function renderUsers(f='') {
+  const list = dbGetUsers(f);
+  const tbody = document.getElementById('utbody');
+  if (!list.length) { tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:22px;color:var(--muted)">لا يوجد طلاب</td></tr>`; return; }
+  tbody.innerHTML = list.map(u => `<tr>
     <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
     <td>${u.phone}</td>
     <td><span class="badge bg">${LN(u.level).replace('الفرقة ','')}</span></td>
     <td><span class="badge ba">${u.division}</span></td>
-    <td><span class="badge ${u.active?'bs':'bd'}">${u.active?'نشط':'معطّل'}</span></td>
+    <td><span class="badge bsem">${SN(u.semester||1)}</span></td>
+    <td><span class="badge ${(u.active||u.active===1)?'bs':'bd'}">${(u.active||u.active===1)?'نشط':'معطّل'}</span></td>
     <td>
-      <button class="btn btn-xs" style="background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.28);margin-bottom:4px" onclick="togUser(${u.id})">${u.active?'تعطيل':'تفعيل'}</button>
+      <button class="btn btn-xs" style="background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.28);margin-bottom:4px" onclick="togUser(${u.id})">${(u.active||u.active===1)?'تعطيل':'تفعيل'}</button>
       <button class="btn btn-xs btn-danger" onclick="delUser(${u.id})"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
-function filterU(v){renderUsers(v);}
-function togUser(id){const u=DB.users.find(x=>x.id===id);if(u){u.active=!u.active;renderUsers();updStats();toast(`تم ${u.active?'تفعيل':'تعطيل'} الحساب`,'s');}}
-function delUser(id){if(!confirm('تأكيد الحذف؟'))return;const i=DB.users.findIndex(x=>x.id===id);if(i!==-1){DB.users.splice(i,1);renderUsers();updStats();toast('تم الحذف','s');}}
 
-function renderAdmins(){
-  const tbody=document.getElementById('atbody');
-  tbody.innerHTML=DB.admins.map(a=>`<tr>
+function filterU(v) { renderUsers(v); }
+function togUser(id) {
+  const nv = dbToggleUser(id);
+  renderUsers(); updStats();
+  toast(`تم ${nv?'تفعيل':'تعطيل'} الحساب`,'s');
+}
+function delUser(id) {
+  if (!confirm('تأكيد الحذف؟')) return;
+  dbDeleteUser(id); renderUsers(); updStats();
+  toast('تم الحذف','s');
+}
+
+function renderAdmins() {
+  const tbody = document.getElementById('atbody');
+  const admins = dbGetAdmins();
+  tbody.innerHTML = admins.map(a => `<tr>
     <td><div class="tdf"><div class="av sm blue">${a.name.charAt(0)}</div>${a.name.split(' ').slice(0,2).join(' ')}</div></td>
     <td>${a.phone}</td>
     <td><div style="display:flex;gap:4px;flex-wrap:wrap">${a.perms.slice(0,2).map(p=>`<span class="badge ba" style="font-size:10px">${pL(p)}</span>`).join('')}${a.perms.length>2?`<span class="badge bg" style="font-size:10px">+${a.perms.length-2}</span>`:''}</div></td>
     <td>${a.id===cAdmin?.id?'<span class="badge bg">أنت</span>':`<button class="btn btn-xs btn-danger" onclick="delAdmin(${a.id})"><i class="fas fa-trash"></i></button>`}</td>
   </tr>`).join('');
 }
-const pL=p=>({view:'عرض',upload:'رفع',delete:'حذف',users:'طلاب',chat:'شات',settings:'إعدادات'}[p]||p);
-function delAdmin(id){if(!confirm('تأكيد الحذف؟'))return;const i=DB.admins.findIndex(x=>x.id===id);if(i!==-1){DB.admins.splice(i,1);renderAdmins();toast('تم الحذف','s');}}
-function openAddAdmin(){openM('aaModal');}
-function tPerm(el){el.querySelector('.pchk').classList.toggle('on');}
-function submitAdmin(){
+const pL = p => ({view:'عرض',upload:'رفع',delete:'حذف',users:'طلاب',chat:'شات',settings:'إعدادات'}[p]||p);
+function delAdmin(id) {
+  if (!confirm('تأكيد الحذف؟')) return;
+  dbDeleteAdmin(id); renderAdmins(); toast('تم الحذف','s');
+}
+function openAddAdmin() { openM('aaModal'); }
+function tPerm(el) { el.querySelector('.pchk').classList.toggle('on'); }
+function submitAdmin() {
   const n=document.getElementById('aan').value.trim();
   const ph=document.getElementById('aaph').value.trim();
   const ps=document.getElementById('aaps').value.trim();
-  if(!n||!ph||!ps){toast('أكمل البيانات','e');return;}
-  const perms=Array.from(document.querySelectorAll('#pgrid .pchk.on')).map(el=>el.nextElementSibling.dataset.p);
-  DB.admins.push({id:nid(),name:n,phone:ph,pass:ps,perms,joined:td()});
-  cm('aaModal');renderAdmins();toast('تم إضافة المشرف','s');
+  if (!n||!ph||!ps) { toast('أكمل البيانات','e'); return; }
+  const perms = Array.from(document.querySelectorAll('#pgrid .pchk.on')).map(el=>el.nextElementSibling.dataset.p);
+  dbAddAdmin(n,ph,ps,perms);
+  cm('aaModal'); renderAdmins(); toast('تم إضافة المشرف','s');
 }
 
-// ══════════ SUBJECTS ══════════
-function openAddSubj(){openM('asmModal');document.getElementById('subjname').value='';document.getElementById('subjcode').value='';}
-function addSubject(){
-  const name=document.getElementById('subjname').value.trim();
-  if(!name){toast('أدخل اسم المادة','e');return;}
-  DB.subjects[cLvl].push({id:nid(),name,code:document.getElementById('subjcode').value.trim(),content:{lw:[],lv:[],sw:[],sv:[],qb:[]}});
-  cm('asmModal');renderAdminSubjs();updStats();toast('تم إضافة المادة','s');
+// ══════════════════════════════════════════
+//  SUBJECTS
+// ══════════════════════════════════════════
+function openAddSubj() {
+  openM('asmModal');
+  document.getElementById('subjname').value='';
+  document.getElementById('subjcode').value='';
 }
 
-function renderAdminSubjs(){
-  const subjs=DB.subjects[cLvl]||[];
-  const c=document.getElementById('subjlist');
-  if(!subjs.length){c.innerHTML=`<div class="empty-state"><div class="ei">📚</div><p>لا توجد مواد — اضغط "مادة" للإضافة</p></div>`;return;}
-  const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
-  c.innerHTML=subjs.map(s=>`
+function addSubject() {
+  const name = document.getElementById('subjname').value.trim();
+  if (!name) { toast('أدخل اسم المادة','e'); return; }
+  const code = document.getElementById('subjcode').value.trim();
+  dbAddSubject(name, code, cLvl, cSemester);
+  cm('asmModal'); renderAdminSubjs(); updStats();
+  dbLog(`تم إضافة مادة: ${name} (فرقة ${cLvl} - ${SN(cSemester)})`, 'ok');
+  toast('تم إضافة المادة','s');
+}
+
+function renderAdminSubjs() {
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  const c = document.getElementById('subjlist');
+  if (!subjs.length) {
+    c.innerHTML=`<div class="empty-state"><div class="ei">📚</div><p>لا توجد مواد في ${SN(cSemester)} — اضغط "مادة" للإضافة</p></div>`;
+    return;
+  }
+  c.innerHTML = subjs.map(s => `
     <div class="subj-item">
       <div class="subj-hdr" onclick="toggleSubj(this)">
         <div style="font-size:20px">📚</div>
@@ -1069,94 +1695,106 @@ function renderAdminSubjs(){
         </div>
         ${['lw','lv','sw','sv','qb'].map(t=>`
           <div id="sc-${s.id}-${t}" class="${t==='lw'?'':'hidden'}">
-            ${renderSubjC(s,t)}
+            ${renderSubjC(s.id,t)}
           </div>`).join('')}
       </div>
     </div>`).join('');
 }
 
-function toggleSubj(el){el.nextElementSibling.classList.toggle('hidden');}
+function toggleSubj(el) { el.nextElementSibling.classList.toggle('hidden'); }
 
-function swSubjTab(tab,sid,type){
-  const body=tab.closest('.subj-body');
+function swSubjTab(tab, sid, type) {
+  const body = tab.closest('.subj-body');
   body.querySelectorAll('.stab[data-sid]').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
   ['lw','lv','sw','sv','qb'].forEach(t=>{
     const e=document.getElementById(`sc-${sid}-${t}`);
-    if(e)e.classList.toggle('hidden',t!==type);
+    if(e) e.classList.toggle('hidden', t!==type);
   });
-  const addBtn=body.querySelector('.btn-gold');
-  if(addBtn)addBtn.onclick=function(){openUpload(sid,type);};
+  const addBtn = body.querySelector('.btn-gold');
+  if (addBtn) addBtn.onclick = function(){ openUpload(sid,type); };
 }
 
-function renderSubjC(s,type){
-  const items=s.content[type]||[];
-  if(!items.length)return`<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
-  if(type==='qb')return items.map(it=>renderQ(it,true)).join('');
-  const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
-  return items.map(it=>`
+function renderSubjC(sid, type) {
+  if (type === 'qb') {
+    const qs = dbGetQuestions(sid);
+    return qs.length ? qs.map(it=>renderQ(it,true,sid)).join('') : `<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
+  }
+  const items = dbGetContent(sid, type);
+  if (!items.length) return `<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
+  const icons = {lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
+  return items.map(it => `
     <div class="ci" style="margin-top:9px">
       <div class="cii" style="background:rgba(212,175,55,.1)">${icons[type]}</div>
-      <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.size||''}</div></div>
+      <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.file_size||''}</div></div>
       <div class="cia">
-        <button class="btn btn-xs btn-accent" onclick="viewItem(${it.id})"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-xs btn-outline" onclick="dlItem(${it.id})"><i class="fas fa-download"></i></button>
-        <button class="btn btn-xs btn-danger" onclick="delContent(${s.id},'${type}',${it.id})"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>
+        <button class="btn btn-xs btn-danger" onclick="delContentDB(${it.id})"><i class="fas fa-trash"></i></button>
       </div>
     </div>`).join('');
 }
 
-function renderQ(it,isAdmin){
+function renderQ(it, isAdmin, sid=null) {
+  const q = it.question || it.q;
+  const opts = it.opts || (it.options ? JSON.parse(it.options) : []);
+  const ans = it.answer || it.ans;
   return `<div class="qwrap">
-    <div style="font-size:13px;font-weight:700;margin-bottom:9px">${it.q}</div>
-    ${it.opts?it.opts.map(o=>`<div style="padding:8px 12px;border-radius:8px;margin-bottom:5px;font-size:12px;background:${o===it.ans?'rgba(0,200,150,.12)':'rgba(255,255,255,.04)'};border:1px solid ${o===it.ans?'rgba(0,200,150,.3)':'rgba(255,255,255,.07)'}">
-      ${o===it.ans?'✅ ':''} ${o}
-    </div>`).join(''):''}
-    ${isAdmin?`<button class="btn btn-xs btn-danger" style="margin-top:6px" onclick="delQ(${it.id})"><i class="fas fa-trash"></i> حذف</button>`:''}
+    <div style="font-size:13px;font-weight:700;margin-bottom:9px">${q}</div>
+    ${opts.map(o=>`<div style="padding:8px 12px;border-radius:8px;margin-bottom:5px;font-size:12px;background:${o===ans?'rgba(0,200,150,.12)':'rgba(255,255,255,.04)'};border:1px solid ${o===ans?'rgba(0,200,150,.3)':'rgba(255,255,255,.07)'}">
+      ${o===ans?'✅ ':''} ${o}
+    </div>`).join('')}
+    ${isAdmin?`<button class="btn btn-xs btn-danger" style="margin-top:6px" onclick="delQDB(${it.id})"><i class="fas fa-trash"></i> حذف</button>`:''}
   </div>`;
 }
 
-function delSubj(id){
-  if(!confirm('حذف المادة وكل محتواها؟'))return;
-  const i=DB.subjects[cLvl].findIndex(x=>x.id===id);
-  if(i!==-1){DB.subjects[cLvl].splice(i,1);renderAdminSubjs();updStats();toast('تم حذف المادة','s');}
+function delSubj(id) {
+  if (!confirm('حذف المادة وكل محتواها؟')) return;
+  dbDeleteSubject(id); renderAdminSubjs(); updStats();
+  toast('تم حذف المادة','s');
 }
-function delContent(sid,type,cid){
-  const s=DB.subjects[cLvl].find(x=>x.id===sid);if(!s)return;
-  const i=s.content[type].findIndex(x=>x.id===cid);
-  if(i!==-1){s.content[type].splice(i,1);renderAdminSubjs();updStats();toast('تم الحذف','s');}
+function delContentDB(id) {
+  dbDeleteContent(id); renderAdminSubjs(); updStats();
+  toast('تم الحذف','s');
 }
-function delQ(cid){
-  for(let l=1;l<=4;l++)for(const s of DB.subjects[l]){const i=s.content.qb.findIndex(x=>x.id===cid);if(i!==-1){s.content.qb.splice(i,1);renderAdminSubjs();return;}}
+function delQDB(id) {
+  dbDeleteQuestion(id); renderAdminSubjs();
+  toast('تم حذف السؤال','s');
 }
 
-// ══════════ UPLOAD ══════════
-function openUpload(sid,type){
-  _upSid=sid;_upType=type;selFiles=[];qCount=0;
-  document.getElementById('uptitle').value='';
+// ══════════════════════════════════════════
+//  UPLOAD
+// ══════════════════════════════════════════
+let _fileObj = null;
+function openUpload(sid, type) {
+  _upSid = sid; _upType = type; _fileObj = null; qCount = 0;
+  document.getElementById('uptitle2').value='';
   document.getElementById('updesc').value='';
   document.getElementById('ufpreview').innerHTML='';
   document.getElementById('qlist').innerHTML='';
-  const names={lw:'محاضرة مكتوبة',lv:'محاضرة مصورة',sw:'سكشن مكتوب',sv:'سكشن مصور',qb:'بنك الأسئلة'};
-  document.getElementById('upmtitle').textContent='إضافة: '+names[type];
-  document.getElementById('qbank-area').classList.toggle('hidden',type!=='qb');
-  document.getElementById('upFileArea').classList.toggle('hidden',type==='qb');
+  const names = {lw:'محاضرة مكتوبة',lv:'محاضرة مصورة',sw:'سكشن مكتوب',sv:'سكشن مصور',qb:'بنك الأسئلة'};
+  document.getElementById('upmtitle').textContent = 'إضافة: '+names[type];
+  document.getElementById('qbank-area').classList.toggle('hidden', type!=='qb');
+  document.getElementById('upFileArea').classList.toggle('hidden', type==='qb');
   openM('upModal');
 }
-function handleFile(inp){
-  selFiles=Array.from(inp.files);
-  const p=document.getElementById('ufpreview');
-  p.innerHTML=selFiles.map(f=>`<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px;margin-bottom:6px">
+
+function handleFile(inp) {
+  const f = inp.files[0]; if(!f) return;
+  _fileObj = f;
+  const p = document.getElementById('ufpreview');
+  p.innerHTML = `<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px">
     <span style="font-size:20px">${f.type.startsWith('image')?'🖼️':f.type.startsWith('video')?'🎥':'📄'}</span>
     <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div><div style="font-size:11px;color:var(--muted)">${fmtSz(f.size)}</div></div>
-  </div>`).join('');
+  </div>`;
 }
-function fmtSz(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';}
+function fmtSz(b) { return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
 
-function addQ(){
-  qCount++;const id='q'+qCount;
-  const d=document.createElement('div');
-  d.id='qwrap-'+id;d.className='qwrap';
+function addQ() {
+  qCount++;
+  const id = 'q'+qCount;
+  const d = document.createElement('div');
+  d.id='qwrap-'+id; d.className='qwrap';
   d.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:var(--gold)">سؤال ${qCount}</div><button class="btn btn-xs btn-danger" onclick="this.closest('.qwrap').remove()">حذف</button></div>
     <div class="fg"><label>السؤال</label><input class="inp" id="qtxt-${id}" placeholder="نص السؤال"></div>
     <div class="fg"><label>الخيار الأول</label><input class="inp" id="qo1-${id}" placeholder="إجابة 1"></div>
@@ -1167,118 +1805,142 @@ function addQ(){
   document.getElementById('qlist').appendChild(d);
 }
 
-function submitUp(){
-  const s=DB.subjects[cLvl]?.find(x=>x.id===_upSid);
-  if(!s){toast('خطأ','e');return;}
-  if(_upType==='qb'){
-    const ws=document.querySelectorAll('[id^=qwrap-]');
-    if(!ws.length){toast('أضف سؤالاً واحداً على الأقل','e');return;}
-    ws.forEach(w=>{
-      const id=w.id.replace('qwrap-','');
-      const q=document.getElementById('qtxt-'+id)?.value.trim();
-      const opts=[1,2,3,4].map(i=>document.getElementById(`qo${i}-${id}`)?.value.trim()).filter(Boolean);
-      const ai=parseInt(document.getElementById('qans-'+id)?.value||'1')-1;
-      if(q&&opts.length>=2)s.content.qb.push({id:nid(),q,opts,ans:opts[ai]});
+function submitUp() {
+  if (_upType === 'qb') {
+    const ws = document.querySelectorAll('[id^=qwrap-]');
+    if (!ws.length) { toast('أضف سؤالاً واحداً على الأقل','e'); return; }
+    ws.forEach(w => {
+      const id = w.id.replace('qwrap-','');
+      const q = document.getElementById('qtxt-'+id)?.value.trim();
+      const opts = [1,2,3,4].map(i=>document.getElementById(`qo${i}-${id}`)?.value.trim()).filter(Boolean);
+      const ai = parseInt(document.getElementById('qans-'+id)?.value||'1')-1;
+      if (q && opts.length>=2) dbAddQuestion(_upSid, cSemester, q, opts, opts[ai]);
     });
   } else {
-    const title=document.getElementById('uptitle').value.trim();
-    if(!title){toast('أدخل العنوان','e');return;}
-    const f=selFiles[0];
-    const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
-    s.content[_upType].push({id:nid(),title,desc:document.getElementById('updesc').value.trim(),size:f?fmtSz(f.size):'',icon:icons[_upType],date:td(),fileObj:f?{url:URL.createObjectURL(f),type:f.type,name:f.name}:null});
+    const title = document.getElementById('uptitle2').value.trim();
+    if (!title) { toast('أدخل العنوان','e'); return; }
+    const desc = document.getElementById('updesc').value.trim();
+    let fname='', fsize='', fdata='', ftype='';
+    if (_fileObj) {
+      fname = _fileObj.name;
+      fsize = fmtSz(_fileObj.size);
+      ftype = _fileObj.type;
+      fdata = URL.createObjectURL(_fileObj); // store object URL temporarily
+    }
+    dbAddContent(_upSid, _upType, title, desc, fname, fsize, fdata, ftype);
   }
-  cm('upModal');renderAdminSubjs();updStats();toast('تم الحفظ ✅','s');
+  cm('upModal'); renderAdminSubjs(); updStats();
+  toast('تم الحفظ ✅','s');
 }
 
-// ══════════ FILE VIEWER ══════════
-function findItem(id){
-  for(let l=1;l<=4;l++)for(const s of DB.subjects[l])for(const t of Object.keys(s.content)){const it=s.content[t].find(x=>x.id===id);if(it)return it;}
-  return null;
+// ══════════════════════════════════════════
+//  FILE VIEWER (DB version)
+// ══════════════════════════════════════════
+function viewItemDB(id) {
+  const it = dbGet(`SELECT * FROM content WHERE id=?`, [id]);
+  if (!it) { toast('الملف غير موجود','e'); return; }
+  openFV(it);
 }
-function viewItem(id){const it=findItem(id);if(it)openFV(it);else toast('الملف غير موجود','e');}
-function dlItem(id){
-  const it=findItem(id);if(!it){toast('غير موجود','e');return;}
-  if(!it.fileObj){toast('لا يوجد ملف للتحميل','e');return;}
-  const a=document.createElement('a');a.href=it.fileObj.url;a.download=it.fileObj.name||it.title;a.click();toast('جاري التحميل...','s');
+function dlItemDB(id) {
+  const it = dbGet(`SELECT * FROM content WHERE id=?`, [id]);
+  if (!it || !it.file_data) { toast('لا يوجد ملف للتحميل','e'); return; }
+  const a=document.createElement('a'); a.href=it.file_data; a.download=it.file_name||it.title; a.click();
+  toast('جاري التحميل...','s');
 }
-function openFV(item){
-  document.getElementById('fvtitle').textContent=item.title||'الملف';
-  const body=document.getElementById('fvbody');
-  body.innerHTML='';body.style.padding='0';
-  const fo=item.fileObj;
-  const dlBtn=document.getElementById('fvdl');
-  if(!fo){
+
+function openFV(item) {
+  document.getElementById('fvtitle').textContent = item.title||'الملف';
+  const body = document.getElementById('fvbody');
+  body.innerHTML = ''; body.style.padding='0';
+  const url = item.file_data || item.fileObj?.url;
+  const ftype = item.file_type || item.fileObj?.type || '';
+  const fname = item.file_name || item.title || 'file';
+  const dlBtn = document.getElementById('fvdl');
+  if (!url) {
     body.style.padding='24px';
     body.innerHTML=`<div class="fv-empty"><div style="font-size:52px;margin-bottom:12px">📄</div><div style="font-size:15px;font-weight:700">${item.title}</div><div style="font-size:12px;margin-top:8px;color:var(--muted)">لا يوجد ملف مرفوع للعرض</div></div>`;
     dlBtn.onclick=()=>toast('لا يوجد ملف','e');
-    openM('fvModal');return;
+    openM('fvModal'); return;
   }
-  const url=fo.url,type=fo.type||'',name=fo.name||item.title||'file';
-  dlBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=name;a.click();toast('جاري التحميل...','s');};
-  if(type.startsWith('image/')){
-    body.style.background='#111';body.style.padding='8px';
+  dlBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=fname;a.click();toast('جاري التحميل...','s');};
+  if (ftype.startsWith('image/')) {
+    body.style.background='#111'; body.style.padding='8px';
     body.innerHTML=`<img src="${url}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:8px">`;
-  } else if(type.startsWith('video/')){
+  } else if (ftype.startsWith('video/')) {
     body.style.background='#000';
     body.innerHTML=`<video id="fvvid" src="${url}" controls style="width:100%;max-height:100%" autoplay playsinline></video>`;
-  } else if(type.startsWith('audio/')){
-    body.style.background='var(--navy-m)';body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:48px;margin-bottom:14px">🎵</div><div style="font-size:14px;font-weight:700;margin-bottom:16px">${name}</div><audio id="fvaud" src="${url}" controls style="width:100%;max-width:360px"></audio></div>`;
-  } else if(type==='application/pdf'||name.toLowerCase().endsWith('.pdf')){
+  } else if (ftype.startsWith('audio/')) {
+    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
+    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:48px;margin-bottom:14px">🎵</div><audio id="fvaud" src="${url}" controls style="width:100%;max-width:360px"></audio></div>`;
+  } else if (ftype==='application/pdf'||fname.toLowerCase().endsWith('.pdf')) {
     body.style.padding='0';
     body.innerHTML=`<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`;
   } else {
-    const ext=name.split('.').pop().toUpperCase();
+    const ext=fname.split('.').pop().toUpperCase();
     const icons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃'};
-    body.style.background='var(--navy-m)';body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:56px;margin-bottom:12px">${icons[ext]||'📎'}</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">${name}</div><span class="badge ba">${ext}</span><div style="margin-top:20px"><button class="btn btn-gold" onclick="document.getElementById('fvdl').click()"><i class="fas fa-download"></i> تحميل الملف</button></div></div>`;
+    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
+    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:56px;margin-bottom:12px">${icons[ext]||'📎'}</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">${fname}</div><span class="badge ba">${ext}</span><div style="margin-top:20px"><button class="btn btn-gold" onclick="document.getElementById('fvdl').click()"><i class="fas fa-download"></i> تحميل الملف</button></div></div>`;
   }
   openM('fvModal');
 }
-function closeFV(){
+function closeFV() {
   cm('fvModal');
-  const v=document.getElementById('fvvid');if(v){v.pause();v.src='';}
-  const a=document.getElementById('fvaud');if(a){a.pause();a.src='';}
+  const v=document.getElementById('fvvid'); if(v){v.pause();v.src='';}
+  const a=document.getElementById('fvaud'); if(a){a.pause();a.src='';}
 }
 
-// ══════════ SETTINGS ══════════
-function loadAdminSettings(){
-  document.getElementById('sname').value=DB.settings.name;
-  document.getElementById('sdesc').value=DB.settings.desc;
-  document.getElementById('sphone').value=DB.settings.phone;
-  document.getElementById('semail').value=DB.settings.email;
-  if(cAdmin)document.getElementById('anphone').value=cAdmin.phone;
+// ══════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════
+function loadAdminSettings() {
+  document.getElementById('sname').value = dbGetSetting('platform_name');
+  document.getElementById('sdesc').value = dbGetSetting('platform_desc');
+  document.getElementById('sphone').value = dbGetSetting('platform_phone');
+  document.getElementById('semail').value = dbGetSetting('platform_email');
+  if (cAdmin) document.getElementById('anphone').value = cAdmin.phone;
 }
-function saveSettings(){
-  DB.settings.name=document.getElementById('sname').value.trim()||DB.settings.name;
-  DB.settings.desc=document.getElementById('sdesc').value.trim();
-  DB.settings.phone=document.getElementById('sphone').value.trim();
-  DB.settings.email=document.getElementById('semail').value.trim();
+function saveSettings() {
+  dbSetSetting('platform_name', document.getElementById('sname').value.trim());
+  dbSetSetting('platform_desc', document.getElementById('sdesc').value.trim());
+  dbSetSetting('platform_phone', document.getElementById('sphone').value.trim());
+  dbSetSetting('platform_email', document.getElementById('semail').value.trim());
   toast('تم حفظ الإعدادات ✅','s');
 }
-function saveAdminCreds(){
+function saveAdminCreds() {
   const ph=document.getElementById('anphone').value.trim();
   const ps=document.getElementById('anpass').value.trim();
   const ps2=document.getElementById('anpass2').value.trim();
-  if(!ph){toast('أدخل رقم الهاتف','e');return;}
-  if(ps&&ps!==ps2){toast('كلمتا المرور غير متطابقتان','e');return;}
-  cAdmin.phone=ph;if(ps)cAdmin.pass=ps;
-  document.getElementById('anpass').value='';document.getElementById('anpass2').value='';
+  if (!ph) { toast('أدخل رقم الهاتف','e'); return; }
+  if (ps && ps!==ps2) { toast('كلمتا المرور غير متطابقتان','e'); return; }
+  dbUpdateAdminCreds(cAdmin.id, ph, ps||null);
+  cAdmin.phone=ph; if(ps)cAdmin.pass=ps;
+  document.getElementById('anpass').value='';
+  document.getElementById('anpass2').value='';
   toast('تم تحديث بيانات الدخول ✅','s');
 }
 
-// ══════════ TOAST ══════════
-function toast(msg,t='s'){
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function toast(msg, t='s') {
   const icons={s:'✅',e:'❌',i:'ℹ️'};
   const el=document.createElement('div');
-  el.className=`toast ${t}`;el.innerHTML=`<span>${icons[t]}</span><span>${msg}</span>`;
+  el.className=`toast ${t}`;
+  el.innerHTML=`<span>${icons[t]}</span><span>${msg}</span>`;
   document.getElementById('tc').appendChild(el);
-  setTimeout(()=>el.remove(),3200);
+  setTimeout(()=>el.remove(), 3200);
 }
 
-// ══════════ MODAL CLOSE ON BG ══════════
+// ══════════════════════════════════════════
+//  MODAL CLOSE ON BG
+// ══════════════════════════════════════════
 document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.add('hidden');}));
 document.getElementById('fvModal').addEventListener('click',e=>{if(e.target===document.getElementById('fvModal'))closeFV();});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+initDB();
 </script>
 </body>
 </html>
