@@ -258,7 +258,7 @@ tr:last-child td{border-bottom:none}
 .fv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:800;display:flex;flex-direction:column}
 .fv-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.15);flex-shrink:0}
 .fv-title{flex:1;font-size:14px;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fv-body{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;-webkit-overflow-scrolling:touch}
+.fv-body{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;-webkit-overflow-scrolling:touch}
 .fv-body img{max-width:100%;max-height:100%;object-fit:contain}
 .fv-body video{max-width:100%;max-height:100%}
 .fv-body iframe{width:100%;height:100%;border:none}
@@ -1998,15 +1998,9 @@ function renderFileInViewer(it, b64) {
     </div>`;
 
   } else if (ftype==='application/pdf' || /\.pdf$/i.test(fname)) {
-    body.style.padding='0';
-    // استخدام iframe للـ PDF
-    const iframe = document.createElement('iframe');
-    iframe.src = b64;
-    iframe.style.cssText='width:100%;height:100%;border:none;background:#fff';
-    body.innerHTML=''; body.appendChild(iframe);
+    renderPDF(body, b64);
 
   } else {
-    // أنواع أخرى: عرض زر تحميل مع أيقونة
     const ext = fname.split('.').pop().toUpperCase();
     const extIcons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃','CSV':'📊'};
     const icon = extIcons[ext] || '📎';
@@ -2025,14 +2019,225 @@ function renderFileInViewer(it, b64) {
   }
 }
 
+// ══════════════════════════════════════════
+//  PDF.JS RENDERER
+// ══════════════════════════════════════════
+let _pdfDoc = null, _pdfPage = 1, _pdfTotal = 1, _pdfScale = 1.2;
+
+function renderPDF(body, b64) {
+  body.style.background = '#1a1a2e';
+  body.style.padding = '0';
+  body.style.flexDirection = 'column';
+  body.style.alignItems = 'stretch';
+  body.style.overflow = 'hidden';
+
+  body.innerHTML = `
+    <div id="pdf-toolbar" style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.15);flex-shrink:0;flex-wrap:wrap">
+      <button class="btn-icon" onclick="pdfPrev()" id="pdf-prev" title="الصفحة السابقة"><i class="fas fa-chevron-right"></i></button>
+      <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+        <input id="pdf-page-inp" type="number" min="1" value="1"
+          style="width:46px;padding:5px 7px;background:rgba(255,255,255,.08);border:1px solid rgba(212,175,55,.25);border-radius:7px;color:var(--white);font-family:'Cairo',sans-serif;font-size:13px;text-align:center;outline:none"
+          onchange="pdfGoTo(parseInt(this.value))">
+        <span style="color:var(--muted)">من</span>
+        <span id="pdf-total" style="color:var(--gold);font-weight:700">...</span>
+      </div>
+      <button class="btn-icon" onclick="pdfNext()" id="pdf-next" title="الصفحة التالية"><i class="fas fa-chevron-left"></i></button>
+      <div style="margin-right:auto;display:flex;gap:6px">
+        <button class="btn-icon" onclick="pdfZoomOut()" title="تصغير"><i class="fas fa-search-minus"></i></button>
+        <span id="pdf-zoom-lbl" style="font-size:12px;color:var(--muted);align-self:center;min-width:38px;text-align:center">120%</span>
+        <button class="btn-icon" onclick="pdfZoomIn()" title="تكبير"><i class="fas fa-search-plus"></i></button>
+        <button class="btn-icon" onclick="pdfFit()" title="ملاءمة العرض" style="font-size:13px"><i class="fas fa-compress-arrows-alt"></i></button>
+      </div>
+    </div>
+    <div id="pdf-container" style="flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:16px 8px;gap:12px;-webkit-overflow-scrolling:touch">
+      <div id="pdf-loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;color:var(--muted)">
+        <div style="font-size:44px;margin-bottom:12px;animation:float 1.2s infinite">📄</div>
+        <div style="font-size:14px;font-weight:700">جاري تحميل الملف...</div>
+        <div id="pdf-progress" style="margin-top:10px;font-size:12px;color:var(--accent)">0%</div>
+      </div>
+    </div>`;
+
+  // تحميل pdf.js من CDN
+  loadPdfJs().then(() => {
+    b64ToBinary(b64).then(bytes => loadPdfDocument(bytes));
+  }).catch(() => {
+    document.getElementById('pdf-loading').innerHTML =
+      `<div style="font-size:40px;margin-bottom:12px">❌</div><div style="font-size:14px">فشل تحميل عارض PDF</div>`;
+  });
+}
+
+function loadPdfJs() {
+  return new Promise((res, rej) => {
+    if (window.pdfjsLib) { res(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = () => {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      res();
+    };
+    s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+
+function b64ToBinary(dataUrl) {
+  return new Promise(res => {
+    // base64 → Uint8Array
+    const base64 = dataUrl.split(',')[1];
+    const bin = atob(base64);
+    const arr = new Uint8Array(bin.length);
+    for (let i=0; i<bin.length; i++) arr[i] = bin.charCodeAt(i);
+    res(arr);
+  });
+}
+
+async function loadPdfDocument(bytes) {
+  try {
+    const prog = document.getElementById('pdf-progress');
+    const task = pdfjsLib.getDocument({data: bytes});
+    task.onProgress = p => {
+      if (prog && p.total) prog.textContent = Math.round(p.loaded/p.total*100)+'%';
+    };
+    _pdfDoc = await task.promise;
+    _pdfTotal = _pdfDoc.numPages;
+    _pdfPage  = 1;
+    const totalEl = document.getElementById('pdf-total');
+    if (totalEl) totalEl.textContent = _pdfTotal;
+    const inp = document.getElementById('pdf-page-inp');
+    if (inp) { inp.max = _pdfTotal; }
+    await pdfRenderAll();
+  } catch(e) {
+    const loading = document.getElementById('pdf-loading');
+    if (loading) loading.innerHTML =
+      `<div style="font-size:40px;margin-bottom:10px">⚠️</div><div style="font-size:13px">تعذّر فتح الملف: ${e.message||'خطأ غير معروف'}</div>`;
+  }
+}
+
+async function pdfRenderAll() {
+  if (!_pdfDoc) return;
+  const container = document.getElementById('pdf-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const viewW = container.clientWidth - 32;
+
+  for (let p = 1; p <= _pdfTotal; p++) {
+    const page = await _pdfDoc.getPage(p);
+    const baseViewport = page.getViewport({scale: 1});
+    const autoScale = viewW / baseViewport.width;
+    const scale = _pdfScale === 'fit' ? autoScale : _pdfScale;
+    const viewport = page.getViewport({scale});
+
+    const wrapper = document.createElement('div');
+    wrapper.id = `pdf-pg-${p}`;
+    wrapper.style.cssText = `position:relative;box-shadow:0 4px 24px rgba(0,0,0,.5);border-radius:6px;overflow:hidden;flex-shrink:0`;
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = viewport.width;
+    canvas.height = viewport.height;
+    canvas.style.cssText = 'display:block;max-width:100%';
+
+    // رقم الصفحة
+    const lbl = document.createElement('div');
+    lbl.textContent = `${p}`;
+    lbl.style.cssText = 'position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:2px 10px;border-radius:20px;pointer-events:none;font-family:Cairo,sans-serif';
+
+    wrapper.appendChild(canvas);
+    wrapper.appendChild(lbl);
+    container.appendChild(wrapper);
+
+    await page.render({canvasContext: canvas.getContext('2d'), viewport}).promise;
+  }
+
+  _pdfPage = 1;
+  updatePdfNav();
+  // مزامنة رقم الصفحة عند التمرير
+  setTimeout(initPdfScrollSync, 200);
+}
+
+async function pdfRenderSingle(pageNum) {
+  if (!_pdfDoc) return;
+  const container = document.getElementById('pdf-container');
+  if (!container) return;
+  container.innerHTML = `<div style="padding:40px;color:var(--muted);font-size:13px;text-align:center">جاري التحميل...</div>`;
+
+  const viewW = container.clientWidth - 32;
+  const page = await _pdfDoc.getPage(pageNum);
+  const baseViewport = page.getViewport({scale:1});
+  const autoScale = viewW / baseViewport.width;
+  const scale = _pdfScale === 'fit' ? autoScale : _pdfScale;
+  const viewport = page.getViewport({scale});
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  canvas.width  = viewport.width;
+  canvas.height = viewport.height;
+  canvas.style.cssText = 'display:block;max-width:100%;box-shadow:0 4px 24px rgba(0,0,0,.5);border-radius:6px';
+  container.appendChild(canvas);
+  await page.render({canvasContext: canvas.getContext('2d'), viewport}).promise;
+  updatePdfNav();
+}
+
+function updatePdfNav() {
+  const inp = document.getElementById('pdf-page-inp');
+  if (inp) inp.value = _pdfPage;
+  const prev = document.getElementById('pdf-prev');
+  const next = document.getElementById('pdf-next');
+  if (prev) prev.style.opacity = _pdfPage <= 1 ? '.35' : '1';
+  if (next) next.style.opacity = _pdfPage >= _pdfTotal ? '.35' : '1';
+  const zl = document.getElementById('pdf-zoom-lbl');
+  if (zl) zl.textContent = _pdfScale==='fit' ? 'ملاءمة' : Math.round(_pdfScale*100)+'%';
+}
+
+function pdfPrev() {
+  if (!_pdfDoc || _pdfPage <= 1) return;
+  _pdfPage--;
+  // scroll to page in all-pages mode
+  const el = document.getElementById(`pdf-pg-${_pdfPage}`);
+  if (el) { el.scrollIntoView({behavior:'smooth',block:'start'}); updatePdfNav(); }
+}
+function pdfNext() {
+  if (!_pdfDoc || _pdfPage >= _pdfTotal) return;
+  _pdfPage++;
+  const el = document.getElementById(`pdf-pg-${_pdfPage}`);
+  if (el) { el.scrollIntoView({behavior:'smooth',block:'start'}); updatePdfNav(); }
+}
+function pdfGoTo(n) {
+  if (!_pdfDoc) return;
+  _pdfPage = Math.max(1, Math.min(_pdfTotal, n||1));
+  const el = document.getElementById(`pdf-pg-${_pdfPage}`);
+  if (el) { el.scrollIntoView({behavior:'smooth',block:'start'}); updatePdfNav(); }
+}
+function pdfZoomIn()  { _pdfScale = Math.min(3.0, (_pdfScale==='fit'?1.2:_pdfScale) + 0.2); pdfRenderAll(); }
+function pdfZoomOut() { _pdfScale = Math.max(0.5, (_pdfScale==='fit'?1.2:_pdfScale) - 0.2); pdfRenderAll(); }
+function pdfFit()     { _pdfScale = 'fit'; pdfRenderAll(); }
+
+// مزامنة رقم الصفحة عند التمرير
+function initPdfScrollSync() {
+  const c = document.getElementById('pdf-container');
+  if (!c) return;
+  c.addEventListener('scroll', () => {
+    if (!_pdfDoc) return;
+    for (let p = 1; p <= _pdfTotal; p++) {
+      const el = document.getElementById(`pdf-pg-${p}`);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      const cRect = c.getBoundingClientRect();
+      if (rect.top >= cRect.top - 10) { _pdfPage = p; updatePdfNav(); break; }
+    }
+  }, {passive:true});
+}
+
 function closeFV() {
   cm('fvModal');
   const body = document.getElementById('fvbody');
-  // إيقاف أي وسائط تعمل
   const v = body.querySelector('video'); if(v){v.pause();v.src='';}
   const a = body.querySelector('audio'); if(a){a.pause();a.src='';}
   const ifr = body.querySelector('iframe'); if(ifr){ifr.src='';}
   body.innerHTML='';
+  // إعادة تعيين حالة PDF
+  _pdfDoc=null; _pdfPage=1; _pdfTotal=1; _pdfScale=1.2;
 }
 
 // ══════════════════════════════════════════
