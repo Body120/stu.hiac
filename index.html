@@ -1753,13 +1753,71 @@ function delSubj(id) {
   dbDeleteSubject(id); renderAdminSubjs(); updStats();
   toast('تم حذف المادة','s');
 }
-function delContentDB(id) {
+async function delContentDB(id) {
+  // حذف الملف من IndexedDB أيضاً
+  const it = dbGet(`SELECT file_data FROM content WHERE id=?`, [id]);
+  if (it?.file_data) { try { await idbDelete(it.file_data); } catch(e){} }
   dbDeleteContent(id); renderAdminSubjs(); updStats();
   toast('تم الحذف','s');
 }
 function delQDB(id) {
   dbDeleteQuestion(id); renderAdminSubjs();
   toast('تم حذف السؤال','s');
+}
+
+// ══════════════════════════════════════════
+//  INDEXEDDB — ملفات الوسائط (Base64 دائم)
+// ══════════════════════════════════════════
+let idb = null;
+function openIDB() {
+  return new Promise((res, rej) => {
+    if (idb) { res(idb); return; }
+    const req = indexedDB.open('AgricultureFiles', 1);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('files')) {
+        d.createObjectStore('files', {keyPath:'id'});
+      }
+    };
+    req.onsuccess = e => { idb = e.target.result; res(idb); };
+    req.onerror = () => rej(req.error);
+  });
+}
+async function idbSave(id, data) {
+  const d = await openIDB();
+  return new Promise((res, rej) => {
+    const tx = d.transaction('files','readwrite');
+    tx.objectStore('files').put({id, data});
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  });
+}
+async function idbGet(id) {
+  const d = await openIDB();
+  return new Promise((res, rej) => {
+    const tx = d.transaction('files','readonly');
+    const req = tx.objectStore('files').get(id);
+    req.onsuccess = () => res(req.result?.data || null);
+    req.onerror = () => rej(req.error);
+  });
+}
+async function idbDelete(id) {
+  const d = await openIDB();
+  return new Promise((res) => {
+    const tx = d.transaction('files','readwrite');
+    tx.objectStore('files').delete(id);
+    tx.oncomplete = () => res();
+  });
+}
+
+// تحويل File إلى Base64
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result); // data:mime;base64,...
+    r.onerror = () => rej(r.error);
+    r.readAsDataURL(file);
+  });
 }
 
 // ══════════════════════════════════════════
@@ -1783,9 +1841,14 @@ function handleFile(inp) {
   const f = inp.files[0]; if(!f) return;
   _fileObj = f;
   const p = document.getElementById('ufpreview');
+  const icon = f.type.startsWith('image')?'🖼️':f.type.startsWith('video')?'🎥':f.type.startsWith('audio')?'🎵':f.type==='application/pdf'?'📕':'📄';
   p.innerHTML = `<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px">
-    <span style="font-size:20px">${f.type.startsWith('image')?'🖼️':f.type.startsWith('video')?'🎥':'📄'}</span>
-    <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div><div style="font-size:11px;color:var(--muted)">${fmtSz(f.size)}</div></div>
+    <span style="font-size:20px">${icon}</span>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div>
+      <div style="font-size:11px;color:var(--muted)">${fmtSz(f.size)}</div>
+    </div>
+    <span class="badge bs">✔ جاهز</span>
   </div>`;
 }
 function fmtSz(b) { return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
@@ -1805,7 +1868,8 @@ function addQ() {
   document.getElementById('qlist').appendChild(d);
 }
 
-function submitUp() {
+async function submitUp() {
+  const btn = document.querySelector('#upModal .btn-gold:last-child');
   if (_upType === 'qb') {
     const ws = document.querySelectorAll('[id^=qwrap-]');
     if (!ws.length) { toast('أضف سؤالاً واحداً على الأقل','e'); return; }
@@ -1816,77 +1880,159 @@ function submitUp() {
       const ai = parseInt(document.getElementById('qans-'+id)?.value||'1')-1;
       if (q && opts.length>=2) dbAddQuestion(_upSid, cSemester, q, opts, opts[ai]);
     });
-  } else {
-    const title = document.getElementById('uptitle2').value.trim();
-    if (!title) { toast('أدخل العنوان','e'); return; }
-    const desc = document.getElementById('updesc').value.trim();
-    let fname='', fsize='', fdata='', ftype='';
-    if (_fileObj) {
-      fname = _fileObj.name;
-      fsize = fmtSz(_fileObj.size);
-      ftype = _fileObj.type;
-      fdata = URL.createObjectURL(_fileObj); // store object URL temporarily
-    }
-    dbAddContent(_upSid, _upType, title, desc, fname, fsize, fdata, ftype);
+    cm('upModal'); renderAdminSubjs(); updStats();
+    toast('تم حفظ الأسئلة ✅','s');
+    return;
   }
+
+  const title = document.getElementById('uptitle2').value.trim();
+  if (!title) { toast('أدخل العنوان','e'); return; }
+  const desc = document.getElementById('updesc').value.trim();
+
+  if (btn) { btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...'; }
+
+  let fname='', fsize='', ftype='', fileKey='';
+  if (_fileObj) {
+    fname = _fileObj.name;
+    fsize = fmtSz(_fileObj.size);
+    ftype = _fileObj.type || '';
+    try {
+      const b64 = await fileToBase64(_fileObj);
+      // حفظ الملف في IndexedDB (مؤقتاً بمفتاح فريد)
+      fileKey = 'f_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      await idbSave(fileKey, b64);
+    } catch(e) {
+      toast('فشل في حفظ الملف','e');
+      if (btn) { btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> حفظ'; }
+      return;
+    }
+  }
+
+  // حفظ البيانات الوصفية في SQL، مفتاح الملف في file_data
+  dbAddContent(_upSid, _upType, title, desc, fname, fsize, fileKey, ftype);
+
+  if (btn) { btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> حفظ'; }
   cm('upModal'); renderAdminSubjs(); updStats();
   toast('تم الحفظ ✅','s');
 }
 
 // ══════════════════════════════════════════
-//  FILE VIEWER (DB version)
+//  FILE VIEWER (IndexedDB + SQL metadata)
 // ══════════════════════════════════════════
-function viewItemDB(id) {
+async function viewItemDB(id) {
   const it = dbGet(`SELECT * FROM content WHERE id=?`, [id]);
   if (!it) { toast('الملف غير موجود','e'); return; }
-  openFV(it);
-}
-function dlItemDB(id) {
-  const it = dbGet(`SELECT * FROM content WHERE id=?`, [id]);
-  if (!it || !it.file_data) { toast('لا يوجد ملف للتحميل','e'); return; }
-  const a=document.createElement('a'); a.href=it.file_data; a.download=it.file_name||it.title; a.click();
-  toast('جاري التحميل...','s');
+  // فتح نافذة المشاهدة فوراً مع شاشة تحميل
+  document.getElementById('fvtitle').textContent = it.title||'الملف';
+  const body = document.getElementById('fvbody');
+  body.style.padding='24px';
+  body.innerHTML=`<div class="fv-empty"><div style="font-size:44px;animation:float 1s infinite">⏳</div><div style="margin-top:12px;font-size:14px">جاري تحميل الملف...</div></div>`;
+  openM('fvModal');
+
+  if (!it.file_data) {
+    body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">📄</div><div style="font-size:15px;font-weight:700;margin-top:12px">${it.title}</div><div style="font-size:12px;margin-top:8px;color:var(--muted)">لا يوجد ملف مرفوع للعرض</div></div>`;
+    document.getElementById('fvdl').onclick=()=>toast('لا يوجد ملف','e');
+    return;
+  }
+
+  try {
+    const b64 = await idbGet(it.file_data);
+    if (!b64) {
+      body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">⚠️</div><div style="font-size:14px;font-weight:700;margin-top:12px">انتهت صلاحية الملف</div><div style="font-size:12px;margin-top:6px;color:var(--muted)">يرجى رفع الملف مجدداً</div></div>`;
+      return;
+    }
+    renderFileInViewer(it, b64);
+  } catch(e) {
+    body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">❌</div><div style="font-size:14px;margin-top:12px">خطأ في تحميل الملف</div></div>`;
+  }
 }
 
-function openFV(item) {
-  document.getElementById('fvtitle').textContent = item.title||'الملف';
-  const body = document.getElementById('fvbody');
-  body.innerHTML = ''; body.style.padding='0';
-  const url = item.file_data || item.fileObj?.url;
-  const ftype = item.file_type || item.fileObj?.type || '';
-  const fname = item.file_name || item.title || 'file';
-  const dlBtn = document.getElementById('fvdl');
-  if (!url) {
-    body.style.padding='24px';
-    body.innerHTML=`<div class="fv-empty"><div style="font-size:52px;margin-bottom:12px">📄</div><div style="font-size:15px;font-weight:700">${item.title}</div><div style="font-size:12px;margin-top:8px;color:var(--muted)">لا يوجد ملف مرفوع للعرض</div></div>`;
-    dlBtn.onclick=()=>toast('لا يوجد ملف','e');
-    openM('fvModal'); return;
-  }
-  dlBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=fname;a.click();toast('جاري التحميل...','s');};
-  if (ftype.startsWith('image/')) {
-    body.style.background='#111'; body.style.padding='8px';
-    body.innerHTML=`<img src="${url}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:8px">`;
-  } else if (ftype.startsWith('video/')) {
-    body.style.background='#000';
-    body.innerHTML=`<video id="fvvid" src="${url}" controls style="width:100%;max-height:100%" autoplay playsinline></video>`;
-  } else if (ftype.startsWith('audio/')) {
-    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:48px;margin-bottom:14px">🎵</div><audio id="fvaud" src="${url}" controls style="width:100%;max-width:360px"></audio></div>`;
-  } else if (ftype==='application/pdf'||fname.toLowerCase().endsWith('.pdf')) {
-    body.style.padding='0';
-    body.innerHTML=`<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`;
-  } else {
-    const ext=fname.split('.').pop().toUpperCase();
-    const icons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃'};
-    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:56px;margin-bottom:12px">${icons[ext]||'📎'}</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">${fname}</div><span class="badge ba">${ext}</span><div style="margin-top:20px"><button class="btn btn-gold" onclick="document.getElementById('fvdl').click()"><i class="fas fa-download"></i> تحميل الملف</button></div></div>`;
-  }
-  openM('fvModal');
+async function dlItemDB(id) {
+  const it = dbGet(`SELECT * FROM content WHERE id=?`, [id]);
+  if (!it || !it.file_data) { toast('لا يوجد ملف للتحميل','e'); return; }
+  toast('جاري التحضير...','s');
+  try {
+    const b64 = await idbGet(it.file_data);
+    if (!b64) { toast('الملف غير متاح — يرجى رفعه مجدداً','e'); return; }
+    const a = document.createElement('a');
+    a.href = b64;
+    a.download = it.file_name || it.title;
+    a.click();
+    toast('جاري التحميل ✅','s');
+  } catch(e) { toast('فشل التحميل','e'); }
 }
+
+function renderFileInViewer(it, b64) {
+  const body = document.getElementById('fvbody');
+  body.style.padding = '0';
+  const fname = it.file_name || it.title || 'file';
+  const ftype = it.file_type || '';
+
+  document.getElementById('fvdl').onclick = () => {
+    const a = document.createElement('a');
+    a.href = b64; a.download = fname; a.click();
+    toast('جاري التحميل ✅','s');
+  };
+
+  if (ftype.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|bmp)$/i.test(fname)) {
+    body.style.background='#111'; body.style.padding='8px';
+    const img = document.createElement('img');
+    img.src = b64;
+    img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;border-radius:8px';
+    body.innerHTML=''; body.appendChild(img);
+
+  } else if (ftype.startsWith('video/') || /\.(mp4|webm|ogg|mov|avi)$/i.test(fname)) {
+    body.style.background='#000';
+    const vid = document.createElement('video');
+    vid.id='fvvid'; vid.src=b64; vid.controls=true; vid.autoplay=true;
+    vid.setAttribute('playsinline','');
+    vid.style.cssText='width:100%;max-height:100%';
+    body.innerHTML=''; body.appendChild(vid);
+
+  } else if (ftype.startsWith('audio/') || /\.(mp3|wav|ogg|aac|flac)$/i.test(fname)) {
+    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
+    body.innerHTML=`<div style="text-align:center;width:100%">
+      <div style="font-size:64px;margin-bottom:14px;animation:float 2s infinite">🎵</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--gold)">${fname}</div>
+      <audio id="fvaud" src="${b64}" controls style="width:100%;max-width:380px;border-radius:10px"></audio>
+    </div>`;
+
+  } else if (ftype==='application/pdf' || /\.pdf$/i.test(fname)) {
+    body.style.padding='0';
+    // استخدام iframe للـ PDF
+    const iframe = document.createElement('iframe');
+    iframe.src = b64;
+    iframe.style.cssText='width:100%;height:100%;border:none;background:#fff';
+    body.innerHTML=''; body.appendChild(iframe);
+
+  } else {
+    // أنواع أخرى: عرض زر تحميل مع أيقونة
+    const ext = fname.split('.').pop().toUpperCase();
+    const extIcons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃','CSV':'📊'};
+    const icon = extIcons[ext] || '📎';
+    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
+    body.innerHTML=`<div style="text-align:center;width:100%">
+      <div style="font-size:72px;margin-bottom:14px">${icon}</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px">${fname}</div>
+      <span class="badge ba" style="margin-bottom:20px;display:inline-flex">${ext}</span>
+      <div style="margin-top:16px">
+        <button class="btn btn-gold" onclick="document.getElementById('fvdl').click()">
+          <i class="fas fa-download"></i> تحميل الملف
+        </button>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted)">هذا النوع من الملفات لا يمكن معاينته مباشرة</div>
+    </div>`;
+  }
+}
+
 function closeFV() {
   cm('fvModal');
-  const v=document.getElementById('fvvid'); if(v){v.pause();v.src='';}
-  const a=document.getElementById('fvaud'); if(a){a.pause();a.src='';}
+  const body = document.getElementById('fvbody');
+  // إيقاف أي وسائط تعمل
+  const v = body.querySelector('video'); if(v){v.pause();v.src='';}
+  const a = body.querySelector('audio'); if(a){a.pause();a.src='';}
+  const ifr = body.querySelector('iframe'); if(ifr){ifr.src='';}
+  body.innerHTML='';
 }
 
 // ══════════════════════════════════════════
