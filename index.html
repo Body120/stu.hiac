@@ -2,30 +2,42 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>طلاب المعهد العالي للتعاون الزراعي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{--gold:#D4AF37;--gold-l:#F0D060;--gold-d:#A07820;--navy:#0A1628;--navy-m:#142040;--navy-c:#0F1E38;--accent:#00D4FF;--white:#F8F4EC;--muted:#8899BB;--success:#00C896;--danger:#FF4466;--sh:0 8px 32px rgba(0,0,0,.45)}
+:root{
+  --gold:#D4AF37;--gold-l:#F0D060;--gold-d:#A07820;
+  --navy:#0A1628;--navy-m:#142040;--navy-c:#0F1E38;
+  --accent:#00D4FF;--white:#F8F4EC;--muted:#8899BB;
+  --success:#00C896;--danger:#FF4466;
+  --sh:0 8px 32px rgba(0,0,0,.45)
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px}
 body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
 .hidden{display:none!important}
 img,video{max-width:100%}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--navy-m)}::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px}
+
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;transition:all .2s;white-space:nowrap}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);box-shadow:0 4px 16px rgba(212,175,55,.35)}
+.btn-gold:hover{filter:brightness(1.08)}
 .btn-gold:active{transform:scale(.97)}
 .btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
-.btn-outline:active{background:rgba(212,175,55,.12)}
+.btn-outline:hover{background:rgba(212,175,55,.08)}
 .btn-danger{background:var(--danger);color:#fff}
 .btn-accent{background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);color:var(--accent)}
 .btn-sm{padding:7px 13px;font-size:13px}
 .btn-xs{padding:5px 10px;font-size:12px;border-radius:7px}
 .btn-w{width:100%}
 .btn-icon{padding:8px;border-radius:9px;background:rgba(255,255,255,.08);border:none;color:var(--white);cursor:pointer;font-size:16px;transition:background .2s}
-.btn-icon:active{background:rgba(255,255,255,.18)}
+.btn-icon:hover{background:rgba(255,255,255,.15)}
+.btn-icon:active{background:rgba(255,255,255,.2)}
+
+/* INPUTS */
 .inp,.sel,textarea{width:100%;padding:12px 14px;background:rgba(255,255,255,.06);border:1.5px solid rgba(212,175,55,.22);border-radius:10px;color:var(--white);font-family:'Cairo',sans-serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .inp:focus,.sel:focus,textarea:focus{border-color:var(--gold);background:rgba(255,255,255,.09)}
 .inp::placeholder,textarea::placeholder{color:var(--muted)}
@@ -33,73 +45,99 @@ img,video{max-width:100%}
 label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted);font-weight:700}
 .fg{margin-bottom:16px}
 input[type="tel"]{direction:ltr;text-align:right}
+input[type="number"]{-moz-appearance:textfield}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
+
+/* CARDS */
 .card{background:var(--navy-c);border:1px solid rgba(212,175,55,.15);border-radius:16px;padding:18px}
+
+/* BADGE */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
 .bg{background:rgba(212,175,55,.14);color:var(--gold)}
 .ba{background:rgba(0,212,255,.12);color:var(--accent)}
 .bs{background:rgba(0,200,150,.12);color:var(--success)}
 .bd{background:rgba(255,68,102,.12);color:var(--danger)}
 .bsem{background:rgba(160,80,200,.14);color:#C080FF}
+
+/* AVATAR */
 .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--navy);flex-shrink:0}
 .av.lg{width:54px;height:54px;font-size:22px}
 .av.sm{width:32px;height:32px;font-size:13px}
 .av.blue{background:linear-gradient(135deg,var(--accent),#0090CC)}
-#tc{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;width:min(340px,92vw)}
+
+/* TOAST */
+#tc{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;width:min(340px,92vw);pointer-events:none}
 .toast{padding:11px 18px;border-radius:11px;background:var(--navy-c);border:1px solid rgba(212,175,55,.28);color:var(--white);font-size:13px;font-weight:700;box-shadow:var(--sh);animation:sd .28s ease;display:flex;align-items:center;gap:9px}
 .toast.s{border-color:var(--success)}.toast.e{border-color:var(--danger)}
 @keyframes sd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeOut{to{opacity:0;transform:translateY(-8px)}}
+
+/* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);z-index:600;display:flex;align-items:flex-end;justify-content:center;animation:fi .22s ease}
 .mo.center{align-items:center}
 @keyframes fi{from{opacity:0}to{opacity:1}}
-.md{background:var(--navy-m);border:1px solid rgba(212,175,55,.25);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:560px;box-shadow:var(--sh);animation:su .28s ease;max-height:92vh;overflow-y:auto}
+.md{background:var(--navy-m);border:1px solid rgba(212,175,55,.25);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:560px;box-shadow:var(--sh);animation:su .28s ease;max-height:90vh;overflow-y:auto}
 .md.centered{border-radius:20px;animation:si .25s ease}
 @keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes si{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 .mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .mt{font-size:17px;font-weight:900;color:var(--gold)}
 .mc{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px;line-height:1}
+
+/* TOGGLE */
 .tsw{width:46px;height:26px;border-radius:13px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;transition:background .28s;flex-shrink:0}
 .tsw.on{background:var(--success)}
 .tkn{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .28s}
 .tsw.on .tkn{transform:translateX(-20px)}
 .tgl{display:flex;align-items:center;justify-content:space-between;padding:13px;background:rgba(255,255,255,.04);border-radius:11px;margin-bottom:10px;gap:14px}
 .tgl-txt{flex:1}.tgl-ttl{font-weight:700;font-size:13px}.tgl-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* PERM */
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pi{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:9px;cursor:pointer}
+.pi{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:9px;cursor:pointer;user-select:none}
 .pchk{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(212,175,55,.38);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .pchk.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-size:10px}
+
+/* SEMESTER SWITCHER */
 .sem-bar{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid rgba(212,175,55,.22);margin-bottom:18px}
 .sem-btn{flex:1;padding:11px;text-align:center;background:transparent;border:none;color:var(--muted);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:6px}
 .sem-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)}
 .sem-btn:not(.active):hover{background:rgba(212,175,55,.08)}
+
+/* SEMESTER BADGE */
 .sem-badge-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 16px;background:rgba(160,80,200,.08);border-bottom:1px solid rgba(160,80,200,.2)}
 .sem-badge-bar span{font-size:12px;color:#C080FF;font-weight:700}
+
+/* DB Status */
+.db-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pu 2s infinite}
 .db-status{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700}
 .db-status.connected{background:rgba(0,200,150,.1);color:var(--success);border:1px solid rgba(0,200,150,.2)}
 .db-status.error{background:rgba(255,68,102,.1);color:var(--danger);border:1px solid rgba(255,68,102,.2)}
-.db-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pu 2s infinite}
+
+/* LANDING */
 #pl{min-height:100vh;background:radial-gradient(ellipse at 20% 40%,rgba(212,175,55,.09),transparent 55%),var(--navy)}
 .lnav{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(10,22,40,.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,.12);position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:10px}
 .li{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--navy);flex-shrink:0}
-.lt{font-size:17px;font-weight:900}.lt span{color:var(--gold)}
+.lt{font-size:15px;font-weight:900}.lt span{color:var(--gold)}
 .hero{padding:48px 18px 36px;text-align:center}
 .hbadge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:26px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.28);color:var(--gold);font-size:12px;font-weight:700;margin-bottom:18px}
-.hero h1{font-size:clamp(28px,7vw,52px);font-weight:900;line-height:1.15;margin-bottom:14px}
+.hero h1{font-size:clamp(24px,6vw,48px);font-weight:900;line-height:1.2;margin-bottom:14px}
 .hl{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
+.hero p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
 .hbtns{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
 .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:0 18px 48px;max-width:760px;margin:0 auto}
 .fc{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:16px;padding:18px;transition:border-color .25s}
-.fc:active{border-color:rgba(212,175,55,.4)}
+.fc:hover{border-color:rgba(212,175,55,.3)}
 .fci{font-size:28px;margin-bottom:10px}
 .fct{font-size:14px;font-weight:700;margin-bottom:5px}
 .fcd{font-size:12px;color:var(--muted);line-height:1.7}
 .stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:0 18px 36px}
 .si{background:var(--navy-c);border:1px solid rgba(212,175,55,.1);border-radius:14px;padding:18px;text-align:center}
 .sn{font-size:32px;font-weight:900;color:var(--gold)}.sl{font-size:12px;color:var(--muted);margin-top:3px}
-.lvl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 18px 52px}
 .lc{background:var(--navy-c);border:1.5px solid rgba(212,175,55,.13);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:all .25s}
+.lc:hover{border-color:rgba(212,175,55,.4)}
 .lc:active{border-color:var(--gold);transform:scale(.97)}
 .ln{font-size:40px;font-weight:900;color:var(--gold);opacity:.22;line-height:1}
 .lname{font-size:15px;font-weight:700;margin:6px 0 4px}
@@ -108,12 +146,16 @@ input[type="tel"]{direction:ltr;text-align:right}
 .sec-title h2{font-size:22px;font-weight:900;margin-bottom:6px}
 .sec-title p{color:var(--muted);font-size:13px}
 .lfooter{background:var(--navy-m);border-top:1px solid rgba(212,175,55,.12);padding:24px 18px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* AUTH */
 #pa{min-height:100vh;background:var(--navy);display:flex;flex-direction:column}
 .auth-top{padding:20px 18px;border-bottom:1px solid rgba(212,175,55,.1)}
 .auth-body{flex:1;padding:28px 18px;max-width:480px;width:100%;margin:0 auto}
 .atabs{display:flex;border-radius:11px;overflow:hidden;border:1px solid rgba(212,175,55,.2);margin-bottom:26px}
 .atab{flex:1;padding:12px;text-align:center;background:transparent;border:none;color:var(--muted);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s}
 .atab.active{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)}
+
+/* USER DASHBOARD */
 #pu{min-height:100vh;display:flex;flex-direction:column}
 .utb{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1);position:sticky;top:0;z-index:50}
 .utb-title{flex:1;font-size:16px;font-weight:700;text-align:center}
@@ -125,59 +167,59 @@ input[type="tel"]{direction:ltr;text-align:right}
 .bnav-item.active i{transform:scale(1.12)}
 .u-content-area{padding-bottom:80px}
 
-/* ── شعب الطلاب ── */
-.div-tabs{display:flex;gap:6px;padding:0 0 12px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.div-tabs::-webkit-scrollbar{display:none}
-.div-tab{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid rgba(212,175,55,.22);color:var(--muted);background:transparent;white-space:nowrap;flex-shrink:0;font-family:'Cairo',sans-serif;transition:all .2s}
-.div-tab.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:var(--gold)}
+/* LEVEL SELECTOR */
+.lvlsel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.lvlbtn{padding:12px 6px;border-radius:12px;text-align:center;background:var(--navy-c);border:1.5px solid rgba(212,175,55,.13);cursor:pointer;transition:all .22s}
+.lvlbtn.active,.lvlbtn:active{background:rgba(212,175,55,.1);border-color:var(--gold)}
+.lvlbtn .n{font-size:24px;font-weight:900;color:var(--gold)}
+.lvlbtn .nm{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* ── admin division tabs ── */
-.adiv-bar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.adiv-btn{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid rgba(212,175,55,.22);color:var(--muted);background:transparent;font-family:'Cairo',sans-serif;transition:all .2s}
-.adiv-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);border-color:var(--gold)}
-
+/* CONTENT TYPES */
 .ctypes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .ctcard{background:var(--navy-c);border:1.5px solid rgba(212,175,55,.11);border-radius:14px;padding:14px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
+.ctcard:hover{border-color:rgba(212,175,55,.3)}
 .ctcard:active{border-color:var(--gold);transform:scale(.98)}
 .cticon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ctname{font-size:13px;font-weight:700}
 .ctsub{font-size:11px;color:var(--muted)}
 .ctcount{margin-right:auto;font-size:20px;font-weight:900;color:var(--gold)}
+
+/* CONTENT LIST */
 .cl{display:flex;flex-direction:column;gap:10px}
 .ci{display:flex;align-items:center;gap:12px;background:var(--navy-c);border:1px solid rgba(212,175,55,.1);border-radius:13px;padding:12px 14px}
 .cii{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .ciinfo{flex:1;min-width:0}.cit{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cim{font-size:11px;color:var(--muted)}
 .cia{display:flex;gap:6px;flex-shrink:0}
+
+/* SUBJECTS */
 .subj-list{display:flex;flex-direction:column;gap:10px}
 .subj-item{background:var(--navy-m);border:1px solid rgba(212,175,55,.14);border-radius:14px;overflow:hidden}
 .subj-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer}
 .sname{font-size:14px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .subj-body{padding:0 14px 14px}
-.stabs{display:flex;gap:6px;padding:12px 0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.stabs{display:flex;gap:6px;padding:12px 0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;align-items:center}
 .stabs::-webkit-scrollbar{display:none}
 .stab{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;white-space:nowrap;flex-shrink:0;transition:all .2s}
 .stab.active{background:rgba(212,175,55,.1);color:var(--gold);border-color:var(--gold)}
+
 /* CHAT */
-.chatbox{display:flex;flex-direction:column;height:calc(100vh - 140px);background:var(--navy-c);border-radius:16px;border:1px solid rgba(212,175,55,.12);overflow:hidden}
+.chatbox{display:flex;flex-direction:column;background:var(--navy-c);border-radius:16px;border:1px solid rgba(212,175,55,.12);overflow:hidden}
 .chdr{padding:12px 18px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1);display:flex;align-items:center;gap:10px}
 .chst{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pu 2s infinite}
 @keyframes pu{0%,100%{opacity:1}50%{opacity:.35}}
 .chmsgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
 .chmsg{display:flex;gap:8px;max-width:82%}
-.chmsg.own{flex-direction:row-reverse;margin-right:auto}
-.chmav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--navy);flex-shrink:0}
-.chmbub{padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6;background:var(--navy-m)}
+.chmsg.own{flex-direction:row-reverse;margin-right:auto;max-width:82%}
+.chmav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--navy);flex-shrink:0;align-self:flex-end}
+.chmbub{padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6;background:var(--navy-m);word-break:break-word}
 .chmsg.own .chmbub{background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.25)}
 .chmtime{font-size:10px;color:var(--muted);margin-top:3px;padding:0 2px}
 .china{padding:12px 14px;background:var(--navy-m);border-top:1px solid rgba(212,175,55,.1);display:flex;gap:9px;align-items:center}
 .chinp{flex:1;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.18);border-radius:10px;color:var(--white);font-family:'Cairo',sans-serif;font-size:14px;outline:none}
+.chinp:focus{border-color:var(--gold)}
 .chsend{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;color:var(--navy);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-/* LEVEL TABS in chat */
-.level-chat-tabs{display:flex;gap:6px;padding:10px 14px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1);overflow-x:auto;scrollbar-width:none}
-.level-chat-tabs::-webkit-scrollbar{display:none}
-.lct-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;white-space:nowrap;flex-shrink:0;font-family:'Cairo',sans-serif;transition:all .2s}
-.lct-btn.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:var(--gold)}
-/* ADMIN */
+
+/* ADMIN PANEL */
 #padm{min-height:100vh;display:flex;flex-direction:column}
 .atopbar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.1);position:sticky;top:0;z-index:50}
 .atopbar-title{flex:1;font-size:16px;font-weight:700;text-align:center}
@@ -185,27 +227,37 @@ input[type="tel"]{direction:ltr;text-align:right}
 .ahnav::-webkit-scrollbar{display:none}
 .ahnav-btn{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;font-family:'Cairo',sans-serif;transition:all .2s}
 .ahnav-btn.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:var(--gold)}
-.ac{padding:16px;padding-bottom:24px}
+.ac{padding:16px;padding-bottom:24px;overflow-y:auto}
+
+/* STAT CARDS */
 .stgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
 .stcard{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px}
 .stci{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .stcn{font-size:24px;font-weight:900}.stcl{font-size:12px;color:var(--muted)}
+
+/* TABLE */
 .tc{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:14px;overflow:hidden}
 .tch{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(212,175,55,.09)}
 .tcti{font-size:14px;font-weight:700}
 .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;min-width:500px}
+table{width:100%;border-collapse:collapse;min-width:480px}
 th{background:rgba(212,175,55,.06);padding:11px 14px;text-align:right;font-size:12px;color:var(--muted);font-weight:700;white-space:nowrap}
 td{padding:11px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,.035);white-space:nowrap}
 tr:last-child td{border-bottom:none}
 .tdf{display:flex;align-items:center;gap:8px}
+
+/* UPLOAD */
 .upz{border:2px dashed rgba(212,175,55,.28);border-radius:13px;padding:36px 18px;text-align:center;cursor:pointer;transition:all .28s}
-.upz:active{border-color:var(--gold);background:rgba(212,175,55,.04)}
+.upz:hover{border-color:var(--gold);background:rgba(212,175,55,.04)}
 .upi{font-size:40px;color:var(--gold);opacity:.5;margin-bottom:10px}
 .upt{font-size:14px;font-weight:600;color:var(--muted)}.ups{font-size:11px;color:var(--muted);opacity:.7;margin-top:4px}
+
+/* BREADCRUMB */
 .bc{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;flex-wrap:wrap}
-.bcc{color:var(--muted);cursor:pointer}.bcc:active{color:var(--gold)}
+.bcc{color:var(--muted);cursor:pointer}.bcc:hover{color:var(--gold)}
 .bccu{color:var(--gold);font-weight:700}
+
+/* FILE VIEWER */
 .fv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:800;display:flex;flex-direction:column}
 .fv-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.15);flex-shrink:0}
 .fv-title{flex:1;font-size:14px;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -214,57 +266,80 @@ tr:last-child td{border-bottom:none}
 .fv-body video{max-width:100%;max-height:100%}
 .fv-body iframe{width:100%;height:100%;border:none}
 .fv-empty{text-align:center;padding:52px 24px;color:var(--muted)}
+
+/* SETTINGS */
 .settings-grid{display:flex;flex-direction:column;gap:16px}
-.qwrap{background:rgba(255,255,255,.04);border-radius:11px;padding:14px;margin-bottom:10px}
+
+/* Q BANK */
+.qwrap{background:rgba(255,255,255,.04);border-radius:11px;padding:14px;margin-bottom:10px;border:1px solid rgba(212,175,55,.08)}
+
+/* SECTION LABELS */
 .ssl{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:1px;padding:8px 4px 4px}
+
+/* DRAWER */
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;animation:fi .2s ease}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(280px,85vw);background:var(--navy-m);border-left:1px solid rgba(212,175,55,.15);z-index:201;display:flex;flex-direction:column;overflow-y:auto;animation:drIn .28s ease}
-@keyframes drIn{from{transform:translateX(100%)}to{transform:translateY(0)}}
+@keyframes drIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
 .dr-logo{padding:20px 18px;border-bottom:1px solid rgba(212,175,55,.1)}
 .dr-user{padding:14px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid rgba(212,175,55,.08)}
 .dr-nav{flex:1;padding:10px 10px}
 .sl2{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-bottom:2px}
-.sl2:active,.sl2.active{background:rgba(212,175,55,.09);color:var(--gold)}
+.sl2:hover,.sl2.active{background:rgba(212,175,55,.09);color:var(--gold)}
 .sl2 .ic{width:18px;text-align:center}
 .dr-footer{padding:14px 16px;border-top:1px solid rgba(212,175,55,.1)}
+
+/* EMPTY STATE */
 .empty-state{text-align:center;padding:44px 24px;color:var(--muted)}
 .empty-state .ei{font-size:44px;margin-bottom:12px}
 .empty-state p{font-size:13px}
 .empty-subj{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+
+/* DB PANEL */
 .db-panel{background:var(--navy-c);border:1px solid rgba(212,175,55,.11);border-radius:14px;padding:16px;margin-bottom:16px}
 .db-panel-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .db-log{background:rgba(0,0,0,.3);border-radius:8px;padding:12px;font-size:11px;color:var(--muted);font-family:monospace;max-height:160px;overflow-y:auto;line-height:1.8}
 .db-log .ok{color:var(--success)}.db-log .err{color:var(--danger)}.db-log .info{color:var(--accent)}
-/* Division info card */
-.div-info-card{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.div-info-card i{color:var(--accent);font-size:16px}
-.div-info-card .div-name{font-size:13px;font-weight:700;color:var(--accent)}
-.div-info-card .div-sub{font-size:11px;color:var(--muted);margin-top:2px}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-/* badge للشعبة المختارة في الأدمن */
-.div-selected-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent);font-size:12px;font-weight:700;margin-bottom:12px}
+/* CHAT TABS */
+.chat-tabs{display:flex;gap:8px;padding:10px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(212,175,55,.08);overflow-x:auto;scrollbar-width:none}
+.chat-tabs::-webkit-scrollbar{display:none}
+.chat-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(212,175,55,.2);color:var(--muted);background:transparent;white-space:nowrap;flex-shrink:0;transition:all .2s;font-family:'Cairo',sans-serif}
+.chat-tab.active{background:rgba(212,175,55,.1);color:var(--gold);border-color:var(--gold)}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{animation:spin 1s linear infinite}
+
+/* LOADING SCREEN */
+#dbloader{position:fixed;inset:0;background:var(--navy);z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 </style>
 </head>
 <body>
 <div id="tc"></div>
 
 <!-- DB Loading Overlay -->
-<div id="dbloader" style="position:fixed;inset:0;background:var(--navy);z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+<div id="dbloader">
   <div style="font-size:48px;animation:float 2s infinite">🗄️</div>
   <div style="font-size:16px;font-weight:700;color:var(--gold)">جاري تهيئة قاعدة البيانات...</div>
   <div style="font-size:12px;color:var(--muted)" id="dbloadmsg">تحميل محرك SQL...</div>
+  <div style="width:200px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:8px">
+    <div id="dbprogbar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--gold-d),var(--gold));transition:width .4s;border-radius:2px"></div>
+  </div>
 </div>
 
 <!-- ══════════ LANDING ══════════ -->
 <div id="pl" class="hidden">
   <nav class="lnav">
-    <div class="logo"><div class="li">أ</div><div class="lt">طلاب المعهد العالي <span>للتعاون الزراعي</span></div></div>
+    <div class="logo">
+      <div class="li">أ</div>
+      <div class="lt">طلاب المعهد العالي <span>للتعاون الزراعي</span></div>
+    </div>
     <div style="display:flex;gap:8px">
       <button class="btn btn-outline btn-sm" onclick="showAuth('login')">دخول</button>
       <button class="btn btn-gold btn-sm" onclick="showAuth('register')">سجّل</button>
     </div>
   </nav>
+
   <div class="hero">
     <div class="hbadge"><i class="fas fa-star"></i> منصة تجمع المحتوي التعليمي</div>
     <h1>منصة<br><span class="hl">لكل طالب بالمعهد العالي للتعاون الزراعي</span></h1>
@@ -274,12 +349,14 @@ tr:last-child td{border-bottom:none}
       <button class="btn btn-outline" onclick="showAuth('login')"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
     </div>
   </div>
+
   <div class="stats-row">
     <div class="si"><div class="sn" id="landstu">0</div><div class="sl">طالب مسجل</div></div>
     <div class="si"><div class="sn">4</div><div class="sl">فرق دراسية</div></div>
     <div class="si"><div class="sn">2</div><div class="sl">فصول دراسية</div></div>
     <div class="si"><div class="sn">24/7</div><div class="sl">دعم مستمر</div></div>
   </div>
+
   <div style="padding:0 18px 24px">
     <div class="sec-title"><h2>محتويات منصة <span style="color:var(--gold)">طلاب المعهد</span></h2></div>
     <div class="feat-grid">
@@ -291,15 +368,17 @@ tr:last-child td{border-bottom:none}
       <div class="fc"><div class="fci">💬</div><div class="fct">شات تفاعلي</div><div class="fcd">تواصل مع الأساتذة والزملاء</div></div>
     </div>
   </div>
+
   <div style="padding:0 18px 16px">
     <div class="sec-title"><h2>الفرق <span style="color:var(--gold)">الدراسية</span></h2></div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 0 52px">
       <div class="lc" onclick="showAuth('register')"><div class="ln">١</div><div class="lname">الفرقة الأولى</div><div class="lsub">فصل أول • فصل ثاني</div></div>
       <div class="lc" onclick="showAuth('register')"><div class="ln">٢</div><div class="lname">الفرقة الثانية</div><div class="lsub">فصل أول • فصل ثاني</div></div>
       <div class="lc" onclick="showAuth('register')"><div class="ln">٣</div><div class="lname">الفرقة الثالثة</div><div class="lsub">فصل أول • فصل ثاني</div></div>
-      <div class="lc" onclick="showAuth('register')"><div class="ln">٤</div><div class="لname">الفرقة الرابعة</div><div class="lsub">فصل أول • فصل ثاني</div></div>
+      <div class="lc" onclick="showAuth('register')"><div class="ln">٤</div><div class="lname">الفرقة الرابعة</div><div class="lsub">فصل أول • فصل ثاني</div></div>
     </div>
   </div>
+
   <div class="lfooter">
     <p>© 2025 طلاب المعهد العالي للتعاون الزراعي — جميع الحقوق محفوظة</p>
     <p style="margin-top:8px"><span style="color:var(--gold);cursor:pointer" onclick="openAdminLogin()">🔐 دخول الإدارة</span></p>
@@ -319,29 +398,46 @@ tr:last-child td{border-bottom:none}
       <button class="atab active" id="tl" onclick="swAuth('login')">تسجيل الدخول</button>
       <button class="atab" id="tr" onclick="swAuth('register')">حساب جديد</button>
     </div>
+    <!-- LOGIN -->
     <div id="fl">
-      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="lph" type="tel" placeholder="01xxxxxxxxx"></div>
+      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="lph" type="tel" placeholder="01xxxxxxxxx" maxlength="11"></div>
       <div class="fg"><label>كلمة المرور</label><input class="inp" id="lps" type="password" placeholder="••••••••"></div>
-      <button class="btn btn-gold btn-w" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+      <button class="btn btn-gold btn-w" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
     </div>
+    <!-- REGISTER -->
     <div id="fr" class="hidden">
       <div class="fg"><label>الاسم الرباعي</label><input class="inp" id="rn" placeholder="الاسم الرباعي كاملاً"></div>
-      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="rph" type="tel" placeholder="01xxxxxxxxx"></div>
+      <div class="fg"><label>رقم الهاتف</label><input class="inp" id="rph" type="tel" placeholder="01xxxxxxxxx" maxlength="11"></div>
       <div class="fg"><label>كلمة المرور</label><input class="inp" id="rps" type="password" placeholder="••••••••"></div>
       <div class="fg"><label>تأكيد كلمة المرور</label><input class="inp" id="rps2" type="password" placeholder="••••••••"></div>
       <div class="fg">
         <label>الفرقة الدراسية</label>
-        <select class="sel" id="rlv"><option value="">اختر الفرقة...</option><option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option><option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option></select>
+        <select class="sel" id="rlv">
+          <option value="">اختر الفرقة...</option>
+          <option value="1">الفرقة الأولى</option>
+          <option value="2">الفرقة الثانية</option>
+          <option value="3">الفرقة الثالثة</option>
+          <option value="4">الفرقة الرابعة</option>
+        </select>
       </div>
       <div class="fg">
         <label>الشعبة</label>
-        <select class="sel" id="rdv"><option value="">اختر الشعبة...</option><option value="تربوي">تربوي</option><option value="تسويق">تسويق</option><option value="نظم ومعلومات">نظم ومعلومات</option><option value="إدارة واقتصاد">إدارة واقتصاد</option></select>
+        <select class="sel" id="rdv">
+          <option value="">اختر الشعبة...</option>
+          <option value="تربوي">تربوي</option>
+          <option value="تسويق">تسويق</option>
+          <option value="نظم ومعلومات">نظم ومعلومات</option>
+          <option value="إدارة واقتصاد">إدارة واقتصاد</option>
+        </select>
       </div>
       <div class="fg">
         <label>الفصل الدراسي</label>
-        <select class="sel" id="rsem"><option value="1">الفصل الدراسي الأول</option><option value="2">الفصل الدراسي الثاني</option></select>
+        <select class="sel" id="rsem">
+          <option value="1">الفصل الدراسي الأول</option>
+          <option value="2">الفصل الدراسي الثاني</option>
+        </select>
       </div>
-      <button class="btn btn-gold btn-w" onclick="doReg()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+      <button class="btn btn-gold btn-w" id="regBtn" onclick="doReg()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
     </div>
   </div>
 </div>
@@ -363,56 +459,41 @@ tr:last-child td{border-bottom:none}
     <div id="uh">
       <div style="margin-bottom:16px">
         <div style="font-size:18px;font-weight:900">مرحباً <span style="color:var(--gold)" id="ugn">طالب</span> 👋</div>
-        <div style="color:var(--muted);font-size:13px;margin-top:3px" id="usubinfo">فرقتك وشعبتك</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">اختر فرقتك للوصول للمحتوى</div>
       </div>
-      <!-- Division info -->
-      <div class="div-info-card" id="udivcard">
-        <i class="fas fa-graduation-cap"></i>
-        <div>
-          <div class="div-name" id="udivname">الفرقة الأولى</div>
-          <div class="div-sub" id="udivdiv">الشعبة</div>
-        </div>
-      </div>
-      <!-- Semester quick switch -->
+      <div class="lvlsel" id="ulvlsel"></div>
       <div class="sem-bar" id="uhomesem">
         <button class="sem-btn active" id="usb1" onclick="uSelSem(1)"><i class="fas fa-moon"></i> الفصل الأول</button>
         <button class="sem-btn" id="usb2" onclick="uSelSem(2)"><i class="fas fa-sun"></i> الفصل الثاني</button>
       </div>
-
-      <!-- ↓↓ شعب الفرقة — جديد ↓↓ -->
-      <div style="margin-bottom:14px">
-        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px"><i class="fas fa-layer-group" style="color:var(--gold)"></i> شعب الفرقة</div>
-        <div class="div-tabs" id="udivtabs"></div>
-      </div>
-
       <div class="ctypes" id="uctypes"></div>
     </div>
     <!-- CONTENT -->
     <div id="uco" class="hidden">
-      <div class="bc"><span class="bcc" onclick="uNav('home')">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="ucbct">المحتوى</span></div>
+      <div class="bc">
+        <span class="bcc" onclick="uNav('home')">الرئيسية</span>
+        <i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i>
+        <span class="bccu" id="ucbct">المحتوى</span>
+      </div>
       <div class="sem-bar" style="margin-bottom:12px">
         <button class="sem-btn" id="cob1" onclick="uSelSem(1)" style="font-size:12px"><i class="fas fa-moon"></i> الفصل الأول</button>
         <button class="sem-btn" id="cob2" onclick="uSelSem(2)" style="font-size:12px"><i class="fas fa-sun"></i> الفصل الثاني</button>
       </div>
-      <!-- شعب في صفحة المحتوى -->
-      <div style="margin-bottom:12px">
-        <div class="div-tabs" id="ucontentdivtabs"></div>
-      </div>
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none" id="ucontenttabs"></div>
       <div id="usubjects-view" style="margin-top:4px"></div>
     </div>
-    <!-- CHAT — per level -->
+    <!-- CHAT -->
     <div id="ucht" class="hidden">
-      <div class="chatbox" style="height:calc(100vh - 175px)">
+      <div class="chatbox" style="height:calc(100vh - 200px)">
         <div class="chdr">
           <div class="chst"></div>
-          <div style="flex:1">
-            <div style="font-size:13px;font-weight:700" id="uchat-title">شات الفرقة</div>
-            <div style="font-size:11px;color:var(--muted)" id="uchat-sub">للفرقة فقط</div>
+          <div>
+            <div style="font-size:13px;font-weight:700" id="uchat-title">قناة النقاش العام</div>
+            <div style="font-size:11px;color:var(--muted)">للجميع</div>
           </div>
-          <!-- عدد المتصلين -->
-          <span class="badge bs" id="uchat-count">فرقتي فقط</span>
         </div>
+        <!-- Chat room tabs -->
+        <div class="chat-tabs" id="uchat-tabs"></div>
         <div class="chmsgs" id="uchatmsgs"></div>
         <div class="china">
           <input class="chinp" id="uchatinp" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter')uSend()">
@@ -425,13 +506,33 @@ tr:last-child td{border-bottom:none}
       <div class="card">
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
           <div class="av lg" id="pavatar">ط</div>
-          <div><div style="font-size:17px;font-weight:900" id="pname">طالب</div><div style="color:var(--muted);font-size:13px" id="pphone">الهاتف</div><div class="badge bg" style="margin-top:6px" id="plvl">الفرقة</div></div>
+          <div>
+            <div style="font-size:17px;font-weight:900" id="pname">طالب</div>
+            <div style="color:var(--muted);font-size:13px" id="pphone">الهاتف</div>
+            <div class="badge bg" style="margin-top:6px" id="plvl">الفرقة</div>
+          </div>
         </div>
         <hr style="border-color:rgba(212,175,55,.1);margin-bottom:18px">
         <div class="fg"><label>الاسم الرباعي</label><input class="inp" id="en"></div>
         <div class="fg"><label>رقم الهاتف</label><input class="inp" id="eph" type="tel"></div>
-        <div class="fg"><label>الفرقة</label><select class="sel" id="elv"><option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option><option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option></select></div>
-        <div class="fg"><label>الشعبة</label><select class="sel" id="edv"><option value="تربوي">تربوي</option><option value="تسويق">تسويق</option><option value="نظم ومعلومات">نظم ومعلومات</option><option value="إدارة واقتصاد">إدارة واقتصاد</option></select></div>
+        <div class="fg">
+          <label>الفرقة</label>
+          <select class="sel" id="elv">
+            <option value="1">الفرقة الأولى</option>
+            <option value="2">الفرقة الثانية</option>
+            <option value="3">الفرقة الثالثة</option>
+            <option value="4">الفرقة الرابعة</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>الشعبة</label>
+          <select class="sel" id="edv">
+            <option value="تربوي">تربوي</option>
+            <option value="تسويق">تسويق</option>
+            <option value="نظم ومعلومات">نظم ومعلومات</option>
+            <option value="إدارة واقتصاد">إدارة واقتصاد</option>
+          </select>
+        </div>
         <div class="fg">
           <label>الفصل الدراسي</label>
           <div class="sem-bar" style="margin-bottom:0">
@@ -439,7 +540,10 @@ tr:last-child td{border-bottom:none}
             <button class="sem-btn" id="esb2" onclick="uSelSem(2,true)"><i class="fas fa-sun"></i> الفصل الثاني</button>
           </div>
         </div>
-        <button class="btn btn-gold btn-w" onclick="saveProf()"><i class="fas fa-save"></i> حفظ</button>
+        <div class="fg"><label>كلمة المرور الجديدة (اختياري)</label><input class="inp" id="enps" type="password" placeholder="اتركه فارغاً للإبقاء على الحالي"></div>
+        <button class="btn btn-gold btn-w" onclick="saveProf()"><i class="fas fa-save"></i> حفظ التغييرات</button>
+        <hr style="border-color:rgba(212,175,55,.1);margin:16px 0">
+        <button class="btn btn-outline btn-w" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
       </div>
     </div>
   </div>
@@ -485,55 +589,71 @@ tr:last-child td{border-bottom:none}
         <div class="db-log" id="dblog"><div class="info">نظام قاعدة البيانات جاهز</div></div>
       </div>
       <div class="tc">
-        <div class="tch"><div class="tcti">آخر المسجلين</div></div>
+        <div class="tch"><div class="tcti">آخر المسجلين</div><button class="btn btn-xs btn-accent" onclick="aN('users')">عرض الكل</button></div>
         <div id="dusers" style="padding:18px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب بعد</div>
       </div>
     </div>
+
     <!-- LEVEL PAGE -->
     <div id="alevel" class="hidden">
-      <div class="bc"><span class="bcc" onclick="aN('dash')">الرئيسية</span><i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i><span class="bccu" id="alvlbc">الفرقة</span></div>
+      <div class="bc">
+        <span class="bcc" onclick="aN('dash')">الرئيسية</span>
+        <i class="fas fa-chevron-left" style="font-size:9px;color:var(--muted)"></i>
+        <span class="bccu" id="alvlbc">الفرقة</span>
+      </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <div style="font-size:16px;font-weight:900" id="alvlname">الفرقة</div>
-        <button class="btn btn-gold btn-sm" onclick="openAddSubj()"><i class="fas fa-plus"></i> مادة</button>
+        <button class="btn btn-gold btn-sm" onclick="openAddSubj()"><i class="fas fa-plus"></i> مادة جديدة</button>
       </div>
-      <div style="margin-bottom:12px"><span class="badge bsem" id="alvlsem">الفصل الأول</span></div>
-
-      <!-- ↓↓ اختيار الشعبة في لوحة الأدمن — جديد ↓↓ -->
       <div style="margin-bottom:14px">
-        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px"><i class="fas fa-layer-group" style="color:var(--accent)"></i> اختر الشعبة لعرض موادها</div>
-        <div class="adiv-bar" id="admin-div-bar"></div>
+        <span class="badge bsem" id="alvlsem">الفصل الأول</span>
       </div>
-      <!-- شعبة محددة حالياً -->
-      <div id="admin-div-badge" style="margin-bottom:12px"></div>
-
       <div class="subj-list" id="subjlist"></div>
     </div>
+
     <!-- USERS -->
     <div id="ausers" class="hidden">
       <div style="margin-bottom:14px">
-        <div style="font-size:16px;font-weight:900;margin-bottom:6px">إدارة الطلاب</div>
-        <input class="inp" placeholder="بحث بالاسم أو الهاتف..." oninput="filterU(this.value)">
+        <div style="font-size:16px;font-weight:900;margin-bottom:10px">إدارة الطلاب</div>
+        <input class="inp" placeholder="🔍 بحث بالاسم أو الهاتف..." oninput="filterU(this.value)" id="usearch">
       </div>
-      <div class="tc"><div class="tscroll"><table><thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="utbody"></tbody></table></div></div>
+      <div class="tc">
+        <div class="tscroll">
+          <table>
+            <thead><tr><th>الطالب</th><th>الهاتف</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+            <tbody id="utbody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
     <!-- ADMINS -->
     <div id="aadmins" class="hidden">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div style="font-size:16px;font-weight:900">المشرفون</div>
-        <button class="btn btn-gold btn-sm" onclick="openAddAdmin()"><i class="fas fa-plus"></i> مشرف</button>
+        <button class="btn btn-gold btn-sm" onclick="openAddAdmin()"><i class="fas fa-plus"></i> مشرف جديد</button>
       </div>
-      <div class="tc"><div class="tscroll"><table><thead><tr><th>المشرف</th><th>الهاتف</th><th>الصلاحيات</th><th>إجراءات</th></tr></thead><tbody id="atbody"></tbody></table></div></div>
+      <div class="tc">
+        <div class="tscroll">
+          <table>
+            <thead><tr><th>المشرف</th><th>الهاتف</th><th>الصلاحيات</th><th>إجراءات</th></tr></thead>
+            <tbody id="atbody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <!-- ADMIN CHAT — all levels -->
+
+    <!-- ADMIN CHAT -->
     <div id="aachat" class="hidden">
-      <div class="level-chat-tabs" id="admin-level-chat-tabs">
-        <button class="lct-btn active" data-lvl="1" onclick="aSelChatLevel(1,this)">فرقة 1</button>
-        <button class="lct-btn" data-lvl="2" onclick="aSelChatLevel(2,this)">فرقة 2</button>
-        <button class="lct-btn" data-lvl="3" onclick="aSelChatLevel(3,this)">فرقة 3</button>
-        <button class="lct-btn" data-lvl="4" onclick="aSelChatLevel(4,this)">فرقة 4</button>
-      </div>
       <div class="chatbox" style="height:calc(100vh - 300px)">
-        <div class="chdr"><div class="chst"></div><div><div style="font-size:13px;font-weight:700" id="achat-title">شات الفرقة الأولى</div><div style="font-size:11px;color:var(--muted)">اضغط 🗑️ لحذف أي رسالة</div></div></div>
+        <div class="chdr">
+          <div class="chst"></div>
+          <div>
+            <div style="font-size:13px;font-weight:700">قناة النقاش — إدارة</div>
+            <div style="font-size:11px;color:var(--muted)">اضغط 🗑️ لحذف أي رسالة</div>
+          </div>
+        </div>
+        <div class="chat-tabs" id="achat-tabs"></div>
         <div class="chmsgs" id="achatmsgs"></div>
         <div class="china">
           <input class="chinp" id="achatinp" placeholder="اكتب كمشرف..." onkeypress="if(event.key==='Enter')aSend()">
@@ -541,6 +661,7 @@ tr:last-child td{border-bottom:none}
         </div>
       </div>
     </div>
+
     <!-- SETTINGS -->
     <div id="asettings" class="hidden">
       <div style="font-size:16px;font-weight:900;margin-bottom:16px">الإعدادات</div>
@@ -560,8 +681,15 @@ tr:last-child td{border-bottom:none}
           <div class="fg"><label>تأكيد كلمة المرور</label><input class="inp" id="anpass2" type="password"></div>
           <button class="btn btn-gold btn-w" onclick="saveAdminCreds()"><i class="fas fa-key"></i> تحديث بيانات الدخول</button>
           <hr style="border-color:rgba(212,175,55,.1);margin:16px 0">
-          <div class="tgl"><div class="tgl-txt"><div class="tgl-ttl">تسجيل مفتوح</div><div class="tgl-sub">السماح بالتسجيل للجميع</div></div><div class="tsw on" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
-          <div class="tgl"><div class="tgl-txt"><div class="tgl-ttl">وضع الصيانة</div><div class="tgl-sub">إيقاف الموقع مؤقتاً</div></div><div class="tsw" onclick="this.classList.toggle('on')"><div class="tkn"></div></div></div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--gold)"><i class="fas fa-shield-alt"></i> الأمان</div>
+          <div class="tgl">
+            <div class="tgl-txt"><div class="tgl-ttl">تسجيل مفتوح</div><div class="tgl-sub">السماح بالتسجيل للجميع</div></div>
+            <div class="tsw on" id="regToggle" onclick="this.classList.toggle('on')"><div class="tkn"></div></div>
+          </div>
+          <div class="tgl">
+            <div class="tgl-txt"><div class="tgl-ttl">وضع الصيانة</div><div class="tgl-sub">إيقاف الموقع مؤقتاً</div></div>
+            <div class="tsw" id="maintToggle" onclick="this.classList.toggle('on')"><div class="tkn"></div></div>
+          </div>
         </div>
         <div class="card">
           <div style="font-size:14px;font-weight:700;margin-bottom:14px;color:var(--gold)"><i class="fas fa-database"></i> قاعدة البيانات</div>
@@ -577,7 +705,7 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- DRAWER -->
+<!-- ══════════ DRAWER ══════════ -->
 <div id="drawer-overlay" class="drawer-overlay hidden" onclick="closeDrawer()"></div>
 <div id="drawer" class="drawer hidden">
   <div class="dr-logo"><div class="logo"><div class="li">أ</div><div class="lt">طلاب المعهد <span>الزراعي</span></div></div></div>
@@ -591,21 +719,21 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- MODALS -->
+<!-- ══════════ MODALS ══════════ -->
+<!-- Admin Login -->
 <div id="alm" class="mo center hidden">
   <div class="md centered" style="max-width:360px">
     <div class="mh"><div class="mt">🔐 دخول الإدارة</div><button class="mc" onclick="cm('alm')">×</button></div>
     <div class="fg"><label>رقم الهاتف</label><input class="inp" id="alph" type="tel" placeholder="01xxxxxxxxx"></div>
-    <div class="fg"><label>كلمة المرور</label><input class="inp" id="alps" type="password" placeholder="••••••••"></div>
+    <div class="fg"><label>كلمة المرور</label><input class="inp" id="alps" type="password" placeholder="••••••••" onkeypress="if(event.key==='Enter')doAdminLogin()"></div>
     <button class="btn btn-gold btn-w" onclick="doAdminLogin()"><i class="fas fa-shield-alt"></i> دخول</button>
   </div>
 </div>
 
+<!-- Add Subject -->
 <div id="asmModal" class="mo hidden">
   <div class="md">
     <div class="mh"><div class="mt">إضافة مادة جديدة</div><button class="mc" onclick="cm('asmModal')">×</button></div>
-    <!-- معلومات الفرقة والشعبة المختارة -->
-    <div id="subj-modal-info" style="margin-bottom:14px"></div>
     <div class="fg"><label>اسم المادة</label><input class="inp" id="subjname" placeholder="مثال: رياضيات"></div>
     <div class="fg"><label>الكود (اختياري)</label><input class="inp" id="subjcode" placeholder="مثال: MATH101"></div>
     <div style="display:flex;gap:10px;margin-top:4px">
@@ -615,16 +743,15 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
+<!-- Upload -->
 <div id="upModal" class="mo hidden">
   <div class="md">
     <div class="mh"><div class="mt" id="upmtitle">رفع محتوى</div><button class="mc" onclick="cm('upModal')">×</button></div>
-    <!-- معلومات الرفع -->
-    <div id="up-modal-info" style="margin-bottom:14px"></div>
     <div id="upFileArea">
       <div class="fg"><label>العنوان</label><input class="inp" id="uptitle2" placeholder="عنوان المحتوى"></div>
-      <div class="fg"><label>الوصف</label><textarea class="inp" id="updesc" rows="2" placeholder="وصف مختصر..."></textarea></div>
+      <div class="fg"><label>الوصف (اختياري)</label><textarea class="inp" id="updesc" rows="2" placeholder="وصف مختصر..."></textarea></div>
       <div class="fg">
-        <label>الملف</label>
+        <label>الملف (اختياري)</label>
         <div class="upz" onclick="document.getElementById('ufile').click()">
           <div class="upi"><i class="fas fa-cloud-upload-alt"></i></div>
           <div class="upt">اضغط لاختيار الملف</div>
@@ -632,22 +759,29 @@ tr:last-child td{border-bottom:none}
         </div>
         <input type="file" id="ufile" style="display:none" onchange="handleFile(this)" accept="*/*">
         <div id="ufpreview" style="margin-top:10px"></div>
+        <div id="uprogress" class="hidden" style="margin-top:8px">
+          <div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">
+            <div id="uprbar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--gold-d),var(--gold));transition:width .3s;border-radius:2px"></div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;text-align:center" id="uptext">جاري الرفع...</div>
+        </div>
       </div>
     </div>
     <div id="qbank-area" class="hidden">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <label style="margin:0;color:var(--gold)">الأسئلة</label>
-        <button class="btn btn-sm btn-accent" onclick="addQ()"><i class="fas fa-plus"></i> سؤال</button>
+        <button class="btn btn-sm btn-accent" onclick="addQ()"><i class="fas fa-plus"></i> سؤال جديد</button>
       </div>
       <div id="qlist"></div>
     </div>
     <div style="display:flex;gap:10px;margin-top:6px">
       <button class="btn btn-outline" style="flex:1" onclick="cm('upModal')">إلغاء</button>
-      <button class="btn btn-gold" style="flex:1" onclick="submitUp()"><i class="fas fa-upload"></i> حفظ</button>
+      <button class="btn btn-gold" style="flex:1" id="submitUpBtn" onclick="submitUp()"><i class="fas fa-upload"></i> حفظ</button>
     </div>
   </div>
 </div>
 
+<!-- Add Admin -->
 <div id="aaModal" class="mo hidden">
   <div class="md">
     <div class="mh"><div class="mt">إضافة مشرف</div><button class="mc" onclick="cm('aaModal')">×</button></div>
@@ -684,406 +818,647 @@ tr:last-child td{border-bottom:none}
 
 <script>
 // ══════════════════════════════════════════
-//  STATE
+//  GLOBALS
 // ══════════════════════════════════════════
 let SQL = null, db = null;
 let cSemester = 1;
 let cUser = null, cAdmin = null, cLvl = 1, cCType = 'lw';
-let selFiles = [], qCount = 0, _upSid = null, _upType = 'lw';
-let _fileObj = null;
-let _adminChatLevel = 1;
-
-// ── الشعب ──
-const ALL_DIVS = ['تربوي', 'تسويق', 'نظم ومعلومات', 'إدارة واقتصاد'];
-let cUserDiv   = 'تربوي'; // الشعبة المختارة في واجهة الطالب (عرض فقط)
-let cAdminDiv  = 'تربوي'; // الشعبة المختارة في لوحة الأدمن
-
-// رقم هاتف المدير الرئيسي (لا يُحذف)
-const MAIN_ADMIN_PHONE = '01158644570';
-
-// ══════════════════════════════════════════
-//  DB INIT
-// ══════════════════════════════════════════
-function dbLog(msg, type='info') {
-  const log = document.getElementById('dblog');
-  if(log){ const l=document.createElement('div'); l.className=type; l.textContent=`[${new Date().toLocaleTimeString('ar')}] ${msg}`; log.appendChild(l); log.scrollTop=log.scrollHeight; }
-  const sl = document.getElementById('settingsdblog');
-  if(sl){ const l=document.createElement('div'); l.className=type; l.textContent=msg; sl.appendChild(l); }
-}
-
-async function initDB() {
-  const loadmsg = document.getElementById('dbloadmsg');
-  try {
-    loadmsg.textContent = 'تحميل محرك sql.js...';
-    const initSqlJs = await new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
-      script.onload = () => resolve(window.initSqlJs);
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-    loadmsg.textContent = 'تهيئة قاعدة البيانات...';
-    SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${f}` });
-
-    localStorage.removeItem('agricultureDB');
-    db = new SQL.Database();
-    loadmsg.textContent = 'إنشاء قاعدة بيانات جديدة...';
-
-    createTables();
-    seedAdmin();
-    saveDB();
-    document.getElementById('dbloader').style.display = 'none';
-    showPage('l');
-    updateLandingStats();
-    dbLog('✅ قاعدة البيانات جاهزة — نظيفة', 'ok');
-  } catch(err) {
-    console.error(err);
-    loadmsg.textContent = 'وضع بديل (ذاكرة مؤقتة)';
-    initFallback();
-    document.getElementById('dbloader').style.display = 'none';
-    showPage('l');
-  }
-}
-
-function createTables() {
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL, phone TEXT UNIQUE NOT NULL, pass TEXT NOT NULL,
-    level INTEGER NOT NULL DEFAULT 1, division TEXT NOT NULL DEFAULT 'تربوي',
-    semester INTEGER NOT NULL DEFAULT 1, active INTEGER NOT NULL DEFAULT 1, joined TEXT NOT NULL
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS admins (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL, phone TEXT UNIQUE NOT NULL, pass TEXT NOT NULL,
-    perms TEXT NOT NULL DEFAULT '[]', joined TEXT NOT NULL, is_main INTEGER NOT NULL DEFAULT 0
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS subjects (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL, code TEXT DEFAULT '',
-    level INTEGER NOT NULL, semester INTEGER NOT NULL DEFAULT 1,
-    division TEXT NOT NULL DEFAULT 'تربوي',
-    created TEXT NOT NULL
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS content (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    subject_id INTEGER NOT NULL, type TEXT NOT NULL,
-    title TEXT NOT NULL, description TEXT DEFAULT '',
-    file_name TEXT DEFAULT '', file_size TEXT DEFAULT '',
-    file_data TEXT DEFAULT '', file_type TEXT DEFAULT '',
-    date TEXT NOT NULL,
-    FOREIGN KEY(subject_id) REFERENCES subjects(id)
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    subject_id INTEGER NOT NULL, semester INTEGER NOT NULL DEFAULT 1,
-    question TEXT NOT NULL, options TEXT NOT NULL DEFAULT '[]',
-    answer TEXT NOT NULL, date TEXT NOT NULL,
-    FOREIGN KEY(subject_id) REFERENCES subjects(id)
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS messages (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    level INTEGER NOT NULL DEFAULT 1,
-    user_id INTEGER, user_name TEXT NOT NULL,
-    user_av TEXT NOT NULL, text TEXT NOT NULL,
-    time TEXT NOT NULL, is_admin INTEGER NOT NULL DEFAULT 0
-  )`);
-  db.run(`CREATE TABLE IF NOT EXISTS settings (
-    key TEXT PRIMARY KEY, value TEXT NOT NULL
-  )`);
-  const defs = [
-    ['platform_name','طلاب المعهد العالي للتعاون الزراعي'],
-    ['platform_desc','منصة التعليم الإلكتروني المتكاملة'],
-    ['platform_phone',''],['platform_email','']
-  ];
-  defs.forEach(([k,v]) => db.run(`INSERT OR IGNORE INTO settings(key,value) VALUES(?,?)`,[k,v]));
-}
-
-function seedAdmin() {
-  db.run(`INSERT OR REPLACE INTO admins(name,phone,pass,perms,joined,is_main) VALUES(?,?,?,?,?,1)`,
-    ['مدير النظام', MAIN_ADMIN_PHONE, 'Abdo1212',
-     JSON.stringify(['view','upload','delete','users','chat','settings']), td()]);
-  dbLog('✅ تم إنشاء حساب المدير الرئيسي: '+MAIN_ADMIN_PHONE+' / Abdo1212','ok');
-}
-
-function saveDB() {
-  if(!db) return;
-  try { const d=db.export(); localStorage.setItem('agricultureDB',JSON.stringify(Array.from(d))); } catch(e){}
-}
-
-// FALLBACK
-let FB = null;
-function initFallback() {
-  FB = {
-    users:[], admins:[{id:1,name:'مدير النظام',phone:MAIN_ADMIN_PHONE,pass:'Abdo1212',
-      perms:['view','upload','delete','users','chat','settings'],joined:td(),is_main:1}],
-    subjects:{1:{1:{},2:{}},2:{1:{},2:{}},3:{1:{},2:{}},4:{1:{},2:{}}},
-    messages:{1:[],2:[],3:[],4:[]},
-    settings:{name:'طلاب المعهد العالي للتعاون الزراعي',desc:'',phone:'',email:''},
-    nid:10
-  };
-}
-function isSQL(){ return db!==null; }
+let _upSid = null, _upType = 'lw', _fileObj = null, qCount = 0;
+let currentChatRoom = 'general'; // 'general', 'l1','l2','l3','l4'
+let chatPollInterval = null;
 
 // ══════════════════════════════════════════
 //  HELPERS
 // ══════════════════════════════════════════
-function td(){ return new Date().toISOString().split('T')[0]; }
-const LN = l => ['الفرقة الأولى','الفرقة الثانية','الفرقة الثالثة','الفرقة الرابعة'][l-1]||'';
-const SN = s => s==1?'الفصل الأول':'الفصل الثاني';
+const td = () => new Date().toISOString().split('T')[0];
+const now = () => { const d=new Date(); return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`; };
+const LN = l => ['الفرقة الأولى','الفرقة الثانية','الفرقة الثالثة','الفرقة الرابعة'][(l||1)-1] || '';
+const SN = s => s == 2 ? 'الفصل الثاني' : 'الفصل الأول';
+const RN = r => ({'general':'عام','l1':'فرقة 1','l2':'فرقة 2','l3':'فرقة 3','l4':'فرقة 4'})[r] || r;
+const fmtSz = b => b < 1024 ? b+' B' : b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(1)+' MB';
 
-// ══════════════════════════════════════════
-//  DB QUERIES
-// ══════════════════════════════════════════
-function dbGetAll(sql,params=[]){
-  if(!db) return [];
-  const res=db.exec(sql,params);
-  if(!res.length) return [];
-  const cols=res[0].columns;
-  return res[0].values.map(row=>{ const o={}; cols.forEach((c,i)=>o[c]=row[i]); return o; });
+// progress bar helper
+function setProgress(id, pct, text='') {
+  const bar = document.getElementById(id+'bar');
+  const txt = document.getElementById(id+'text');
+  if(bar) bar.style.width = pct+'%';
+  if(txt && text) txt.textContent = text;
 }
-function dbGet(sql,params=[]){ return dbGetAll(sql,params)[0]||null; }
-function dbRun(sql,params=[]){ if(!db) return; db.run(sql,params); saveDB(); }
 
-// USERS
-function dbAddUser(name,phone,pass,level,division,semester){
-  if(isSQL()){
-    dbRun(`INSERT INTO users(name,phone,pass,level,division,semester,active,joined) VALUES(?,?,?,?,?,?,1,?)`,[name,phone,pass,level,division,semester,td()]);
-    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
-  } else {
-    const u={id:++FB.nid,name,phone,pass,level,division,semester,active:1,joined:td()};
-    FB.users.push(u); return u.id;
+// ══════════════════════════════════════════
+//  DB LOGGING
+// ══════════════════════════════════════════
+function dbLog(msg, type='info') {
+  const t = `[${new Date().toLocaleTimeString('ar')}] ${msg}`;
+  ['dblog','settingsdblog'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const d = document.createElement('div');
+    d.className = type; d.textContent = t;
+    el.appendChild(d);
+    el.scrollTop = el.scrollHeight;
+  });
+}
+
+// ══════════════════════════════════════════
+//  SQL.JS INIT
+// ══════════════════════════════════════════
+async function initDB() {
+  setProgress('dbprog', 10, 'تحميل محرك SQL...');
+  document.getElementById('dbloadmsg').textContent = 'تحميل محرك sql.js...';
+  try {
+    const initSqlJs = await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
+      s.onload = () => res(window.initSqlJs);
+      s.onerror = () => rej(new Error('فشل تحميل sql.js'));
+      document.head.appendChild(s);
+    });
+    setProgress('dbprog', 35, 'تهيئة المحرك...');
+    document.getElementById('dbloadmsg').textContent = 'تهيئة قاعدة البيانات...';
+    SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${f}` });
+    setProgress('dbprog', 60, 'تحميل البيانات...');
+
+    const saved = localStorage.getItem('agriDB_v3');
+    if (saved) {
+      try {
+        const arr = JSON.parse(saved);
+        db = new SQL.Database(new Uint8Array(arr));
+        document.getElementById('dbloadmsg').textContent = 'استعادة البيانات المحفوظة...';
+      } catch(e) {
+        db = new SQL.Database();
+        document.getElementById('dbloadmsg').textContent = 'إنشاء قاعدة بيانات جديدة...';
+      }
+    } else {
+      db = new SQL.Database();
+    }
+
+    setProgress('dbprog', 80, 'إنشاء الجداول...');
+    createTables();
+    seedAdmin();
+    setProgress('dbprog', 95, 'جاري التشغيل...');
+    saveDB();
+    dbLog('✅ قاعدة البيانات تعمل بنجاح', 'ok');
+    setProgress('dbprog', 100, 'جاهز!');
+    setTimeout(() => {
+      document.getElementById('dbloader').style.display = 'none';
+      showPage('l');
+      updateLandingStats();
+    }, 300);
+  } catch(err) {
+    console.error('DB init failed:', err);
+    document.getElementById('dbloadmsg').textContent = 'خطأ في التهيئة — وضع الذاكرة';
+    initFallback();
+    setTimeout(() => {
+      document.getElementById('dbloader').style.display = 'none';
+      showPage('l');
+    }, 800);
   }
 }
-function dbFindUser(phone,pass){
-  if(isSQL()) return dbGet(`SELECT * FROM users WHERE phone=? AND pass=?`,[phone,pass]);
-  return FB?.users.find(x=>x.phone===phone&&x.pass===pass)||null;
+
+function createTables() {
+  const queries = [
+    `CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      phone TEXT UNIQUE NOT NULL,
+      pass TEXT NOT NULL,
+      level INTEGER NOT NULL DEFAULT 1,
+      division TEXT NOT NULL DEFAULT 'تربوي',
+      semester INTEGER NOT NULL DEFAULT 1,
+      active INTEGER NOT NULL DEFAULT 1,
+      joined TEXT NOT NULL DEFAULT ''
+    )`,
+    `CREATE TABLE IF NOT EXISTS admins (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      phone TEXT UNIQUE NOT NULL,
+      pass TEXT NOT NULL,
+      perms TEXT NOT NULL DEFAULT '[]',
+      joined TEXT NOT NULL DEFAULT ''
+    )`,
+    `CREATE TABLE IF NOT EXISTS subjects (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      code TEXT DEFAULT '',
+      level INTEGER NOT NULL DEFAULT 1,
+      semester INTEGER NOT NULL DEFAULT 1,
+      created TEXT NOT NULL DEFAULT ''
+    )`,
+    `CREATE TABLE IF NOT EXISTS content (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      subject_id INTEGER NOT NULL,
+      type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT DEFAULT '',
+      file_name TEXT DEFAULT '',
+      file_size TEXT DEFAULT '',
+      file_key TEXT DEFAULT '',
+      file_type TEXT DEFAULT '',
+      date TEXT NOT NULL DEFAULT ''
+    )`,
+    `CREATE TABLE IF NOT EXISTS questions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      subject_id INTEGER NOT NULL,
+      semester INTEGER NOT NULL DEFAULT 1,
+      question TEXT NOT NULL,
+      options TEXT NOT NULL DEFAULT '[]',
+      answer TEXT NOT NULL DEFAULT '',
+      date TEXT NOT NULL DEFAULT ''
+    )`,
+    `CREATE TABLE IF NOT EXISTS messages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      room TEXT NOT NULL DEFAULT 'general',
+      user_id INTEGER DEFAULT 0,
+      user_name TEXT NOT NULL,
+      user_av TEXT NOT NULL DEFAULT '؟',
+      text TEXT NOT NULL,
+      time TEXT NOT NULL,
+      is_admin INTEGER NOT NULL DEFAULT 0
+    )`,
+    `CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL DEFAULT ''
+    )`
+  ];
+  queries.forEach(q => { try { db.run(q); } catch(e) { console.warn('Table creation:', e.message); } });
+
+  // Default settings
+  [
+    ['platform_name','طلاب المعهد العالي للتعاون الزراعي'],
+    ['platform_desc','منصة التعليم الإلكتروني المتكاملة'],
+    ['platform_phone',''],['platform_email',''],
+  ].forEach(([k,v]) => {
+    try { db.run(`INSERT OR IGNORE INTO settings(key,value) VALUES(?,?)`, [k,v]); } catch(e){}
+  });
 }
-function dbGetUsers(filter=''){
-  if(isSQL()){
-    if(filter) return dbGetAll(`SELECT * FROM users WHERE name LIKE ? OR phone LIKE ? ORDER BY id DESC`,[`%${filter}%`,`%${filter}%`]);
+
+function seedAdmin() {
+  try {
+    const res = db.exec(`SELECT COUNT(*) as cnt FROM admins`);
+    const cnt = res[0]?.values[0]?.[0] || 0;
+    if (cnt === 0) {
+      db.run(`INSERT INTO admins(name,phone,pass,perms,joined) VALUES(?,?,?,?,?)`,
+        ['مدير النظام','01158644570','Abdo1212',
+         JSON.stringify(['view','upload','delete','users','chat','settings']), td()]);
+      dbLog('تم إنشاء حساب المشرف الرئيسي', 'ok');
+    } else {
+      // Update admin phone & pass to new credentials
+      db.run(`UPDATE admins SET phone=?, pass=? WHERE id=(SELECT MIN(id) FROM admins)`, ['01158644570','Abdo1212']);
+    }
+    saveDB();
+  } catch(e) { console.warn('Seed admin:', e); }
+}
+
+function saveDB() {
+  if (!db) return;
+  try {
+    const data = db.export();
+    localStorage.setItem('agriDB_v3', JSON.stringify(Array.from(data)));
+  } catch(e) { console.warn('saveDB:', e); }
+}
+
+// ══════════════════════════════════════════
+//  FALLBACK (in-memory when sql.js fails)
+// ══════════════════════════════════════════
+let FB = null;
+function initFallback() {
+  FB = {
+    users: [], nid: 100,
+    admins: [{id:1,name:'مدير النظام',phone:'01158644570',pass:'Abdo1212',
+               perms:['view','upload','delete','users','chat','settings'],joined:td()}],
+    subjects: {}, content: [], questions: [], messages: [],
+    settings: {platform_name:'طلاب المعهد',platform_desc:'',platform_phone:'',platform_email:''}
+  };
+}
+const isSQL = () => db !== null;
+
+// ══════════════════════════════════════════
+//  DB QUERY HELPERS
+// ══════════════════════════════════════════
+function dbGetAll(sql, params=[]) {
+  if (!db) return [];
+  try {
+    const res = db.exec(sql, params);
+    if (!res.length) return [];
+    const cols = res[0].columns;
+    return res[0].values.map(row => {
+      const obj = {};
+      cols.forEach((c,i) => obj[c] = row[i]);
+      return obj;
+    });
+  } catch(e) { console.error('dbGetAll:', e, sql); return []; }
+}
+function dbGet(sql, params=[]) { return dbGetAll(sql, params)[0] || null; }
+function dbRun(sql, params=[]) {
+  if (!db) return false;
+  try { db.run(sql, params); saveDB(); return true; }
+  catch(e) { console.error('dbRun:', e, sql, params); return false; }
+}
+function lastId() {
+  try { return db.exec('SELECT last_insert_rowid() as id')[0]?.values[0]?.[0] || 0; }
+  catch(e) { return 0; }
+}
+
+// ══════════════════════════════════════════
+//  USER OPERATIONS
+// ══════════════════════════════════════════
+function dbPhoneExists(phone) {
+  if (isSQL()) return !!dbGet(`SELECT id FROM users WHERE phone=?`, [phone]);
+  return !!(FB?.users.find(u => u.phone === phone));
+}
+function dbAddUser(name, phone, pass, level, division, semester) {
+  if (isSQL()) {
+    const ok = dbRun(`INSERT INTO users(name,phone,pass,level,division,semester,active,joined) VALUES(?,?,?,?,?,?,1,?)`,
+      [name, phone, pass, level, division, semester, td()]);
+    if (!ok) return null;
+    return lastId();
+  }
+  const u = {id:++FB.nid, name, phone, pass, level, division, semester, active:1, joined:td()};
+  FB.users.push(u);
+  return u.id;
+}
+function dbFindUser(phone, pass) {
+  if (isSQL()) return dbGet(`SELECT * FROM users WHERE phone=? AND pass=? AND active=1`, [phone, pass]);
+  return FB?.users.find(u => u.phone===phone && u.pass===pass && u.active===1) || null;
+}
+function dbGetUserById(id) {
+  if (isSQL()) return dbGet(`SELECT * FROM users WHERE id=?`, [id]);
+  return FB?.users.find(u => u.id===id) || null;
+}
+function dbGetUsers(filter='') {
+  if (isSQL()) {
+    if (filter) return dbGetAll(`SELECT * FROM users WHERE name LIKE ? OR phone LIKE ? ORDER BY id DESC`,
+      [`%${filter}%`, `%${filter}%`]);
     return dbGetAll(`SELECT * FROM users ORDER BY id DESC`);
   }
-  const l=FB?.users||[];
-  return filter?l.filter(u=>u.name.includes(filter)||u.phone.includes(filter)):[...l].reverse();
+  const list = [...(FB?.users||[])].reverse();
+  return filter ? list.filter(u => u.name.includes(filter) || u.phone.includes(filter)) : list;
 }
-function dbUpdateUser(id,name,phone,level,division,semester){
-  if(isSQL()) dbRun(`UPDATE users SET name=?,phone=?,level=?,division=?,semester=? WHERE id=?`,[name,phone,level,division,semester,id]);
-  else{ const u=FB.users.find(x=>x.id===id); if(u){u.name=name;u.phone=phone;u.level=level;u.division=division;u.semester=semester;} }
+function dbUpdateUser(id, name, phone, level, division, semester, pass) {
+  if (isSQL()) {
+    if (pass) dbRun(`UPDATE users SET name=?,phone=?,level=?,division=?,semester=?,pass=? WHERE id=?`,[name,phone,level,division,semester,pass,id]);
+    else dbRun(`UPDATE users SET name=?,phone=?,level=?,division=?,semester=? WHERE id=?`,[name,phone,level,division,semester,id]);
+  } else {
+    const u = FB?.users.find(x=>x.id===id);
+    if(u){u.name=name;u.phone=phone;u.level=level;u.division=division;u.semester=semester;if(pass)u.pass=pass;}
+  }
 }
-function dbToggleUser(id){
-  if(isSQL()){ const u=dbGet(`SELECT active FROM users WHERE id=?`,[id]); const nv=u.active?0:1; dbRun(`UPDATE users SET active=? WHERE id=?`,[nv,id]); return nv; }
-  else{ const u=FB.users.find(x=>x.id===id); if(u)u.active=u.active?0:1; return u?.active; }
+function dbToggleUser(id) {
+  if (isSQL()) {
+    const u = dbGet(`SELECT active FROM users WHERE id=?`,[id]);
+    const nv = (u?.active===1 || u?.active===true) ? 0 : 1;
+    dbRun(`UPDATE users SET active=? WHERE id=?`,[nv,id]);
+    return nv;
+  }
+  const u = FB?.users.find(x=>x.id===id);
+  if(u) u.active = u.active===1?0:1;
+  return u?.active||0;
 }
-function dbDeleteUser(id){
-  if(isSQL()) dbRun(`DELETE FROM users WHERE id=?`,[id]);
-  else{ const i=FB?.users.findIndex(x=>x.id===id); if(i!==-1)FB.users.splice(i,1); }
+function dbDeleteUser(id) {
+  if (isSQL()) dbRun(`DELETE FROM users WHERE id=?`,[id]);
+  else { const i=FB?.users.findIndex(x=>x.id===id); if(i!==-1)FB.users.splice(i,1); }
 }
-function dbCountUsers(){
-  if(isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM users`)?.cnt||0;
+function dbCountUsers() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM users`)?.cnt || 0;
   return FB?.users.length||0;
 }
-function dbPhoneExists(phone){
-  if(isSQL()) return !!dbGet(`SELECT id FROM users WHERE phone=?`,[phone]);
-  return !!(FB?.users.find(x=>x.phone===phone));
-}
 
-// ADMINS
-function dbFindAdmin(phone,pass){
-  if(isSQL()){ const a=dbGet(`SELECT * FROM admins WHERE phone=? AND pass=?`,[phone,pass]); if(a) a.perms=JSON.parse(a.perms||'[]'); return a; }
+// ══════════════════════════════════════════
+//  ADMIN OPERATIONS
+// ══════════════════════════════════════════
+function dbFindAdmin(phone, pass) {
+  if (isSQL()) {
+    const a = dbGet(`SELECT * FROM admins WHERE phone=? AND pass=?`,[phone,pass]);
+    if(a) a.perms = JSON.parse(a.perms||'[]');
+    return a;
+  }
   return FB?.admins.find(x=>x.phone===phone&&x.pass===pass)||null;
 }
-function dbGetAdmins(){
-  if(isSQL()) return dbGetAll(`SELECT * FROM admins`).map(a=>({...a,perms:JSON.parse(a.perms||'[]')}));
+function dbGetAdmins() {
+  if (isSQL()) return dbGetAll(`SELECT * FROM admins ORDER BY id ASC`).map(a=>({...a,perms:JSON.parse(a.perms||'[]')}));
   return FB?.admins||[];
 }
-function dbAddAdmin(name,phone,pass,perms){
-  if(isSQL()) dbRun(`INSERT INTO admins(name,phone,pass,perms,joined,is_main) VALUES(?,?,?,?,?,0)`,[name,phone,pass,JSON.stringify(perms),td()]);
-  else FB.admins.push({id:++FB.nid,name,phone,pass,perms,joined:td(),is_main:0});
+function dbAddAdmin(name, phone, pass, perms) {
+  if (isSQL()) dbRun(`INSERT INTO admins(name,phone,pass,perms,joined) VALUES(?,?,?,?,?)`,
+    [name,phone,pass,JSON.stringify(perms),td()]);
+  else FB.admins.push({id:++FB.nid,name,phone,pass,perms,joined:td()});
 }
-function dbDeleteAdmin(id){
-  // منع حذف المدير الرئيسي
-  if(isSQL()){
-    const a=dbGet(`SELECT is_main,phone FROM admins WHERE id=?`,[id]);
-    if(a&&(a.is_main===1||a.phone===MAIN_ADMIN_PHONE)){ toast('لا يمكن حذف المدير الرئيسي ⛔','e'); return false; }
-    dbRun(`DELETE FROM admins WHERE id=?`,[id]);
-    return true;
-  } else {
-    const a=FB?.admins.find(x=>x.id===id);
-    if(a&&(a.is_main===1||a.phone===MAIN_ADMIN_PHONE)){ toast('لا يمكن حذف المدير الرئيسي ⛔','e'); return false; }
-    const i=FB?.admins.findIndex(x=>x.id===id); if(i!==-1)FB.admins.splice(i,1);
-    return true;
-  }
+function dbDeleteAdmin(id) {
+  if (isSQL()) dbRun(`DELETE FROM admins WHERE id=?`,[id]);
+  else { const i=FB?.admins.findIndex(x=>x.id===id); if(i!==-1)FB.admins.splice(i,1); }
 }
-function dbUpdateAdminCreds(id,phone,pass){
-  if(isSQL()){
+function dbUpdateAdminCreds(id, phone, pass) {
+  if (isSQL()) {
     if(pass) dbRun(`UPDATE admins SET phone=?,pass=? WHERE id=?`,[phone,pass,id]);
     else dbRun(`UPDATE admins SET phone=? WHERE id=?`,[phone,id]);
-  } else { const a=FB?.admins.find(x=>x.id===id); if(a){a.phone=phone;if(pass)a.pass=pass;} }
-}
-
-// SUBJECTS — الآن تحتوي على حقل division
-function dbGetSubjects(level,semester,division){
-  if(isSQL()) return dbGetAll(`SELECT * FROM subjects WHERE level=? AND semester=? AND division=? ORDER BY id ASC`,[level,semester,division]);
-  return FB?.subjects?.[level]?.[semester]?.[division]||[];
-}
-function dbGetAllSubjectsForLevel(level,semester){
-  if(isSQL()) return dbGetAll(`SELECT * FROM subjects WHERE level=? AND semester=? ORDER BY id ASC`,[level,semester]);
-  const all=[];
-  ALL_DIVS.forEach(d=>{ const a=FB?.subjects?.[level]?.[semester]?.[d]; if(a) all.push(...a); });
-  return all;
-}
-function dbAddSubject(name,code,level,semester,division){
-  if(isSQL()){
-    dbRun(`INSERT INTO subjects(name,code,level,semester,division,created) VALUES(?,?,?,?,?,?)`,[name,code,level,semester,division,td()]);
-    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
   } else {
-    const s={id:++FB.nid,name,code,level,semester,division,content:{lw:[],lv:[],sw:[],sv:[],qb:[]}};
-    if(!FB.subjects[level]) FB.subjects[level]={};
-    if(!FB.subjects[level][semester]) FB.subjects[level][semester]={};
-    if(!FB.subjects[level][semester][division]) FB.subjects[level][semester][division]=[];
-    FB.subjects[level][semester][division].push(s); return s.id;
+    const a=FB?.admins.find(x=>x.id===id);
+    if(a){a.phone=phone;if(pass)a.pass=pass;}
   }
 }
-function dbDeleteSubject(id){
-  if(isSQL()){ dbRun(`DELETE FROM content WHERE subject_id=?`,[id]); dbRun(`DELETE FROM questions WHERE subject_id=?`,[id]); dbRun(`DELETE FROM subjects WHERE id=?`,[id]); }
-  else{ for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})){ const i=divArr.findIndex(x=>x.id===id); if(i!==-1){divArr.splice(i,1);return;} } }
-}
 
-// CONTENT
-function dbGetContent(subjectId,type){
-  if(isSQL()) return dbGetAll(`SELECT * FROM content WHERE subject_id=? AND type=? ORDER BY id ASC`,[subjectId,type]);
-  for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})){ const s=divArr.find(x=>x.id===subjectId); if(s) return s.content[type]||[]; }
-  return [];
+// ══════════════════════════════════════════
+//  SUBJECT OPERATIONS
+// ══════════════════════════════════════════
+function dbGetSubjects(level, semester) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM subjects WHERE level=? AND semester=? ORDER BY id ASC`,[level,semester]);
+  return (FB?.subjects?.[`${level}_${semester}`])||[];
 }
-function dbAddContent(subjectId,type,title,desc,fname,fsize,fdata,ftype){
-  if(isSQL()){
-    dbRun(`INSERT INTO content(subject_id,type,title,description,file_name,file_size,file_data,file_type,date) VALUES(?,?,?,?,?,?,?,?,?)`,[subjectId,type,title,desc,fname,fsize,fdata,ftype,td()]);
-    return db.exec('SELECT last_insert_rowid() as id')[0].values[0][0];
+function dbAddSubject(name, code, level, semester) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO subjects(name,code,level,semester,created) VALUES(?,?,?,?,?)`,[name,code,level,semester,td()]);
+    return lastId();
+  }
+  const k=`${level}_${semester}`;
+  if(!FB.subjects[k]) FB.subjects[k]=[];
+  const s={id:++FB.nid,name,code,level,semester,created:td()};
+  FB.subjects[k].push(s);
+  return s.id;
+}
+function dbDeleteSubject(id) {
+  if (isSQL()) {
+    dbRun(`DELETE FROM content WHERE subject_id=?`,[id]);
+    dbRun(`DELETE FROM questions WHERE subject_id=?`,[id]);
+    dbRun(`DELETE FROM subjects WHERE id=?`,[id]);
   } else {
-    const it={id:++FB.nid,title,desc,file_name:fname,file_size:fsize,fileObj:null,date:td()};
-    for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})){ const s=divArr.find(x=>x.id===subjectId); if(s){s.content[type].push(it);return it.id;} }
+    for(const k of Object.keys(FB.subjects||{})) {
+      const i=FB.subjects[k].findIndex(x=>x.id===id);
+      if(i!==-1){FB.subjects[k].splice(i,1);break;}
+    }
+    FB.content=(FB.content||[]).filter(c=>c.subject_id!==id);
+    FB.questions=(FB.questions||[]).filter(q=>q.subject_id!==id);
   }
 }
-function dbDeleteContent(id){ if(isSQL()) dbRun(`DELETE FROM content WHERE id=?`,[id]); }
-function dbCountContent(){ if(isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM content`)?.cnt||0; let c=0; for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})) divArr.forEach(s=>Object.values(s.content||{}).forEach(a=>c+=a.length)); return c; }
-function dbCountSubjects(){ if(isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM subjects`)?.cnt||0; let c=0; for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})) c+=divArr.length; return c; }
-
-// QUESTIONS
-function dbGetQuestions(subjectId){
-  if(isSQL()) return dbGetAll(`SELECT * FROM questions WHERE subject_id=? ORDER BY id ASC`,[subjectId]).map(q=>({...q,opts:JSON.parse(q.options||'[]')}));
-  for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})){ const s=divArr.find(x=>x.id===subjectId); if(s) return s.content.qb||[]; }
-  return [];
+function dbCountSubjects() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM subjects`)?.cnt||0;
+  return Object.values(FB?.subjects||{}).reduce((s,a)=>s+a.length,0);
 }
-function dbAddQuestion(subjectId,semester,q,opts,ans){
-  if(isSQL()) dbRun(`INSERT INTO questions(subject_id,semester,question,options,answer,date) VALUES(?,?,?,?,?,?)`,[subjectId,semester,q,JSON.stringify(opts),ans,td()]);
-  else{ const it={id:++FB.nid,q,opts,ans}; for(const lv of Object.values(FB.subjects||{})) for(const sem of Object.values(lv||{})) for(const divArr of Object.values(sem||{})){ const s=divArr.find(x=>x.id===subjectId); if(s){s.content.qb.push(it);return;} } }
-}
-function dbDeleteQuestion(id){ if(isSQL()) dbRun(`DELETE FROM questions WHERE id=?`,[id]); }
-
-// MESSAGES — per level (الشات خاص بكل فرقة)
-function dbGetMessages(level){
-  if(isSQL()) return dbGetAll(`SELECT * FROM messages WHERE level=? ORDER BY id ASC`,[level]);
-  return FB?.messages?.[level]||[];
-}
-function dbAddMessage(level,userId,userName,av,text,time,isAdmin){
-  if(isSQL()) dbRun(`INSERT INTO messages(level,user_id,user_name,user_av,text,time,is_admin) VALUES(?,?,?,?,?,?,?)`,[level,userId,userName,av,text,time,isAdmin?1:0]);
-  else{ if(!FB.messages[level]) FB.messages[level]=[]; FB.messages[level].push({id:++FB.nid,level,user_id:userId,user_name:userName,user_av:av,text,time,is_admin:isAdmin?1:0}); }
-}
-function dbDeleteMessage(id){
-  if(isSQL()) dbRun(`DELETE FROM messages WHERE id=?`,[id]);
-  else{ for(const msgs of Object.values(FB.messages||{})){ const i=msgs.findIndex(m=>m.id===id); if(i!==-1){msgs.splice(i,1);return;} } }
-}
-function dbCountMessages(){ if(isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM messages`)?.cnt||0; let c=0; for(const msgs of Object.values(FB.messages||{})) c+=msgs.length; return c; }
-
-// SETTINGS
-function dbGetSetting(key,def=''){ if(isSQL()) return dbGet(`SELECT value FROM settings WHERE key=?`,[key])?.value??def; return FB?.settings?.[key.replace('platform_','')]??def; }
-function dbSetSetting(key,value){ if(isSQL()) dbRun(`INSERT OR REPLACE INTO settings(key,value) VALUES(?,?)`,[key,value]); else if(FB?.settings) FB.settings[key.replace('platform_','')]=value; }
 
 // ══════════════════════════════════════════
-//  EXPORT / STATS / RESET
+//  CONTENT OPERATIONS
 // ══════════════════════════════════════════
-function exportDB(){
-  if(!db){ toast('قاعدة البيانات غير متاحة','e'); return; }
-  const data=db.export(); const blob=new Blob([data],{type:'application/octet-stream'});
-  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+function dbGetContent(subjectId, type) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM content WHERE subject_id=? AND type=? ORDER BY id ASC`,[subjectId,type]);
+  return (FB?.content||[]).filter(c=>c.subject_id===subjectId&&c.type===type);
+}
+function dbAddContent(subjectId, type, title, desc, fname, fsize, fileKey, ftype) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO content(subject_id,type,title,description,file_name,file_size,file_key,file_type,date) VALUES(?,?,?,?,?,?,?,?,?)`,
+      [subjectId,type,title,desc,fname,fsize,fileKey,ftype,td()]);
+    return lastId();
+  }
+  const c={id:++FB.nid,subject_id:subjectId,type,title,description:desc,file_name:fname,file_size:fsize,file_key:fileKey,file_type:ftype,date:td()};
+  FB.content.push(c);
+  return c.id;
+}
+function dbDeleteContent(id) {
+  if (isSQL()) dbRun(`DELETE FROM content WHERE id=?`,[id]);
+  else { const i=(FB?.content||[]).findIndex(x=>x.id===id); if(i!==-1)FB.content.splice(i,1); }
+}
+function dbGetContentById(id) {
+  if (isSQL()) return dbGet(`SELECT * FROM content WHERE id=?`,[id]);
+  return (FB?.content||[]).find(x=>x.id===id)||null;
+}
+function dbCountContent() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM content`)?.cnt||0;
+  return (FB?.content||[]).length;
+}
+
+// ══════════════════════════════════════════
+//  QUESTION OPERATIONS
+// ══════════════════════════════════════════
+function dbGetQuestions(subjectId) {
+  if (isSQL()) return dbGetAll(`SELECT * FROM questions WHERE subject_id=? ORDER BY id ASC`,[subjectId])
+    .map(q=>({...q, opts:JSON.parse(q.options||'[]'), ans:q.answer}));
+  return (FB?.questions||[]).filter(q=>q.subject_id===subjectId);
+}
+function dbAddQuestion(subjectId, semester, q, opts, ans) {
+  if (isSQL()) dbRun(`INSERT INTO questions(subject_id,semester,question,options,answer,date) VALUES(?,?,?,?,?,?)`,
+    [subjectId,semester,q,JSON.stringify(opts),ans,td()]);
+  else FB.questions.push({id:++FB.nid,subject_id:subjectId,semester,question:q,opts,ans,answer:ans,options:JSON.stringify(opts),date:td()});
+}
+function dbDeleteQuestion(id) {
+  if (isSQL()) dbRun(`DELETE FROM questions WHERE id=?`,[id]);
+  else { const i=(FB?.questions||[]).findIndex(x=>x.id===id); if(i!==-1)FB.questions.splice(i,1); }
+}
+function dbCountQuestions() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM questions`)?.cnt||0;
+  return (FB?.questions||[]).length;
+}
+
+// ══════════════════════════════════════════
+//  MESSAGE OPERATIONS
+// ══════════════════════════════════════════
+function dbGetMessages(room='general') {
+  if (isSQL()) return dbGetAll(`SELECT * FROM messages WHERE room=? ORDER BY id ASC`,[room]);
+  return (FB?.messages||[]).filter(m=>m.room===room);
+}
+function dbGetAllMessages() {
+  if (isSQL()) return dbGetAll(`SELECT * FROM messages ORDER BY id ASC`);
+  return FB?.messages||[];
+}
+function dbAddMessage(room, userId, userName, av, text, time, isAdmin) {
+  if (isSQL()) {
+    dbRun(`INSERT INTO messages(room,user_id,user_name,user_av,text,time,is_admin) VALUES(?,?,?,?,?,?,?)`,
+      [room,userId,userName,av,text,time,isAdmin?1:0]);
+    return lastId();
+  }
+  const m={id:++FB.nid,room,user_id:userId,user_name:userName,user_av:av,text,time,is_admin:isAdmin?1:0};
+  FB.messages.push(m);
+  return m.id;
+}
+function dbDeleteMessage(id) {
+  if (isSQL()) dbRun(`DELETE FROM messages WHERE id=?`,[id]);
+  else { const i=(FB?.messages||[]).findIndex(x=>x.id===id); if(i!==-1)FB.messages.splice(i,1); }
+}
+function dbCountMessages() {
+  if (isSQL()) return dbGet(`SELECT COUNT(*) as cnt FROM messages`)?.cnt||0;
+  return (FB?.messages||[]).length;
+}
+
+// ══════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════
+function dbGetSetting(key, def='') {
+  if (isSQL()) return dbGet(`SELECT value FROM settings WHERE key=?`,[key])?.value??def;
+  return FB?.settings?.[key]??def;
+}
+function dbSetSetting(key, value) {
+  if (isSQL()) dbRun(`INSERT OR REPLACE INTO settings(key,value) VALUES(?,?)`,[key,value]);
+  else if(FB?.settings) FB.settings[key]=value;
+}
+
+// ══════════════════════════════════════════
+//  INDEXEDDB — File storage
+// ══════════════════════════════════════════
+let idb = null;
+function openIDB() {
+  return new Promise((res, rej) => {
+    if (idb) { res(idb); return; }
+    const req = indexedDB.open('AgriFiles_v2', 1);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('files')) d.createObjectStore('files', {keyPath:'id'});
+    };
+    req.onsuccess = e => { idb = e.target.result; res(idb); };
+    req.onerror = () => rej(req.error);
+  });
+}
+async function idbSave(id, data) {
+  const d = await openIDB();
+  return new Promise((res, rej) => {
+    const tx = d.transaction('files','readwrite');
+    tx.objectStore('files').put({id, data});
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  });
+}
+async function idbGet(id) {
+  if (!id) return null;
+  const d = await openIDB();
+  return new Promise((res) => {
+    const tx = d.transaction('files','readonly');
+    const req = tx.objectStore('files').get(id);
+    req.onsuccess = () => res(req.result?.data||null);
+    req.onerror = () => res(null);
+  });
+}
+async function idbDelete(id) {
+  if (!id) return;
+  try {
+    const d = await openIDB();
+    return new Promise(res => {
+      const tx = d.transaction('files','readwrite');
+      tx.objectStore('files').delete(id);
+      tx.oncomplete = () => res();
+    });
+  } catch(e){}
+}
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = () => rej(r.error);
+    r.readAsDataURL(file);
+  });
+}
+
+// ══════════════════════════════════════════
+//  EXPORT / RESET DB
+// ══════════════════════════════════════════
+function exportDB() {
+  if (!db) { toast('قاعدة البيانات غير متاحة','e'); return; }
+  const data = db.export();
+  const blob = new Blob([data], {type:'application/octet-stream'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
   a.href=url; a.download=`agriculture_db_${td()}.sqlite`; a.click();
+  URL.revokeObjectURL(url);
   toast('تم تصدير قاعدة البيانات ✅','s');
+  dbLog('تم تصدير قاعدة البيانات','ok');
 }
-function showDBStats(){
-  alert(`📊 إحصائيات:\n👥 طلاب: ${dbCountUsers()}\n📚 مواد: ${dbCountSubjects()}\n📁 ملفات: ${dbCountContent()}\n💬 رسائل: ${dbCountMessages()}`);
+function showDBStats() {
+  const users=dbCountUsers(), subjs=dbCountSubjects(), files=dbCountContent(), msgs=dbCountMessages(), qs=dbCountQuestions();
+  alert(`📊 إحصائيات قاعدة البيانات:\n\n👥 الطلاب: ${users}\n📚 المواد: ${subjs}\n📁 الملفات: ${files}\n❓ الأسئلة: ${qs}\n💬 الرسائل: ${msgs}`);
 }
-function resetDB(){
-  if(!confirm('⚠️ هذا سيحذف جميع البيانات نهائياً! هل أنت متأكد؟')) return;
-  if(!confirm('تأكيد أخير؟')) return;
-  localStorage.removeItem('agricultureDB'); location.reload();
+function resetDB() {
+  if (!confirm('⚠️ سيُحذف كل شيء نهائياً! هل أنت متأكد؟')) return;
+  if (!confirm('تأكيد أخير: حذف جميع البيانات؟')) return;
+  localStorage.removeItem('agriDB_v3');
+  location.reload();
 }
 
 // ══════════════════════════════════════════
 //  SEMESTER
 // ══════════════════════════════════════════
-function uSelSem(s,fromProfile=false){
-  cSemester=s;
-  ['usb1','usb2','cob1','cob2','esb1','esb2'].forEach(id=>{
-    const el=document.getElementById(id); if(!el) return;
-    const n=parseInt(id.replace(/\D/g,'').slice(-1));
-    el.classList.toggle('active',n===s);
+function uSelSem(s, save=false) {
+  cSemester = s;
+  // Update all semester buttons
+  const semBtnIds = {1:['usb1','cob1','esb1','asb1'], 2:['usb2','cob2','esb2','asb2']};
+  [1,2].forEach(n => {
+    semBtnIds[n].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.classList.toggle('active', n===s);
+    });
   });
-  const badge=document.getElementById('usembadgetext'); if(badge) badge.textContent=SN(s);
-  renderUserDivTabs();
+  const badge = document.getElementById('usembadgetext');
+  if(badge) badge.textContent = SN(s);
+
+  if(save && cUser) {
+    dbUpdateUser(cUser.id, cUser.name, cUser.phone, cUser.level, cUser.division, s, null);
+    cUser.semester = s;
+  }
   renderCTypes();
-  if(cUser){ cUser._viewSem=s; }
-  if(document.getElementById('uco')&&!document.getElementById('uco').classList.contains('hidden')) renderUContent();
-  toast(`تم التبديل إلى ${SN(s)}`,'s');
+  if(!document.getElementById('uco').classList.contains('hidden')) renderUContent();
 }
-function aSelSem(s){
-  cSemester=s;
-  ['asb1','asb2'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; const n=parseInt(id.replace(/\D/g,'').slice(-1)); el.classList.toggle('active',n===s); });
-  const badge=document.getElementById('alvlsem'); if(badge) badge.textContent=SN(s);
-  if(!document.getElementById('alevel').classList.contains('hidden')){ renderAdminDivBar(); renderAdminSubjs(); }
-  renderCTypes();
+
+function aSelSem(s) {
+  cSemester = s;
+  ['asb1','asb2'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const n = parseInt(id.slice(-1));
+    el.classList.toggle('active', n===s);
+  });
+  const badge = document.getElementById('alvlsem');
+  if(badge) badge.textContent = SN(s);
+  if(!document.getElementById('alevel').classList.contains('hidden')) renderAdminSubjs();
 }
 
 // ══════════════════════════════════════════
-//  PAGE NAV
+//  PAGE NAVIGATION
 // ══════════════════════════════════════════
-function showPage(p){
-  ['pl','pa','pu','padm'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-  const map={l:'pl',a:'pa',u:'pu',adm:'padm'};
-  document.getElementById(map[p]).classList.remove('hidden');
+function showPage(p) {
+  document.querySelectorAll('#pl,#pa,#pu,#padm').forEach(el => el.classList.add('hidden'));
+  const map = {l:'pl', a:'pa', u:'pu', adm:'padm'};
+  const target = document.getElementById(map[p]);
+  if(target) target.classList.remove('hidden');
   window.scrollTo(0,0);
   if(p==='l') updateLandingStats();
 }
-function showAuth(t){ showPage('a'); swAuth(t); }
-function logout(){ cUser=null; cAdmin=null; closeDrawer(); showPage('l'); updateLandingStats(); toast('تم تسجيل الخروج','s'); }
-function cm(id){ document.getElementById(id).classList.add('hidden'); }
-function openM(id){ document.getElementById(id).classList.remove('hidden'); }
-function updateLandingStats(){ const el=document.getElementById('landstu'); if(el) el.textContent=dbCountUsers(); }
+function showAuth(t) { showPage('a'); swAuth(t); }
+function logout() {
+  cUser=null; cAdmin=null;
+  stopChatPoll();
+  closeDrawer();
+  showPage('l');
+  updateLandingStats();
+  toast('تم تسجيل الخروج','s');
+}
+function cm(id) { const el=document.getElementById(id); if(el)el.classList.add('hidden'); }
+function openM(id) { const el=document.getElementById(id); if(el)el.classList.remove('hidden'); }
+function updateLandingStats() {
+  const el = document.getElementById('landstu');
+  if(el) el.textContent = dbCountUsers();
+}
 
 // ══════════════════════════════════════════
 //  DRAWER
 // ══════════════════════════════════════════
-let drawerMode='user';
-function openDrawer(mode){
-  drawerMode=mode;
-  const nav=document.getElementById('dr-nav');
-  const drAv=document.getElementById('dr-av');
-  const drName=document.getElementById('dr-name');
-  const drRole=document.getElementById('dr-role');
-  if(mode==='user'&&cUser){
-    drAv.textContent=cUser.name.charAt(0); drAv.className='av';
-    drName.textContent=cUser.name.split(' ').slice(0,2).join(' ');
-    drRole.textContent=LN(cUser.level)+' — '+cUser.division+' — '+SN(cSemester);
-    nav.innerHTML=`
+function openDrawer(mode) {
+  const nav = document.getElementById('dr-nav');
+  const drAv = document.getElementById('dr-av');
+  const drName = document.getElementById('dr-name');
+  const drRole = document.getElementById('dr-role');
+
+  if(mode==='user' && cUser) {
+    drAv.textContent = cUser.name.charAt(0);
+    drAv.className = 'av';
+    drName.textContent = cUser.name.split(' ').slice(0,2).join(' ');
+    drRole.textContent = LN(cUser.level)+' — '+cUser.division+' — '+SN(cSemester);
+    nav.innerHTML = `
       <div class="sl2" onclick="uNav('home');closeDrawer()"><span class="ic"><i class="fas fa-home"></i></span> الرئيسية</div>
       <div class="sl2" onclick="uNav('content');closeDrawer()"><span class="ic"><i class="fas fa-book-open"></i></span> المحتوى</div>
-      <div class="sl2" onclick="uNav('chat');closeDrawer()"><span class="ic"><i class="fas fa-comments"></i></span> شات فرقتي</div>
+      <div class="sl2" onclick="uNav('chat');closeDrawer()"><span class="ic"><i class="fas fa-comments"></i></span> الشات</div>
       <div class="sl2" onclick="uNav('profile');closeDrawer()"><span class="ic"><i class="fas fa-user"></i></span> ملفي الشخصي</div>`;
   }
-  if(mode==='admin'&&cAdmin){
-    drAv.textContent=cAdmin.name.charAt(0); drAv.className='av blue';
-    drName.textContent=cAdmin.name.split(' ').slice(0,2).join(' ');
-    drRole.textContent='مدير النظام';
-    nav.innerHTML=`
+  if(mode==='admin' && cAdmin) {
+    drAv.textContent = cAdmin.name.charAt(0);
+    drAv.className = 'av blue';
+    drName.textContent = cAdmin.name.split(' ').slice(0,2).join(' ');
+    drRole.textContent = 'مدير النظام';
+    nav.innerHTML = `
       <div class="ssl">الرئيسية</div>
       <div class="sl2" onclick="aN('dash');closeDrawer()"><span class="ic"><i class="fas fa-chart-line"></i></span> لوحة التحكم</div>
       <div class="ssl">الفرق</div>
@@ -1097,299 +1472,382 @@ function openDrawer(mode){
   document.getElementById('drawer-overlay').classList.remove('hidden');
   document.getElementById('drawer').classList.remove('hidden');
 }
-function closeDrawer(){ document.getElementById('drawer-overlay').classList.add('hidden'); document.getElementById('drawer').classList.add('hidden'); }
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.add('hidden');
+  document.getElementById('drawer').classList.add('hidden');
+}
 
 // ══════════════════════════════════════════
 //  AUTH
 // ══════════════════════════════════════════
-function swAuth(t){
-  document.getElementById('fl').classList.toggle('hidden',t!=='login');
-  document.getElementById('fr').classList.toggle('hidden',t!=='register');
-  document.getElementById('tl').classList.toggle('active',t==='login');
-  document.getElementById('tr').classList.toggle('active',t==='register');
+function swAuth(t) {
+  document.getElementById('fl').classList.toggle('hidden', t!=='login');
+  document.getElementById('fr').classList.toggle('hidden', t!=='register');
+  document.getElementById('tl').classList.toggle('active', t==='login');
+  document.getElementById('tr').classList.toggle('active', t!=='login');
 }
 
-function doLogin(){
-  const ph=document.getElementById('lph').value.trim();
-  const ps=document.getElementById('lps').value.trim();
-  const u=dbFindUser(ph,ps);
-  if(!u){ toast('بيانات غير صحيحة','e'); return; }
-  if(u.active===0||u.active===false){ toast('الحساب معطّل','e'); return; }
-  cUser=u; cSemester=u.semester||1;
-  loadUser(); toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
+function doLogin() {
+  const ph = document.getElementById('lph').value.trim();
+  const ps = document.getElementById('lps').value.trim();
+  if(!ph||!ps){ toast('أدخل رقم الهاتف وكلمة المرور','e'); return; }
+  const u = dbFindUser(ph, ps);
+  if(!u){ toast('رقم الهاتف أو كلمة المرور غير صحيحة','e'); return; }
+  cUser = u;
+  cSemester = parseInt(u.semester) || 1;
+  cLvl = parseInt(u.level) || 1;
+  loadUser();
+  toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
 }
 
-function doReg(){
-  const n=document.getElementById('rn').value.trim();
-  const ph=document.getElementById('rph').value.trim();
-  const ps=document.getElementById('rps').value.trim();
-  const ps2=document.getElementById('rps2').value.trim();
-  const lv=document.getElementById('rlv').value;
-  const dv=document.getElementById('rdv').value;
-  const sem=document.getElementById('rsem').value;
-  if(n.split(' ').length<4){ toast('أدخل الاسم الرباعي كاملاً','e'); return; }
-  if(!ph||ph.length<11){ toast('رقم هاتف غير صحيح','e'); return; }
-  if(ps.length<6){ toast('كلمة المرور 6 أحرف على الأقل','e'); return; }
-  if(ps!==ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
+function doReg() {
+  const n = document.getElementById('rn').value.trim();
+  const ph = document.getElementById('rph').value.trim();
+  const ps = document.getElementById('rps').value.trim();
+  const ps2 = document.getElementById('rps2').value.trim();
+  const lv = document.getElementById('rlv').value;
+  const dv = document.getElementById('rdv').value;
+  const sem = document.getElementById('rsem').value;
+
+  if(n.split(' ').filter(s=>s.length>0).length < 4){ toast('أدخل الاسم الرباعي كاملاً (4 أجزاء)','e'); return; }
+  if(!ph || ph.length < 11 || !/^0\d{10}$/.test(ph)){ toast('رقم الهاتف غير صحيح (11 رقم يبدأ بـ 0)','e'); return; }
+  if(ps.length < 6){ toast('كلمة المرور يجب أن تكون 6 أحرف على الأقل','e'); return; }
+  if(ps !== ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
   if(!lv){ toast('اختر الفرقة الدراسية','e'); return; }
   if(!dv){ toast('اختر الشعبة','e'); return; }
-  if(dbPhoneExists(ph)){ toast('رقم الهاتف مسجل مسبقاً','e'); return; }
 
-  const uid=dbAddUser(n,ph,ps,parseInt(lv),dv,parseInt(sem));
-  cUser=dbFindUser(ph,ps)||{id:uid,name:n,phone:ph,level:parseInt(lv),division:dv,semester:parseInt(sem),active:1};
-  cSemester=parseInt(sem);
-  saveDB();
+  if(dbPhoneExists(ph)){ toast('رقم الهاتف مسجّل مسبقاً — جرّب تسجيل الدخول','e'); return; }
+
+  const uid = dbAddUser(n, ph, ps, parseInt(lv), dv, parseInt(sem));
+  if(!uid){ toast('حدث خطأ في التسجيل، حاول مجدداً','e'); return; }
+
+  const u = dbFindUser(ph, ps);
+  if(!u){ toast('حدث خطأ، حاول تسجيل الدخول','e'); return; }
+
+  cUser = u;
+  cSemester = parseInt(sem)||1;
+  cLvl = parseInt(lv)||1;
   updateLandingStats();
+  dbLog(`تسجيل جديد: ${n} — فرقة ${lv}`, 'ok');
   loadUser();
-  dbLog(`✅ تسجيل جديد: ${n} — فرقة ${lv} — ${dv}`,'ok');
-  toast('تم إنشاء حسابك 🎉','s');
+  toast('تم إنشاء حسابك بنجاح 🎉','s');
 }
 
-function openAdminLogin(){ openM('alm'); }
-function doAdminLogin(){
-  const ph=document.getElementById('alph').value.trim();
-  const ps=document.getElementById('alps').value.trim();
-  const a=dbFindAdmin(ph,ps);
+function openAdminLogin() { openM('alm'); }
+function doAdminLogin() {
+  const ph = document.getElementById('alph').value.trim();
+  const ps = document.getElementById('alps').value.trim();
+  if(!ph||!ps){ toast('أدخل البيانات','e'); return; }
+  const a = dbFindAdmin(ph, ps);
   if(!a){ toast('بيانات غير صحيحة','e'); return; }
-  cAdmin=a; cm('alm'); loadAdmin();
+  cAdmin = a;
+  cm('alm');
+  loadAdmin();
   toast('مرحباً '+a.name.split(' ')[0]+' 👋','s');
 }
 
 // ══════════════════════════════════════════
 //  USER DASHBOARD
 // ══════════════════════════════════════════
-function loadUser(){
+function loadUser() {
   showPage('u');
-  const u=cUser, ini=u.name.charAt(0);
-  document.getElementById('uavt').textContent=ini;
-  document.getElementById('ugn').textContent=u.name.split(' ')[0];
-  document.getElementById('usubinfo').textContent=LN(u.level)+' — '+u.division;
-  document.getElementById('udivname').textContent=LN(u.level);
-  document.getElementById('udivdiv').textContent='شعبة '+u.division;
-  document.getElementById('pavatar').textContent=ini;
-  document.getElementById('pname').textContent=u.name;
-  document.getElementById('pphone').textContent=u.phone;
-  document.getElementById('plvl').textContent=LN(u.level)+' — '+u.division;
-  document.getElementById('en').value=u.name;
-  document.getElementById('eph').value=u.phone;
-  document.getElementById('elv').value=u.level;
-  document.getElementById('edv').value=u.division;
-  cLvl=u.level;
-  // الشعبة الافتراضية هي شعبة الطالب
-  cUserDiv=u.division;
+  const u = cUser;
+  const ini = u.name.charAt(0);
+  document.getElementById('uavt').textContent = ini;
+  document.getElementById('ugn').textContent = u.name.split(' ')[0];
+  document.getElementById('pavatar').textContent = ini;
+  document.getElementById('pname').textContent = u.name;
+  document.getElementById('pphone').textContent = u.phone;
+  document.getElementById('plvl').textContent = LN(u.level)+' — '+u.division;
+  document.getElementById('en').value = u.name;
+  document.getElementById('eph').value = u.phone;
+  document.getElementById('elv').value = u.level;
+  document.getElementById('edv').value = u.division;
+  cLvl = parseInt(u.level)||1;
   uSelSem(cSemester);
-  renderUserDivTabs();
+  renderLvlSel();
   renderCTypes();
-  loadUChat();
+  renderUChat();
+  startChatPoll();
+  uNav('home');
 }
 
-// ── تبويبات الشعب في واجهة الطالب ──
-function renderUserDivTabs(){
-  // الرئيسية
-  const homeTab=document.getElementById('udivtabs');
-  if(homeTab){
-    homeTab.innerHTML=ALL_DIVS.map(d=>`
-      <button class="div-tab${d===cUserDiv?' active':''}" onclick="selUserDiv('${d}')">${d}</button>
-    `).join('');
-  }
-  // صفحة المحتوى
-  const contentTab=document.getElementById('ucontentdivtabs');
-  if(contentTab){
-    contentTab.innerHTML=ALL_DIVS.map(d=>`
-      <button class="div-tab${d===cUserDiv?' active':''}" onclick="selUserDiv('${d}')">${d}</button>
-    `).join('');
-  }
-}
-
-function selUserDiv(div){
-  cUserDiv=div;
-  renderUserDivTabs();
-  renderCTypes();
-  if(document.getElementById('uco')&&!document.getElementById('uco').classList.contains('hidden')) renderUContent();
-}
-
-function renderCTypes(){
-  const subjs=dbGetSubjects(cLvl,cSemester,cUserDiv);
-  let lw=0,lv=0,sw=0,sv=0,qb=0;
-  subjs.forEach(s=>{
-    lw+=dbGetContent(s.id,'lw').length;
-    lv+=dbGetContent(s.id,'lv').length;
-    sw+=dbGetContent(s.id,'sw').length;
-    sv+=dbGetContent(s.id,'sv').length;
-    qb+=dbGetQuestions(s.id).length;
-  });
-  const types=[
-    {k:'lw',icon:'📖',bg:'rgba(212,175,55,.13)',name:'محاضرات مكتوبة',sub:'PDF وملفات',cnt:lw},
-    {k:'lv',icon:'🎥',bg:'rgba(0,212,255,.12)',name:'محاضرات مصورة',sub:'فيديوهات',cnt:lv},
-    {k:'sw',icon:'✏️',bg:'rgba(255,107,53,.12)',name:'سكاشن مكتوبة',sub:'مراجعات',cnt:sw},
-    {k:'sv',icon:'🎞️',bg:'rgba(0,200,150,.12)',name:'سكاشن مصورة',sub:'شرح مرئي',cnt:sv},
-    {k:'qb',icon:'❓',bg:'rgba(160,80,200,.12)',name:'بنك الأسئلة',sub:'اختبر نفسك',cnt:qb},
-  ];
-  document.getElementById('uctypes').innerHTML=types.map(t=>`
-    <div class="ctcard" onclick="uNav('content');setTimeout(()=>swCType('${t.k}'),50)">
-      <div class="cticon" style="background:${t.bg}">${t.icon}</div>
-      <div style="flex:1"><div class="ctname">${t.name}</div><div class="ctsub">${t.sub}</div></div>
-      <div class="ctcount">${t.cnt}</div>
+function renderLvlSel() {
+  document.getElementById('ulvlsel').innerHTML = [1,2,3,4].map(l => `
+    <div class="lvlbtn${l===cLvl?' active':''}" onclick="selLvl(${l},this)">
+      <div class="n">${['١','٢','٣','٤'][l-1]}</div>
+      <div class="nm">${['أولى','ثانية','ثالثة','رابعة'][l-1]}</div>
     </div>`).join('');
 }
 
-function uNav(pg,btnEl){
-  ['uh','uco','ucht','upr'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-  const map={home:'uh',content:'uco',chat:'ucht',profile:'upr'};
-  document.getElementById(map[pg]).classList.remove('hidden');
-  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
-  const bid=document.getElementById('bn-'+pg); if(bid) bid.classList.add('active');
-  const titles={home:'لوحة الطالب',content:'المحتوى',chat:'شات الفرقة',profile:'ملفي الشخصي'};
-  document.getElementById('uptitle').textContent=titles[pg]||'';
-  if(pg==='content') renderUContent();
-  if(pg==='chat'){
-    document.getElementById('uchat-title').textContent='شات '+LN(cLvl);
-    document.getElementById('uchat-sub').textContent='شات خاص بالفرقة '+(cLvl)+' فقط 🔒';
-    loadUChat(); scrollCh('uchatmsgs');
-  }
-  if(pg==='profile'){
-    ['esb1','esb2'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; const n=parseInt(id.replace(/\D/g,'').slice(-1)); el.classList.toggle('active',n===cSemester); });
+function selLvl(l, el) {
+  cLvl = l;
+  document.querySelectorAll('.lvlbtn').forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderCTypes();
+}
+
+function renderCTypes() {
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  let counts = {lw:0, lv:0, sw:0, sv:0, qb:0};
+  subjs.forEach(s => {
+    counts.lw += dbGetContent(s.id,'lw').length;
+    counts.lv += dbGetContent(s.id,'lv').length;
+    counts.sw += dbGetContent(s.id,'sw').length;
+    counts.sv += dbGetContent(s.id,'sv').length;
+    counts.qb += dbGetQuestions(s.id).length;
+  });
+  const types = [
+    {k:'lw',icon:'📖',bg:'rgba(212,175,55,.13)',name:'محاضرات مكتوبة',sub:'PDF وملفات'},
+    {k:'lv',icon:'🎥',bg:'rgba(0,212,255,.12)',name:'محاضرات مصورة',sub:'فيديوهات'},
+    {k:'sw',icon:'✏️',bg:'rgba(255,107,53,.12)',name:'سكاشن مكتوبة',sub:'مراجعات'},
+    {k:'sv',icon:'🎞️',bg:'rgba(0,200,150,.12)',name:'سكاشن مصورة',sub:'شرح مرئي'},
+    {k:'qb',icon:'❓',bg:'rgba(160,80,200,.12)',name:'بنك الأسئلة',sub:'اختبر نفسك'},
+  ];
+  document.getElementById('uctypes').innerHTML = types.map(t => `
+    <div class="ctcard" onclick="goToContent('${t.k}')">
+      <div class="cticon" style="background:${t.bg}">${t.icon}</div>
+      <div style="flex:1"><div class="ctname">${t.name}</div><div class="ctsub">${t.sub}</div></div>
+      <div class="ctcount">${counts[t.k]}</div>
+    </div>`).join('');
+}
+
+function goToContent(type) {
+  cCType = type;
+  uNav('content');
+}
+
+function uNav(pg, btnEl) {
+  ['uh','uco','ucht','upr'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  const map = {home:'uh', content:'uco', chat:'ucht', profile:'upr'};
+  const target = document.getElementById(map[pg]);
+  if(target) target.classList.remove('hidden');
+
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  const bid = document.getElementById('bn-'+pg);
+  if(bid) bid.classList.add('active');
+
+  const titles = {home:'لوحة الطالب', content:'المحتوى', chat:'الشات', profile:'ملفي الشخصي'};
+  document.getElementById('uptitle').textContent = titles[pg]||'';
+
+  if(pg==='content') { setTimeout(renderUContent, 50); }
+  if(pg==='chat') { renderUChat(); setTimeout(()=>scrollChat('uchatmsgs'),100); }
+  if(pg==='profile') {
+    [1,2].forEach(n => {
+      const el = document.getElementById('esb'+n);
+      if(el) el.classList.toggle('active', n===cSemester);
+    });
   }
 }
 
-function swCType(t){
-  cCType=t;
-  const tabs=document.getElementById('ucontenttabs');
-  if(tabs) tabs.querySelectorAll('.stab').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
-  const names={lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
-  document.getElementById('ucbct').textContent=names[t]||'';
+function swCType(t) {
+  cCType = t;
+  document.querySelectorAll('#ucontenttabs .stab').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
+  const names = {lw:'محاضرات مكتوبة',lv:'محاضرات مصورة',sw:'سكاشن مكتوبة',sv:'سكاشن مصورة',qb:'بنك الأسئلة'};
+  document.getElementById('ucbct').textContent = names[t]||'';
   renderUContent();
 }
 
-function renderUContent(){
-  ['cob1','cob2'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; const n=parseInt(id.replace(/\D/g,'').slice(-1)); el.classList.toggle('active',n===cSemester); });
-  renderUserDivTabs();
-  const tabsEl=document.getElementById('ucontenttabs');
-  const types=[{k:'lw',l:'📖 مكتوبة'},{k:'lv',l:'🎥 مصورة'},{k:'sw',l:'✏️ سكاشن'},{k:'sv',l:'🎞️ سكاشن مرئي'},{k:'qb',l:'❓ أسئلة'}];
-  tabsEl.innerHTML=types.map(t=>`<span class="stab${t.k===cCType?' active':''}" data-t="${t.k}" onclick="swCType('${t.k}')">${t.l}</span>`).join('');
-  const subjs=dbGetSubjects(cLvl,cSemester,cUserDiv);
-  const c=document.getElementById('usubjects-view');
-  if(!subjs.length){ c.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>لا يوجد محتوى في شعبة "${cUserDiv}" (${SN(cSemester)}) بعد</p></div>`; return; }
-  const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
-  c.innerHTML='<div class="subj-list">'+subjs.map(s=>{
-    let body='';
-    if(cCType==='qb'){
-      const qs=dbGetQuestions(s.id);
-      body=qs.length?qs.map(it=>renderQ(it,false)).join(''):`<div class="empty-subj">لا يوجد محتوى</div>`;
+function renderUContent() {
+  [1,2].forEach(n => {
+    const el = document.getElementById('cob'+n);
+    if(el) el.classList.toggle('active', n===cSemester);
+  });
+
+  const tabs = document.getElementById('ucontenttabs');
+  const types = [{k:'lw',l:'📖 مكتوبة'},{k:'lv',l:'🎥 مصورة'},{k:'sw',l:'✏️ سكاشن'},{k:'sv',l:'🎞️ مرئي'},{k:'qb',l:'❓ أسئلة'}];
+  tabs.innerHTML = types.map(t=>`<span class="stab${t.k===cCType?' active':''}" data-t="${t.k}" onclick="swCType('${t.k}')">${t.l}</span>`).join('');
+
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  const cont = document.getElementById('usubjects-view');
+
+  if(!subjs.length) {
+    cont.innerHTML = `<div class="empty-state"><div class="ei">📭</div><p>لا يوجد محتوى في هذه الفرقة (${SN(cSemester)}) بعد</p></div>`;
+    return;
+  }
+
+  const icons = {lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
+  cont.innerHTML = '<div class="subj-list">' + subjs.map(s => {
+    let body = '';
+    if(cCType==='qb') {
+      const qs = dbGetQuestions(s.id);
+      body = qs.length ? qs.map(it=>renderQCard(it, false)).join('') : `<div class="empty-subj">لا يوجد أسئلة بعد</div>`;
     } else {
-      const items=dbGetContent(s.id,cCType);
-      body=items.length?items.map(it=>`
+      const items = dbGetContent(s.id, cCType);
+      body = items.length ? items.map(it=>`
         <div class="ci" style="margin-top:9px">
-          <div class="cii" style="background:rgba(212,175,55,.1)">${icons[cCType]}</div>
-          <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.file_size||''}</div></div>
+          <div class="cii" style="background:rgba(212,175,55,.1)">${icons[cCType]||'📄'}</div>
+          <div class="ciinfo"><div class="cit">${esc(it.title)}</div><div class="cim">${esc(it.file_size||it.description||'')}</div></div>
           <div class="cia">
-            <button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>
+            ${it.file_key?`<button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>`:''}
+            ${it.file_key?`<button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>`:''}
           </div>
-        </div>`).join(''):`<div class="empty-subj">لا يوجد محتوى</div>`;
+        </div>`).join('') : `<div class="empty-subj">لا يوجد محتوى بعد</div>`;
     }
     return `<div class="subj-item">
       <div class="subj-hdr" onclick="this.nextElementSibling.classList.toggle('hidden')">
         <div style="font-size:20px">📚</div>
-        <div class="sname">${s.name}</div>
-        ${s.code?`<span class="badge ba">${s.code}</span>`:''}
+        <div class="sname">${esc(s.name)}</div>
+        ${s.code?`<span class="badge ba">${esc(s.code)}</span>`:''}
         <i class="fas fa-chevron-down" style="color:var(--muted);font-size:11px"></i>
       </div>
       <div class="subj-body hidden">${body}</div>
     </div>`;
-  }).join('')+'</div>';
+  }).join('') + '</div>';
 }
 
 // ══════════════════════════════════════════
-//  CHAT — PER LEVEL (الشات خاص بكل فرقة)
+//  CHAT
 // ══════════════════════════════════════════
-function renderChat(containerId, level, isAdmin){
-  const c=document.getElementById(containerId);
+const chatRooms = [
+  {id:'general', label:'💬 عام'},
+  {id:'l1', label:'فرقة 1'},
+  {id:'l2', label:'فرقة 2'},
+  {id:'l3', label:'فرقة 3'},
+  {id:'l4', label:'فرقة 4'},
+];
+
+function renderChatTabs(containerEl, activeRoom, clickFn) {
+  const el = document.getElementById(containerEl);
+  if(!el) return;
+  el.innerHTML = chatRooms.map(r=>`
+    <button class="chat-tab${r.id===activeRoom?' active':''}" onclick="${clickFn}('${r.id}')">${r.label}</button>
+  `).join('');
+}
+
+function renderUChat() {
+  renderChatTabs('uchat-tabs', currentChatRoom, 'switchUserChatRoom');
+  renderChatMessages('uchatmsgs', currentChatRoom, false);
+}
+
+function switchUserChatRoom(room) {
+  currentChatRoom = room;
+  renderChatTabs('uchat-tabs', room, 'switchUserChatRoom');
+  renderChatMessages('uchatmsgs', room, false);
+  setTimeout(()=>scrollChat('uchatmsgs'),50);
+}
+
+function renderAdminChatView() {
+  renderChatTabs('achat-tabs', currentChatRoom, 'switchAdminChatRoom');
+  renderChatMessages('achatmsgs', currentChatRoom, true);
+}
+function switchAdminChatRoom(room) {
+  currentChatRoom = room;
+  renderChatTabs('achat-tabs', room, 'switchAdminChatRoom');
+  renderChatMessages('achatmsgs', room, true);
+  setTimeout(()=>scrollChat('achatmsgs'),50);
+}
+
+function renderChatMessages(containerId, room, isAdminView) {
+  const c = document.getElementById(containerId);
   if(!c) return;
-  const msgs=dbGetMessages(level);
-  c.innerHTML=msgs.map(m=>{
-    const own=isAdmin?(m.is_admin===1||m.is_admin===true):(cUser&&m.user_id===cUser.id);
-    return `<div class="chmsg${own?' own':''}">
-      <div class="chmav" style="${(m.is_admin===1||m.is_admin===true)?'background:linear-gradient(135deg,var(--accent),#0090CC)':''}">${m.user_av}</div>
+  const msgs = dbGetMessages(room);
+  if(!msgs.length) {
+    c.innerHTML = `<div style="text-align:center;padding:32px 16px;color:var(--muted);font-size:13px">💬 لا توجد رسائل بعد — كن أول من يكتب!</div>`;
+    return;
+  }
+  const myId = isAdminView ? 0 : cUser?.id;
+  c.innerHTML = msgs.map(m => {
+    const isAdmin = m.is_admin===1||m.is_admin===true;
+    const own = isAdminView ? isAdmin : (m.user_id===myId && !isAdmin);
+    return `<div class="chmsg${own?' own':''}" style="max-width:82%">
+      <div class="chmav" style="${isAdmin?'background:linear-gradient(135deg,var(--accent),#0090CC)':''}">
+        ${esc(m.user_av)}
+      </div>
       <div>
-        ${!own?`<div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:700">${m.user_name}</div>`:''}
-        <div class="chmbub">${m.text}</div>
+        ${!own?`<div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:700">${esc(m.user_name)}${isAdmin?' 🛡️':''}</div>`:''}
+        <div class="chmbub">${esc(m.text)}</div>
         <div style="display:flex;align-items:center;gap:6px">
-          <div class="chmtime">${m.time}</div>
-          ${isAdmin?`<button style="background:none;border:none;cursor:pointer;font-size:13px;padding:2px" onclick="delMsg(${m.id})">🗑️</button>`:''}
+          <div class="chmtime">${esc(m.time)}</div>
+          ${isAdminView?`<button style="background:none;border:none;cursor:pointer;font-size:12px;padding:2px;opacity:.6" onclick="delMsg(${m.id})" title="حذف">🗑️</button>`:''}
         </div>
       </div>
     </div>`;
   }).join('');
-  scrollCh(containerId);
 }
 
-function scrollCh(id){ setTimeout(()=>{ const e=document.getElementById(id); if(e)e.scrollTop=e.scrollHeight; },50); }
-
-function loadUChat(){
-  // الشات خاص بالفرقة فقط — يُرسَل ويُستقبَل برقم الفرقة
-  renderChat('uchatmsgs',cLvl,false);
+function scrollChat(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollTop = el.scrollHeight;
 }
 
-function uSend(){
-  const inp=document.getElementById('uchatinp'), t=inp.value.trim();
+function uSend() {
+  const inp = document.getElementById('uchatinp');
+  const t = inp.value.trim();
   if(!t) return;
-  const now=new Date();
-  const time=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-  // الرسالة مربوطة بفرقة الطالب cLvl
-  dbAddMessage(cLvl,cUser.id,cUser.name.split(' ')[0],cUser.name.charAt(0),t,time,false);
-  inp.value='';
-  renderChat('uchatmsgs',cLvl,false);
-  if(!document.getElementById('achatmsgs').closest('#aachat').classList.contains('hidden')&&_adminChatLevel===cLvl){
-    renderChat('achatmsgs',_adminChatLevel,true);
+  dbAddMessage(currentChatRoom, cUser.id, cUser.name.split(' ')[0], cUser.name.charAt(0), t, now(), false);
+  inp.value = '';
+  renderChatMessages('uchatmsgs', currentChatRoom, false);
+  setTimeout(()=>scrollChat('uchatmsgs'),50);
+  // Also refresh admin chat if open
+  const ac = document.getElementById('achatmsgs');
+  if(ac && !document.getElementById('aachat').classList.contains('hidden')) {
+    renderChatMessages('achatmsgs', currentChatRoom, true);
   }
-  const tm=document.getElementById('dstm'); if(tm) tm.textContent=dbCountMessages();
 }
 
-function aSend(){
-  const inp=document.getElementById('achatinp'), t=inp.value.trim();
+function aSend() {
+  const inp = document.getElementById('achatinp');
+  const t = inp.value.trim();
   if(!t) return;
-  const now=new Date();
-  const time=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-  dbAddMessage(_adminChatLevel,0,'المشرف','م',t,time,true);
-  inp.value='';
-  renderChat('achatmsgs',_adminChatLevel,true);
+  const name = cAdmin?.name.split(' ')[0]||'مشرف';
+  dbAddMessage(currentChatRoom, 0, name, '🛡', t, now(), true);
+  inp.value = '';
+  renderChatMessages('achatmsgs', currentChatRoom, true);
+  setTimeout(()=>scrollChat('achatmsgs'),50);
 }
 
-function aSelChatLevel(lvl,btn){
-  _adminChatLevel=lvl;
-  document.querySelectorAll('.lct-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.getElementById('achat-title').textContent='شات '+LN(lvl);
-  renderChat('achatmsgs',lvl,true);
-}
-
-function delMsg(id){
+function delMsg(id) {
+  if(!confirm('حذف هذه الرسالة؟')) return;
   dbDeleteMessage(id);
-  renderChat('achatmsgs',_adminChatLevel,true);
+  renderChatMessages('achatmsgs', currentChatRoom, true);
   toast('تم حذف الرسالة','s');
+}
+
+// Chat polling for real-time feel
+let _lastMsgCount = 0;
+function startChatPoll() {
+  stopChatPoll();
+  chatPollInterval = setInterval(() => {
+    const cnt = dbCountMessages();
+    if(cnt !== _lastMsgCount) {
+      _lastMsgCount = cnt;
+      if(!document.getElementById('ucht').classList.contains('hidden')) {
+        renderChatMessages('uchatmsgs', currentChatRoom, false);
+        scrollChat('uchatmsgs');
+      }
+    }
+  }, 1500);
+}
+function stopChatPoll() {
+  if(chatPollInterval) { clearInterval(chatPollInterval); chatPollInterval=null; }
 }
 
 // ══════════════════════════════════════════
 //  PROFILE
 // ══════════════════════════════════════════
-function saveProf(){
-  const n=document.getElementById('en').value.trim();
+function saveProf() {
+  const n = document.getElementById('en').value.trim();
+  const phone = document.getElementById('eph').value.trim();
+  const level = parseInt(document.getElementById('elv').value)||cUser.level;
+  const division = document.getElementById('edv').value||cUser.division;
+  const newPass = document.getElementById('enps').value.trim();
+
   if(!n){ toast('أدخل الاسم','e'); return; }
-  const phone=document.getElementById('eph').value.trim();
-  const level=parseInt(document.getElementById('elv').value);
-  const division=document.getElementById('edv').value;
-  dbUpdateUser(cUser.id,n,phone,level,division,cSemester);
-  cUser.name=n; cUser.phone=phone; cUser.level=level; cUser.division=division; cUser.semester=cSemester;
-  cLvl=level; cUserDiv=division;
+
+  dbUpdateUser(cUser.id, n, phone, level, division, cSemester, newPass||null);
+  cUser = dbGetUserById(cUser.id) || {...cUser, name:n, phone, level, division, semester:cSemester};
+  if(newPass) cUser.pass = newPass;
+
+  document.getElementById('enps').value = '';
   loadUser();
-  toast('تم حفظ التغييرات','s');
+  toast('تم حفظ التغييرات ✅','s');
 }
 
 // ══════════════════════════════════════════
 //  ADMIN PANEL
 // ══════════════════════════════════════════
-const aNavItems=[
+const aNavItems = [
   {id:'dash',icon:'fa-chart-line',label:'لوحة التحكم'},
   {id:'l1',icon:'fa-layer-group',label:'فرقة 1'},
   {id:'l2',icon:'fa-layer-group',label:'فرقة 2'},
@@ -1401,9 +1859,10 @@ const aNavItems=[
   {id:'settings',icon:'fa-cog',label:'الإعدادات'},
 ];
 
-function loadAdmin(){
+function loadAdmin() {
   showPage('adm');
-  document.getElementById('ahnav').innerHTML=aNavItems.map(it=>`
+  const nav = document.getElementById('ahnav');
+  nav.innerHTML = aNavItems.map(it=>`
     <button class="ahnav-btn${it.id==='dash'?' active':''}" id="ahnb-${it.id}" onclick="aN('${it.id}')">
       <i class="fas ${it.icon}"></i> ${it.label}
     </button>`).join('');
@@ -1411,191 +1870,159 @@ function loadAdmin(){
   loadAdminSettings();
 }
 
-function aN(pg){
-  ['adash','alevel','ausers','aadmins','aachat','asettings'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+function aN(pg) {
+  ['adash','alevel','ausers','aadmins','aachat','asettings'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.add('hidden');
+  });
   document.querySelectorAll('.ahnav-btn').forEach(b=>b.classList.remove('active'));
-  const lmap={l1:1,l2:2,l3:3,l4:4};
-  const map={dash:'adash',l1:'alevel',l2:'alevel',l3:'alevel',l4:'alevel',users:'ausers',admins:'aadmins',achat:'aachat',settings:'asettings'};
-  const el=document.getElementById(map[pg]); if(el) el.classList.remove('hidden');
-  const nb=document.getElementById('ahnb-'+pg);
+  const nb = document.getElementById('ahnb-'+pg);
   if(nb){ nb.classList.add('active'); nb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
-  const titles={dash:'لوحة التحكم',users:'الطلاب',admins:'المشرفون',achat:'الشات',settings:'الإعدادات'};
-  if(lmap[pg]){
-    cLvl=lmap[pg];
-    const ln=LN(cLvl);
-    document.getElementById('alvlbc').textContent=ln;
-    document.getElementById('alvlname').textContent=ln;
-    document.getElementById('aptitle').textContent=ln;
-    const badge=document.getElementById('alvlsem'); if(badge) badge.textContent=SN(cSemester);
-    // ← عرض أزرار الشعب عند فتح الفرقة
-    renderAdminDivBar();
+
+  const lvlMap = {l1:1,l2:2,l3:3,l4:4};
+  if(lvlMap[pg]) {
+    cLvl = lvlMap[pg];
+    const el = document.getElementById('alevel');
+    if(el) el.classList.remove('hidden');
+    const ln = LN(cLvl);
+    document.getElementById('alvlbc').textContent = ln;
+    document.getElementById('alvlname').textContent = ln;
+    document.getElementById('aptitle').textContent = ln;
+    const badge = document.getElementById('alvlsem');
+    if(badge) badge.textContent = SN(cSemester);
     renderAdminSubjs();
     return;
   }
-  document.getElementById('aptitle').textContent=titles[pg]||'';
+
+  const pageMap = {dash:'adash',users:'ausers',admins:'aadmins',achat:'aachat',settings:'asettings'};
+  const target = document.getElementById(pageMap[pg]);
+  if(target) target.classList.remove('hidden');
+
+  const titles = {dash:'لوحة التحكم',users:'الطلاب',admins:'المشرفون',achat:'الشات',settings:'الإعدادات'};
+  document.getElementById('aptitle').textContent = titles[pg]||'';
+
   if(pg==='dash'){ updStats(); renderDashUsers(); }
-  if(pg==='users') renderUsers();
-  if(pg==='admins') renderAdmins();
-  if(pg==='achat'){ _adminChatLevel=1; renderChat('achatmsgs',1,true); }
-  if(pg==='settings') loadAdminSettings();
+  if(pg==='users'){ renderUsers(); }
+  if(pg==='admins'){ renderAdmins(); }
+  if(pg==='achat'){ renderAdminChatView(); setTimeout(()=>scrollChat('achatmsgs'),100); }
 }
 
-// ── شريط الشعب في لوحة الأدمن ──
-function renderAdminDivBar(){
-  const bar=document.getElementById('admin-div-bar');
-  if(!bar) return;
-  bar.innerHTML=ALL_DIVS.map(d=>`
-    <button class="adiv-btn${d===cAdminDiv?' active':''}" onclick="selAdminDiv('${d}')">${d}</button>
-  `).join('');
-  updateAdminDivBadge();
+function updStats() {
+  document.getElementById('dstu').textContent = dbCountUsers();
+  document.getElementById('dstf').textContent = dbCountSubjects();
+  document.getElementById('dstc').textContent = dbCountContent();
+  document.getElementById('dstm').textContent = dbCountMessages();
 }
 
-function selAdminDiv(div){
-  cAdminDiv=div;
-  renderAdminDivBar();
-  renderAdminSubjs();
+function renderDashUsers() {
+  const c = document.getElementById('dusers');
+  const users = dbGetUsers();
+  if(!users.length){ c.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب مسجلون بعد</div>'; return; }
+  c.innerHTML = `<div class="tscroll"><table>
+    <thead><tr><th>الطالب</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th></tr></thead>
+    <tbody>${users.slice(0,8).map(u=>`<tr>
+      <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${esc(u.name.split(' ').slice(0,2).join(' '))}</div></td>
+      <td><span class="badge bg">${LN(u.level).replace('الفرقة ','')}</span></td>
+      <td><span class="badge ba">${esc(u.division)}</span></td>
+      <td><span class="badge bsem">${SN(u.semester||1)}</span></td>
+      <td><span class="badge ${u.active===1?'bs':'bd'}">${u.active===1?'نشط':'معطّل'}</span></td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
 }
 
-function updateAdminDivBadge(){
-  const badge=document.getElementById('admin-div-badge');
-  if(badge) badge.innerHTML=`<div class="div-selected-badge"><i class="fas fa-users"></i> شعبة: ${cAdminDiv} | ${LN(cLvl)} | ${SN(cSemester)}</div>`;
-}
-
-function updStats(){
-  document.getElementById('dstu').textContent=dbCountUsers();
-  document.getElementById('dstf').textContent=dbCountSubjects();
-  document.getElementById('dstc').textContent=dbCountContent();
-  document.getElementById('dstm').textContent=dbCountMessages();
-}
-
-function renderDashUsers(){
-  const c=document.getElementById('dusers');
-  const users=dbGetUsers();
-  if(!users.length){ c.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">لا يوجد طلاب بعد</div>'; return; }
-  c.innerHTML=`<div class="tscroll"><table><thead><tr><th>الطالب</th><th>الفرقة</th><th>الشعبة</th><th>الفصل</th><th>الحالة</th></tr></thead><tbody>
-  ${users.slice(0,6).map(u=>`<tr>
-    <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
-    <td><span class="badge bg">${LN(u.level).replace('الفرقة ','')}</span></td>
-    <td><span class="badge ba">${u.division}</span></td>
-    <td><span class="badge bsem">${SN(u.semester||1)}</span></td>
-    <td><span class="badge ${(u.active===1||u.active===true)?'bs':'bd'}">${(u.active===1||u.active===true)?'نشط':'معطّل'}</span></td>
-  </tr>`).join('')}</tbody></table></div>`;
-}
-
-function renderUsers(f=''){
-  const list=dbGetUsers(f);
-  const tbody=document.getElementById('utbody');
+function renderUsers(f='') {
+  const list = dbGetUsers(f);
+  const tbody = document.getElementById('utbody');
   if(!list.length){ tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:22px;color:var(--muted)">لا يوجد طلاب</td></tr>`; return; }
-  tbody.innerHTML=list.map(u=>`<tr>
-    <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${u.name.split(' ').slice(0,2).join(' ')}</div></td>
-    <td>${u.phone}</td>
+  tbody.innerHTML = list.map(u=>`<tr>
+    <td><div class="tdf"><div class="av sm">${u.name.charAt(0)}</div>${esc(u.name.split(' ').slice(0,2).join(' '))}</div></td>
+    <td style="direction:ltr;text-align:right">${esc(u.phone)}</td>
     <td><span class="badge bg">${LN(u.level).replace('الفرقة ','')}</span></td>
-    <td><span class="badge ba">${u.division}</span></td>
+    <td><span class="badge ba">${esc(u.division)}</span></td>
     <td><span class="badge bsem">${SN(u.semester||1)}</span></td>
-    <td><span class="badge ${(u.active===1||u.active===true)?'bs':'bd'}">${(u.active===1||u.active===true)?'نشط':'معطّل'}</span></td>
-    <td>
-      <button class="btn btn-xs" style="background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.28);margin-bottom:4px" onclick="togUser(${u.id})">${(u.active===1||u.active===true)?'تعطيل':'تفعيل'}</button>
+    <td><span class="badge ${u.active===1?'bs':'bd'}">${u.active===1?'نشط':'معطّل'}</span></td>
+    <td style="display:flex;gap:4px;flex-wrap:wrap">
+      <button class="btn btn-xs" style="background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.28)" onclick="togUser(${u.id})">${u.active===1?'تعطيل':'تفعيل'}</button>
       <button class="btn btn-xs btn-danger" onclick="delUser(${u.id})"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
-
 function filterU(v){ renderUsers(v); }
-function togUser(id){ const nv=dbToggleUser(id); renderUsers(); updStats(); toast(`تم ${nv?'تفعيل':'تعطيل'} الحساب`,'s'); }
-function delUser(id){ if(!confirm('تأكيد الحذف؟')) return; dbDeleteUser(id); renderUsers(); updStats(); toast('تم الحذف','s'); }
+function togUser(id){ const nv=dbToggleUser(id); renderUsers(document.getElementById('usearch')?.value||''); updStats(); toast(nv===1?'تم تفعيل الحساب':'تم تعطيل الحساب','s'); }
+function delUser(id){ if(!confirm('حذف هذا الطالب نهائياً؟')) return; dbDeleteUser(id); renderUsers(); updStats(); toast('تم الحذف','s'); }
 
-function renderAdmins(){
-  const tbody=document.getElementById('atbody');
-  const admins=dbGetAdmins();
-  tbody.innerHTML=admins.map(a=>{
-    const isMain=a.is_main===1||a.phone===MAIN_ADMIN_PHONE;
-    return `<tr>
-      <td>
-        <div class="tdf">
-          <div class="av sm blue">${a.name.charAt(0)}</div>
-          ${a.name.split(' ').slice(0,2).join(' ')}
-          ${isMain?`<span class="badge bs" style="font-size:9px"><i class="fas fa-crown"></i> رئيسي</span>`:''}
-        </div>
-      </td>
-      <td>${a.phone}</td>
-      <td><div style="display:flex;gap:4px;flex-wrap:wrap">${a.perms.slice(0,2).map(p=>`<span class="badge ba" style="font-size:10px">${pL(p)}</span>`).join('')}${a.perms.length>2?`<span class="badge bg" style="font-size:10px">+${a.perms.length-2}</span>`:''}</div></td>
-      <td>
-        ${a.id===cAdmin?.id?'<span class="badge bg">أنت</span>':
-          isMain
-            ? `<span class="badge bs" style="font-size:10px"><i class="fas fa-lock"></i> محمي</span>`
-            : `<button class="btn btn-xs btn-danger" onclick="delAdmin(${a.id})"><i class="fas fa-trash"></i></button>`
-        }
-      </td>
-    </tr>`;
-  }).join('');
-}
-const pL=p=>({view:'عرض',upload:'رفع',delete:'حذف',users:'طلاب',chat:'شات',settings:'إعدادات'}[p]||p);
+const pL = p => ({view:'عرض',upload:'رفع',delete:'حذف',users:'طلاب',chat:'شات',settings:'إعدادات'}[p]||p);
 
-function delAdmin(id){
-  if(!confirm('تأكيد الحذف؟')) return;
-  const success=dbDeleteAdmin(id);
-  if(success){ renderAdmins(); toast('تم الحذف','s'); }
+function renderAdmins() {
+  const tbody = document.getElementById('atbody');
+  const admins = dbGetAdmins();
+  if(!admins.length){ tbody.innerHTML='<tr><td colspan="4" style="text-align:center;padding:22px;color:var(--muted)">لا يوجد مشرفون</td></tr>'; return; }
+  tbody.innerHTML = admins.map(a=>`<tr>
+    <td><div class="tdf"><div class="av sm blue">${a.name.charAt(0)}</div>${esc(a.name.split(' ').slice(0,2).join(' '))}</div></td>
+    <td style="direction:ltr;text-align:right">${esc(a.phone)}</td>
+    <td><div style="display:flex;gap:4px;flex-wrap:wrap">${a.perms.slice(0,3).map(p=>`<span class="badge ba" style="font-size:10px">${pL(p)}</span>`).join('')}${a.perms.length>3?`<span class="badge bg" style="font-size:10px">+${a.perms.length-3}</span>`:''}</div></td>
+    <td>${a.id===cAdmin?.id?'<span class="badge bg">أنت</span>':`<button class="btn btn-xs btn-danger" onclick="delAdmin(${a.id})"><i class="fas fa-trash"></i></button>`}</td>
+  </tr>`).join('');
 }
-function openAddAdmin(){ openM('aaModal'); }
+function delAdmin(id){ if(!confirm('حذف هذا المشرف؟')) return; dbDeleteAdmin(id); renderAdmins(); toast('تم الحذف','s'); }
+function openAddAdmin(){ openM('aaModal'); ['aan','aaph','aaps'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';}); }
 function tPerm(el){ el.querySelector('.pchk').classList.toggle('on'); }
 function submitAdmin(){
   const n=document.getElementById('aan').value.trim();
   const ph=document.getElementById('aaph').value.trim();
   const ps=document.getElementById('aaps').value.trim();
-  if(!n||!ph||!ps){ toast('أكمل البيانات','e'); return; }
-  const perms=Array.from(document.querySelectorAll('#pgrid .pchk.on')).map(el=>el.nextElementSibling.dataset.p);
+  if(!n||!ph||!ps){ toast('أكمل جميع البيانات','e'); return; }
+  const perms=Array.from(document.querySelectorAll('#pgrid .pchk.on')).map(el=>el.nextElementSibling.dataset.p).filter(Boolean);
   dbAddAdmin(n,ph,ps,perms);
-  cm('aaModal'); renderAdmins(); toast('تم إضافة المشرف','s');
+  cm('aaModal'); renderAdmins(); toast('تم إضافة المشرف ✅','s');
 }
 
 // ══════════════════════════════════════════
-//  SUBJECTS — مع الشعبة
+//  SUBJECTS
 // ══════════════════════════════════════════
 function openAddSubj(){
   openM('asmModal');
   document.getElementById('subjname').value='';
   document.getElementById('subjcode').value='';
-  // عرض معلومات الفرقة والشعبة في نافذة الإضافة
-  const info=document.getElementById('subj-modal-info');
-  if(info) info.innerHTML=`<div class="div-selected-badge"><i class="fas fa-layer-group"></i> ${LN(cLvl)} — شعبة: ${cAdminDiv} — ${SN(cSemester)}</div>`;
 }
-
 function addSubject(){
   const name=document.getElementById('subjname').value.trim();
   if(!name){ toast('أدخل اسم المادة','e'); return; }
   const code=document.getElementById('subjcode').value.trim();
-  // تمرير الشعبة المختارة في لوحة الأدمن
-  dbAddSubject(name,code,cLvl,cSemester,cAdminDiv);
+  dbAddSubject(name, code, cLvl, cSemester);
   cm('asmModal'); renderAdminSubjs(); updStats();
-  toast(`تم إضافة المادة في شعبة "${cAdminDiv}" ✅`,'s');
+  dbLog(`مادة جديدة: ${name} — فرقة ${cLvl} ${SN(cSemester)}`,'ok');
+  toast('تم إضافة المادة ✅','s');
 }
 
 function renderAdminSubjs(){
-  updateAdminDivBadge();
-  const subjs=dbGetSubjects(cLvl,cSemester,cAdminDiv);
-  const c=document.getElementById('subjlist');
-  if(!subjs.length){ c.innerHTML=`<div class="empty-state"><div class="ei">📚</div><p>لا توجد مواد في شعبة "${cAdminDiv}" — ${SN(cSemester)}<br>اضغط "مادة" للإضافة</p></div>`; return; }
-  c.innerHTML=subjs.map(s=>`
-    <div class="subj-item">
+  const subjs = dbGetSubjects(cLvl, cSemester);
+  const c = document.getElementById('subjlist');
+  if(!subjs.length){
+    c.innerHTML=`<div class="empty-state"><div class="ei">📚</div><p>لا توجد مواد في ${SN(cSemester)} — اضغط "مادة جديدة" للإضافة</p></div>`;
+    return;
+  }
+  c.innerHTML = subjs.map(s=>`
+    <div class="subj-item" id="subj-${s.id}">
       <div class="subj-hdr" onclick="toggleSubj(this)">
         <div style="font-size:20px">📚</div>
-        <div class="sname">${s.name}</div>
-        ${s.code?`<span class="badge ba" style="font-size:10px">${s.code}</span>`:''}
+        <div class="sname">${esc(s.name)}</div>
+        ${s.code?`<span class="badge ba" style="font-size:10px">${esc(s.code)}</span>`:''}
         <button class="btn-icon" style="padding:5px;color:var(--danger);font-size:13px" onclick="event.stopPropagation();delSubj(${s.id})"><i class="fas fa-trash"></i></button>
-        <i class="fas fa-chevron-down" style="color:var(--muted);font-size:11px"></i>
+        <i class="fas fa-chevron-down" style="color:var(--muted);font-size:11px;flex-shrink:0"></i>
       </div>
       <div class="subj-body hidden">
         <div class="stabs">
           <span class="stab active" data-sid="${s.id}" data-t="lw" onclick="swSubjTab(this,${s.id},'lw')">📖 مكتوبة</span>
           <span class="stab" data-sid="${s.id}" data-t="lv" onclick="swSubjTab(this,${s.id},'lv')">🎥 مصورة</span>
           <span class="stab" data-sid="${s.id}" data-t="sw" onclick="swSubjTab(this,${s.id},'sw')">✏️ سكاشن</span>
-          <span class="stab" data-sid="${s.id}" data-t="sv" onclick="swSubjTab(this,${s.id},'sv')">🎞️ سكاشن مرئي</span>
+          <span class="stab" data-sid="${s.id}" data-t="sv" onclick="swSubjTab(this,${s.id},'sv')">🎞️ مرئي</span>
           <span class="stab" data-sid="${s.id}" data-t="qb" onclick="swSubjTab(this,${s.id},'qb')">❓ أسئلة</span>
-          <button class="btn btn-xs btn-gold" style="flex-shrink:0" onclick="openUpload(${s.id},'lw')"><i class="fas fa-plus"></i> إضافة</button>
+          <button class="btn btn-xs btn-gold" style="flex-shrink:0;margin-right:4px" id="addbtn-${s.id}" onclick="openUpload(${s.id},'lw')"><i class="fas fa-plus"></i> إضافة</button>
         </div>
         ${['lw','lv','sw','sv','qb'].map(t=>`
           <div id="sc-${s.id}-${t}" class="${t==='lw'?'':'hidden'}">
-            ${renderSubjC(s.id,t)}
+            ${renderSubjContent(s.id,t)}
           </div>`).join('')}
       </div>
     </div>`).join('');
@@ -1603,99 +2030,87 @@ function renderAdminSubjs(){
 
 function toggleSubj(el){ el.nextElementSibling.classList.toggle('hidden'); }
 
-function swSubjTab(tab,sid,type){
+function swSubjTab(tab, sid, type){
   const body=tab.closest('.subj-body');
   body.querySelectorAll('.stab[data-sid]').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
-  ['lw','lv','sw','sv','qb'].forEach(t=>{ const e=document.getElementById(`sc-${sid}-${t}`); if(e) e.classList.toggle('hidden',t!==type); });
-  const addBtn=body.querySelector('.btn-gold');
-  if(addBtn) addBtn.onclick=function(){ openUpload(sid,type); };
+  ['lw','lv','sw','sv','qb'].forEach(t=>{
+    const e=document.getElementById(`sc-${sid}-${t}`);
+    if(e) e.classList.toggle('hidden', t!==type);
+  });
+  const addBtn = document.getElementById(`addbtn-${sid}`);
+  if(addBtn) addBtn.onclick = ()=>openUpload(sid,type);
 }
 
-function renderSubjC(sid,type){
+function renderSubjContent(sid, type){
   if(type==='qb'){
     const qs=dbGetQuestions(sid);
-    return qs.length?qs.map(it=>renderQ(it,true,sid)).join(''):`<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
+    return qs.length ? qs.map(it=>renderQCard(it,true,sid)).join('') : `<div class="empty-subj">لا يوجد أسئلة — اضغط إضافة</div>`;
   }
   const items=dbGetContent(sid,type);
   if(!items.length) return `<div class="empty-subj">لا يوجد محتوى — اضغط إضافة</div>`;
   const icons={lw:'📄',lv:'🎥',sw:'✏️',sv:'🎞️'};
   return items.map(it=>`
     <div class="ci" style="margin-top:9px">
-      <div class="cii" style="background:rgba(212,175,55,.1)">${icons[type]}</div>
-      <div class="ciinfo"><div class="cit">${it.title}</div><div class="cim">${it.file_size||''}</div></div>
+      <div class="cii" style="background:rgba(212,175,55,.1)">${icons[type]||'📄'}</div>
+      <div class="ciinfo">
+        <div class="cit">${esc(it.title)}</div>
+        <div class="cim">${esc(it.file_size||'')} ${it.file_name?'• '+esc(it.file_name):''}</div>
+      </div>
       <div class="cia">
-        <button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>
+        ${it.file_key?`<button class="btn btn-xs btn-accent" onclick="viewItemDB(${it.id})"><i class="fas fa-eye"></i></button>`:''}
+        ${it.file_key?`<button class="btn btn-xs btn-outline" onclick="dlItemDB(${it.id})"><i class="fas fa-download"></i></button>`:''}
         <button class="btn btn-xs btn-danger" onclick="delContentDB(${it.id})"><i class="fas fa-trash"></i></button>
       </div>
     </div>`).join('');
 }
 
-function renderQ(it,isAdmin,sid=null){
-  const q=it.question||it.q;
+function renderQCard(it, isAdmin, sid=null){
+  const q=it.question||it.q||'';
   const opts=it.opts||(it.options?JSON.parse(it.options):[]);
-  const ans=it.answer||it.ans;
+  const ans=it.answer||it.ans||'';
   return `<div class="qwrap">
-    <div style="font-size:13px;font-weight:700;margin-bottom:9px">${q}</div>
-    ${opts.map(o=>`<div style="padding:8px 12px;border-radius:8px;margin-bottom:5px;font-size:12px;background:${o===ans?'rgba(0,200,150,.12)':'rgba(255,255,255,.04)'};border:1px solid ${o===ans?'rgba(0,200,150,.3)':'rgba(255,255,255,.07)'}">
-      ${o===ans?'✅ ':''} ${o}
+    <div style="font-size:13px;font-weight:700;margin-bottom:9px">❓ ${esc(q)}</div>
+    ${opts.map(o=>`<div style="padding:8px 12px;border-radius:8px;margin-bottom:5px;font-size:12px;
+      background:${o===ans?'rgba(0,200,150,.12)':'rgba(255,255,255,.04)'};
+      border:1px solid ${o===ans?'rgba(0,200,150,.3)':'rgba(255,255,255,.07)'}">
+      ${o===ans?'✅ ':'⬜ '} ${esc(o)}
     </div>`).join('')}
-    ${isAdmin?`<button class="btn btn-xs btn-danger" style="margin-top:6px" onclick="delQDB(${it.id})"><i class="fas fa-trash"></i> حذف</button>`:''}
+    ${isAdmin?`<button class="btn btn-xs btn-danger" style="margin-top:6px" onclick="delQDB(${it.id})"><i class="fas fa-trash"></i> حذف السؤال</button>`:''}
   </div>`;
 }
 
-function delSubj(id){ if(!confirm('حذف المادة وكل محتواها؟')) return; dbDeleteSubject(id); renderAdminSubjs(); updStats(); toast('تم حذف المادة','s'); }
+function delSubj(id){
+  if(!confirm('حذف المادة وكل محتواها نهائياً؟')) return;
+  dbDeleteSubject(id); renderAdminSubjs(); updStats();
+  toast('تم حذف المادة','s');
+}
 async function delContentDB(id){
-  const it=dbGet(`SELECT file_data FROM content WHERE id=?`,[id]);
-  if(it?.file_data){ try{ await idbDelete(it.file_data); }catch(e){} }
-  dbDeleteContent(id); renderAdminSubjs(); updStats(); toast('تم الحذف','s');
+  const it=dbGetContentById(id);
+  if(it?.file_key) try{await idbDelete(it.file_key);}catch(e){}
+  dbDeleteContent(id);
+  renderAdminSubjs(); updStats();
+  toast('تم الحذف ✅','s');
 }
-function delQDB(id){ dbDeleteQuestion(id); renderAdminSubjs(); toast('تم حذف السؤال','s'); }
-
-// ══════════════════════════════════════════
-//  INDEXEDDB
-// ══════════════════════════════════════════
-let idb=null;
-function openIDB(){
-  return new Promise((res,rej)=>{
-    if(idb){ res(idb); return; }
-    const req=indexedDB.open('AgricultureFiles',1);
-    req.onupgradeneeded=e=>{ const d=e.target.result; if(!d.objectStoreNames.contains('files')) d.createObjectStore('files',{keyPath:'id'}); };
-    req.onsuccess=e=>{ idb=e.target.result; res(idb); };
-    req.onerror=()=>rej(req.error);
-  });
+function delQDB(id){
+  dbDeleteQuestion(id); renderAdminSubjs();
+  toast('تم حذف السؤال ✅','s');
 }
-async function idbSave(id,data){
-  const d=await openIDB();
-  return new Promise((res,rej)=>{ const tx=d.transaction('files','readwrite'); tx.objectStore('files').put({id,data}); tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); });
-}
-async function idbGet(id){
-  const d=await openIDB();
-  return new Promise((res,rej)=>{ const tx=d.transaction('files','readonly'); const req=tx.objectStore('files').get(id); req.onsuccess=()=>res(req.result?.data||null); req.onerror=()=>rej(req.error); });
-}
-async function idbDelete(id){
-  const d=await openIDB();
-  return new Promise(res=>{ const tx=d.transaction('files','readwrite'); tx.objectStore('files').delete(id); tx.oncomplete=()=>res(); });
-}
-function fileToBase64(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>rej(r.error); r.readAsDataURL(file); }); }
 
 // ══════════════════════════════════════════
 //  UPLOAD
 // ══════════════════════════════════════════
-function openUpload(sid,type){
+function openUpload(sid, type){
   _upSid=sid; _upType=type; _fileObj=null; qCount=0;
   document.getElementById('uptitle2').value='';
   document.getElementById('updesc').value='';
   document.getElementById('ufpreview').innerHTML='';
   document.getElementById('qlist').innerHTML='';
+  document.getElementById('uprogress').classList.add('hidden');
   const names={lw:'محاضرة مكتوبة',lv:'محاضرة مصورة',sw:'سكشن مكتوب',sv:'سكشن مصور',qb:'بنك الأسئلة'};
   document.getElementById('upmtitle').textContent='إضافة: '+names[type];
-  // عرض معلومات الرفع
-  const info=document.getElementById('up-modal-info');
-  if(info) info.innerHTML=`<div class="div-selected-badge"><i class="fas fa-upload"></i> رفع على شعبة: ${cAdminDiv} | ${LN(cLvl)} | ${SN(cSemester)}</div>`;
-  document.getElementById('qbank-area').classList.toggle('hidden',type!=='qb');
-  document.getElementById('upFileArea').classList.toggle('hidden',type==='qb');
+  document.getElementById('qbank-area').classList.toggle('hidden', type!=='qb');
+  document.getElementById('upFileArea').classList.toggle('hidden', type==='qb');
   openM('upModal');
 }
 
@@ -1704,178 +2119,295 @@ function handleFile(inp){
   _fileObj=f;
   const p=document.getElementById('ufpreview');
   const icon=f.type.startsWith('image')?'🖼️':f.type.startsWith('video')?'🎥':f.type.startsWith('audio')?'🎵':f.type==='application/pdf'?'📕':'📄';
-  p.innerHTML=`<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px">
-    <span style="font-size:20px">${icon}</span>
+  p.innerHTML=`<div style="display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.04);border-radius:9px;border:1px solid rgba(212,175,55,.15)">
+    <span style="font-size:22px">${icon}</span>
     <div style="flex:1;min-width:0">
-      <div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div>
+      <div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</div>
       <div style="font-size:11px;color:var(--muted)">${fmtSz(f.size)}</div>
     </div>
     <span class="badge bs">✔ جاهز</span>
   </div>`;
 }
-function fmtSz(b){ return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
 
 function addQ(){
   qCount++;
   const id='q'+qCount;
   const d=document.createElement('div');
   d.id='qwrap-'+id; d.className='qwrap';
-  d.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:var(--gold)">سؤال ${qCount}</div><button class="btn btn-xs btn-danger" onclick="this.closest('.qwrap').remove()">حذف</button></div>
-    <div class="fg"><label>السؤال</label><input class="inp" id="qtxt-${id}" placeholder="نص السؤال"></div>
+  d.innerHTML=`
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:700;color:var(--gold)">سؤال ${qCount}</div>
+      <button class="btn btn-xs btn-danger" onclick="this.closest('.qwrap').remove()">حذف</button>
+    </div>
+    <div class="fg"><label>نص السؤال</label><input class="inp" id="qtxt-${id}" placeholder="اكتب السؤال هنا"></div>
     <div class="fg"><label>الخيار الأول</label><input class="inp" id="qo1-${id}" placeholder="إجابة 1"></div>
     <div class="fg"><label>الخيار الثاني</label><input class="inp" id="qo2-${id}" placeholder="إجابة 2"></div>
-    <div class="fg"><label>الخيار الثالث</label><input class="inp" id="qo3-${id}" placeholder="إجابة 3"></div>
-    <div class="fg"><label>الخيار الرابع</label><input class="inp" id="qo4-${id}" placeholder="إجابة 4"></div>
-    <div class="fg"><label>الإجابة الصحيحة</label><select class="sel" id="qans-${id}"><option value="1">الخيار الأول</option><option value="2">الخيار الثاني</option><option value="3">الخيار الثالث</option><option value="4">الخيار الرابع</option></select></div>`;
+    <div class="fg"><label>الخيار الثالث (اختياري)</label><input class="inp" id="qo3-${id}" placeholder="إجابة 3"></div>
+    <div class="fg"><label>الخيار الرابع (اختياري)</label><input class="inp" id="qo4-${id}" placeholder="إجابة 4"></div>
+    <div class="fg">
+      <label>الإجابة الصحيحة</label>
+      <select class="sel" id="qans-${id}">
+        <option value="1">الخيار الأول</option>
+        <option value="2">الخيار الثاني</option>
+        <option value="3">الخيار الثالث</option>
+        <option value="4">الخيار الرابع</option>
+      </select>
+    </div>`;
   document.getElementById('qlist').appendChild(d);
 }
 
 async function submitUp(){
-  const btn=document.querySelector('#upModal .btn-gold:last-child');
+  const btn=document.getElementById('submitUpBtn');
   if(_upType==='qb'){
     const ws=document.querySelectorAll('[id^=qwrap-]');
     if(!ws.length){ toast('أضف سؤالاً واحداً على الأقل','e'); return; }
+    let added=0;
     ws.forEach(w=>{
       const id=w.id.replace('qwrap-','');
       const q=document.getElementById('qtxt-'+id)?.value.trim();
-      const opts=[1,2,3,4].map(i=>document.getElementById(`qo${i}-${id}`)?.value.trim()).filter(Boolean);
+      if(!q) return;
+      const opts=[1,2,3,4].map(i=>document.getElementById(`qo${i}-${id}`)?.value.trim()).filter(x=>x&&x.length>0);
+      if(opts.length<2){ toast('يجب إضافة خيارين على الأقل','e'); return; }
       const ai=parseInt(document.getElementById('qans-'+id)?.value||'1')-1;
-      if(q&&opts.length>=2) dbAddQuestion(_upSid,cSemester,q,opts,opts[ai]);
+      dbAddQuestion(_upSid, cSemester, q, opts, opts[Math.min(ai,opts.length-1)]);
+      added++;
     });
-    cm('upModal'); renderAdminSubjs(); updStats();
-    toast('تم حفظ الأسئلة ✅','s'); return;
+    if(added>0){
+      cm('upModal'); renderAdminSubjs(); updStats();
+      toast(`تم حفظ ${added} سؤال ✅`,'s');
+    }
+    return;
   }
+
   const title=document.getElementById('uptitle2').value.trim();
-  if(!title){ toast('أدخل العنوان','e'); return; }
+  if(!title){ toast('أدخل عنوان المحتوى','e'); return; }
   const desc=document.getElementById('updesc').value.trim();
-  if(btn){ btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...'; }
-  let fname='',fsize='',ftype='',fileKey='';
+
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner spinner"></i> جاري الحفظ...';
+
+  let fname='', fsize='', ftype='', fileKey='';
   if(_fileObj){
     fname=_fileObj.name; fsize=fmtSz(_fileObj.size); ftype=_fileObj.type||'';
-    try{
+    try {
+      document.getElementById('uprogress').classList.remove('hidden');
+      setProgress('uprbar','uprtext',30,'تحويل الملف...');
+      // Warn about large files
+      if(_fileObj.size > 50*1024*1024) {
+        toast('⚠️ الملف كبير — قد يستغرق وقتاً','i');
+      }
       const b64=await fileToBase64(_fileObj);
-      fileKey='f_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-      await idbSave(fileKey,b64);
-    } catch(e){ toast('فشل في حفظ الملف','e'); if(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-upload"></i> حفظ';} return; }
+      setProgress('uprbar','uprtext',70,'حفظ في قاعدة البيانات...');
+      fileKey='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+      await idbSave(fileKey, b64);
+      setProgress('uprbar','uprtext',100,'تم!');
+    } catch(e) {
+      console.error('File save error:', e);
+      toast('فشل في حفظ الملف: '+e.message,'e');
+      btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> حفظ';
+      document.getElementById('uprogress').classList.add('hidden');
+      return;
+    }
   }
-  dbAddContent(_upSid,_upType,title,desc,fname,fsize,fileKey,ftype);
-  if(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-upload"></i> حفظ';}
+
+  dbAddContent(_upSid, _upType, title, desc, fname, fsize, fileKey, ftype);
+  btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> حفظ';
+  document.getElementById('uprogress').classList.add('hidden');
   cm('upModal'); renderAdminSubjs(); updStats();
   toast('تم الحفظ ✅','s');
+}
+
+// Helper to set progress bar
+function setProgress(barId, textId, pct, text='') {
+  const bar=document.getElementById(barId);
+  const txt=document.getElementById(textId);
+  if(bar) bar.style.width=pct+'%';
+  if(txt&&text) txt.textContent=text;
 }
 
 // ══════════════════════════════════════════
 //  FILE VIEWER
 // ══════════════════════════════════════════
 async function viewItemDB(id){
-  const it=dbGet(`SELECT * FROM content WHERE id=?`,[id]);
+  const it=dbGetContentById(id);
   if(!it){ toast('الملف غير موجود','e'); return; }
-  document.getElementById('fvtitle').textContent=it.title||'الملف';
+  document.getElementById('fvtitle').textContent=esc(it.title)||'الملف';
   const body=document.getElementById('fvbody');
-  body.style.padding='24px';
+  body.style.padding='24px'; body.style.flexDirection='column';
   body.innerHTML=`<div class="fv-empty"><div style="font-size:44px;animation:float 1s infinite">⏳</div><div style="margin-top:12px;font-size:14px">جاري تحميل الملف...</div></div>`;
   openM('fvModal');
-  if(!it.file_data){ body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">📄</div><div style="font-size:15px;font-weight:700;margin-top:12px">${it.title}</div><div style="font-size:12px;margin-top:8px;color:var(--muted)">لا يوجد ملف مرفوع للعرض</div></div>`; document.getElementById('fvdl').onclick=()=>toast('لا يوجد ملف','e'); return; }
-  try{
-    const b64=await idbGet(it.file_data);
-    if(!b64){ body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">⚠️</div><div style="font-size:14px;font-weight:700;margin-top:12px">انتهت صلاحية الملف</div></div>`; return; }
-    renderFileInViewer(it,b64);
-  } catch(e){ body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">❌</div><div style="font-size:14px;margin-top:12px">خطأ في تحميل الملف</div></div>`; }
+
+  if(!it.file_key){
+    body.innerHTML=`<div class="fv-empty">
+      <div style="font-size:52px">📄</div>
+      <div style="font-size:15px;font-weight:700;margin-top:12px">${esc(it.title)}</div>
+      ${it.description?`<div style="font-size:13px;color:var(--muted);margin-top:8px;max-width:320px;text-align:center">${esc(it.description)}</div>`:''}
+      <div style="font-size:12px;margin-top:12px;color:var(--muted)">لا يوجد ملف مرفوع</div>
+    </div>`;
+    document.getElementById('fvdl').onclick=()=>toast('لا يوجد ملف للتحميل','e');
+    return;
+  }
+
+  try {
+    const b64=await idbGet(it.file_key);
+    if(!b64){
+      body.innerHTML=`<div class="fv-empty">
+        <div style="font-size:52px">⚠️</div>
+        <div style="font-size:14px;font-weight:700;margin-top:12px">الملف غير متوفر</div>
+        <div style="font-size:12px;margin-top:6px;color:var(--muted)">قد يكون قد حُذف أو انتهت صلاحيته. يرجى رفع الملف مجدداً.</div>
+      </div>`;
+      return;
+    }
+    renderFileInViewer(it, b64);
+  } catch(e) {
+    body.innerHTML=`<div class="fv-empty"><div style="font-size:52px">❌</div><div style="font-size:14px;margin-top:12px">خطأ في تحميل الملف</div></div>`;
+  }
 }
 
 async function dlItemDB(id){
-  const it=dbGet(`SELECT * FROM content WHERE id=?`,[id]);
-  if(!it||!it.file_data){ toast('لا يوجد ملف للتحميل','e'); return; }
+  const it=dbGetContentById(id);
+  if(!it||!it.file_key){ toast('لا يوجد ملف للتحميل','e'); return; }
   toast('جاري التحضير...','s');
-  try{
-    const b64=await idbGet(it.file_data);
+  try {
+    const b64=await idbGet(it.file_key);
     if(!b64){ toast('الملف غير متاح — يرجى رفعه مجدداً','e'); return; }
-    const a=document.createElement('a'); a.href=b64; a.download=it.file_name||it.title; a.click();
+    const a=document.createElement('a');
+    a.href=b64; a.download=it.file_name||it.title||'file'; a.click();
     toast('جاري التحميل ✅','s');
   } catch(e){ toast('فشل التحميل','e'); }
 }
 
-function renderFileInViewer(it,b64){
+function renderFileInViewer(it, b64){
   const body=document.getElementById('fvbody');
   body.style.padding='0';
   const fname=it.file_name||it.title||'file';
   const ftype=it.file_type||'';
-  document.getElementById('fvdl').onclick=()=>{ const a=document.createElement('a'); a.href=b64; a.download=fname; a.click(); toast('جاري التحميل ✅','s'); };
+  document.getElementById('fvdl').onclick=()=>{
+    const a=document.createElement('a'); a.href=b64; a.download=fname; a.click();
+    toast('جاري التحميل ✅','s');
+  };
+
   if(ftype.startsWith('image/')||/\.(jpg|jpeg|png|gif|webp|svg|bmp)$/i.test(fname)){
     body.style.background='#111'; body.style.padding='8px';
-    const img=document.createElement('img'); img.src=b64; img.style.cssText='max-width:100%;max-height:100%;object-fit:contain;border-radius:8px';
+    const img=document.createElement('img');
+    img.src=b64; img.style.cssText='max-width:100%;max-height:100%;object-fit:contain;border-radius:8px';
     body.innerHTML=''; body.appendChild(img);
-  } else if(ftype.startsWith('video/')||/\.(mp4|webm|ogg|mov|avi)$/i.test(fname)){
+
+  } else if(ftype.startsWith('video/')||/\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(fname)){
     body.style.background='#000';
-    const vid=document.createElement('video'); vid.src=b64; vid.controls=true; vid.autoplay=true; vid.setAttribute('playsinline',''); vid.style.cssText='width:100%;max-height:100%';
+    const vid=document.createElement('video');
+    vid.src=b64; vid.controls=true; vid.autoplay=true;
+    vid.setAttribute('playsinline','');
+    vid.style.cssText='width:100%;max-height:100%;display:block';
     body.innerHTML=''; body.appendChild(vid);
+
   } else if(ftype.startsWith('audio/')||/\.(mp3|wav|ogg|aac|flac)$/i.test(fname)){
     body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:64px;margin-bottom:14px;animation:float 2s infinite">🎵</div><div style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--gold)">${fname}</div><audio src="${b64}" controls style="width:100%;max-width:380px;border-radius:10px"></audio></div>`;
+    body.innerHTML=`<div style="text-align:center;width:100%">
+      <div style="font-size:64px;margin-bottom:14px;animation:float 2s infinite">🎵</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--gold)">${esc(fname)}</div>
+      <audio src="${b64}" controls style="width:100%;max-width:380px;border-radius:10px"></audio>
+    </div>`;
+
   } else if(ftype==='application/pdf'||/\.pdf$/i.test(fname)){
-    renderPDF(body,b64);
+    renderPDF(body, b64);
+
   } else {
     const ext=fname.split('.').pop().toUpperCase();
     const extIcons={'DOC':'📝','DOCX':'📝','XLS':'📊','XLSX':'📊','PPT':'📑','PPTX':'📑','ZIP':'🗜️','RAR':'🗜️','TXT':'📃','CSV':'📊'};
-    body.style.background='var(--navy-m)'; body.style.padding='28px 18px';
-    body.innerHTML=`<div style="text-align:center;width:100%"><div style="font-size:72px;margin-bottom:14px">${extIcons[ext]||'📎'}</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">${fname}</div><span class="badge ba" style="margin-bottom:20px;display:inline-flex">${ext}</span><div style="margin-top:16px"><button class="btn btn-gold" onclick="document.getElementById('fvdl').click()"><i class="fas fa-download"></i> تحميل الملف</button></div></div>`;
+    const icon=extIcons[ext]||'📎';
+    body.style.background='var(--navy-m)'; body.style.padding='28px 18px'; body.style.alignItems='center';
+    body.innerHTML=`<div style="text-align:center;width:100%">
+      <div style="font-size:72px;margin-bottom:14px">${icon}</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px">${esc(fname)}</div>
+      <span class="badge ba" style="margin-bottom:20px;display:inline-flex">.${ext}</span>
+      <div style="margin-top:16px">
+        <button class="btn btn-gold" onclick="document.getElementById('fvdl').click()">
+          <i class="fas fa-download"></i> تحميل الملف
+        </button>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted)">لا يمكن معاينة هذا النوع من الملفات مباشرة</div>
+    </div>`;
   }
 }
 
-// PDF.JS
-let _pdfDoc=null,_pdfPage=1,_pdfTotal=1,_pdfScale=1.2;
-function renderPDF(body,b64){
+// ══════════════════════════════════════════
+//  PDF VIEWER (pdf.js)
+// ══════════════════════════════════════════
+let _pdfDoc=null, _pdfPage=1, _pdfTotal=1, _pdfScale=1.2;
+
+function renderPDF(body, b64){
   body.style.background='#1a1a2e'; body.style.padding='0'; body.style.flexDirection='column'; body.style.alignItems='stretch'; body.style.overflow='hidden';
   body.innerHTML=`
     <div id="pdf-toolbar" style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--navy-m);border-bottom:1px solid rgba(212,175,55,.15);flex-shrink:0;flex-wrap:wrap">
-      <button class="btn-icon" onclick="pdfPrev()" id="pdf-prev"><i class="fas fa-chevron-right"></i></button>
+      <button class="btn-icon" onclick="pdfPrev()" id="pdf-prev" title="سابق"><i class="fas fa-chevron-right"></i></button>
       <div style="display:flex;align-items:center;gap:6px;font-size:13px">
         <input id="pdf-page-inp" type="number" min="1" value="1" style="width:46px;padding:5px 7px;background:rgba(255,255,255,.08);border:1px solid rgba(212,175,55,.25);border-radius:7px;color:var(--white);font-family:'Cairo',sans-serif;font-size:13px;text-align:center;outline:none" onchange="pdfGoTo(parseInt(this.value))">
-        <span style="color:var(--muted)">من</span><span id="pdf-total" style="color:var(--gold);font-weight:700">...</span>
+        <span style="color:var(--muted)">من</span>
+        <span id="pdf-total" style="color:var(--gold);font-weight:700">...</span>
       </div>
-      <button class="btn-icon" onclick="pdfNext()" id="pdf-next"><i class="fas fa-chevron-left"></i></button>
-      <div style="margin-right:auto;display:flex;gap:6px">
-        <button class="btn-icon" onclick="pdfZoomOut()"><i class="fas fa-search-minus"></i></button>
-        <span id="pdf-zoom-lbl" style="font-size:12px;color:var(--muted);align-self:center;min-width:38px;text-align:center">120%</span>
-        <button class="btn-icon" onclick="pdfZoomIn()"><i class="fas fa-search-plus"></i></button>
-        <button class="btn-icon" onclick="pdfFit()" style="font-size:13px"><i class="fas fa-compress-arrows-alt"></i></button>
+      <button class="btn-icon" onclick="pdfNext()" id="pdf-next" title="تالي"><i class="fas fa-chevron-left"></i></button>
+      <div style="margin-right:auto;display:flex;gap:6px;align-items:center">
+        <button class="btn-icon" onclick="pdfZoomOut()" title="تصغير"><i class="fas fa-search-minus"></i></button>
+        <span id="pdf-zoom-lbl" style="font-size:12px;color:var(--muted);min-width:38px;text-align:center">120%</span>
+        <button class="btn-icon" onclick="pdfZoomIn()" title="تكبير"><i class="fas fa-search-plus"></i></button>
+        <button class="btn-icon" onclick="pdfFit()" title="ملاءمة"><i class="fas fa-compress-arrows-alt"></i></button>
       </div>
     </div>
     <div id="pdf-container" style="flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:16px 8px;gap:12px;-webkit-overflow-scrolling:touch">
       <div id="pdf-loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;color:var(--muted)">
         <div style="font-size:44px;margin-bottom:12px;animation:float 1.2s infinite">📄</div>
-        <div style="font-size:14px;font-weight:700">جاري تحميل الملف...</div>
+        <div style="font-size:14px;font-weight:700">جاري تحميل PDF...</div>
         <div id="pdf-progress" style="margin-top:10px;font-size:12px;color:var(--accent)">0%</div>
       </div>
     </div>`;
-  loadPdfJs().then(()=>{ b64ToBinary(b64).then(bytes=>loadPdfDocument(bytes)); }).catch(()=>{ document.getElementById('pdf-loading').innerHTML=`<div style="font-size:40px;margin-bottom:12px">❌</div><div style="font-size:14px">فشل تحميل عارض PDF</div>`; });
+
+  loadPdfJs().then(()=>b64ToBinary(b64).then(bytes=>loadPdfDocument(bytes)))
+    .catch(()=>{
+      const el=document.getElementById('pdf-loading');
+      if(el) el.innerHTML='<div style="font-size:40px;margin-bottom:12px">❌</div><div style="font-size:14px">فشل تحميل عارض PDF</div>';
+    });
 }
+
 function loadPdfJs(){
   return new Promise((res,rej)=>{
-    if(window.pdfjsLib){ res(); return; }
+    if(window.pdfjsLib){res();return;}
     const s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    s.onload=()=>{ window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(); };
-    s.onerror=rej; document.head.appendChild(s);
+    s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';res();};
+    s.onerror=rej;
+    document.head.appendChild(s);
   });
 }
+
 function b64ToBinary(dataUrl){
-  return new Promise(res=>{ const b=atob(dataUrl.split(',')[1]); const a=new Uint8Array(b.length); for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i); res(a); });
+  return new Promise(res=>{
+    const base64=dataUrl.split(',')[1];
+    const bin=atob(base64);
+    const arr=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+    res(arr);
+  });
 }
+
 async function loadPdfDocument(bytes){
-  try{
+  try {
     const prog=document.getElementById('pdf-progress');
     const task=pdfjsLib.getDocument({data:bytes});
-    task.onProgress=p=>{ if(prog&&p.total) prog.textContent=Math.round(p.loaded/p.total*100)+'%'; };
-    _pdfDoc=await task.promise; _pdfTotal=_pdfDoc.numPages; _pdfPage=1;
-    const tel=document.getElementById('pdf-total'); if(tel) tel.textContent=_pdfTotal;
-    const inp=document.getElementById('pdf-page-inp'); if(inp) inp.max=_pdfTotal;
+    task.onProgress=p=>{if(prog&&p.total)prog.textContent=Math.round(p.loaded/p.total*100)+'%';};
+    _pdfDoc=await task.promise;
+    _pdfTotal=_pdfDoc.numPages; _pdfPage=1;
+    const totalEl=document.getElementById('pdf-total');
+    if(totalEl) totalEl.textContent=_pdfTotal;
+    const inp=document.getElementById('pdf-page-inp');
+    if(inp) inp.max=_pdfTotal;
     await pdfRenderAll();
   } catch(e){
-    const l=document.getElementById('pdf-loading');
-    if(l) l.innerHTML=`<div style="font-size:40px;margin-bottom:10px">⚠️</div><div style="font-size:13px">تعذّر فتح الملف</div>`;
+    const el=document.getElementById('pdf-loading');
+    if(el) el.innerHTML=`<div style="font-size:40px;margin-bottom:10px">⚠️</div><div style="font-size:13px">تعذّر فتح الملف: ${e.message||'خطأ'}</div>`;
   }
 }
+
 async function pdfRenderAll(){
   if(!_pdfDoc) return;
   const container=document.getElementById('pdf-container');
@@ -1884,29 +2416,36 @@ async function pdfRenderAll(){
   const viewW=container.clientWidth-32;
   for(let p=1;p<=_pdfTotal;p++){
     const page=await _pdfDoc.getPage(p);
-    const bv=page.getViewport({scale:1});
-    const scale=_pdfScale==='fit'?viewW/bv.width:_pdfScale;
-    const viewport=page.getViewport({scale});
+    const bvp=page.getViewport({scale:1});
+    const autoScale=viewW/bvp.width;
+    const scale=_pdfScale==='fit'?autoScale:_pdfScale;
+    const vp=page.getViewport({scale});
     const wrapper=document.createElement('div');
     wrapper.id=`pdf-pg-${p}`;
     wrapper.style.cssText='position:relative;box-shadow:0 4px 24px rgba(0,0,0,.5);border-radius:6px;overflow:hidden;flex-shrink:0';
     const canvas=document.createElement('canvas');
-    canvas.width=viewport.width; canvas.height=viewport.height;
+    canvas.width=vp.width; canvas.height=vp.height;
     canvas.style.cssText='display:block;max-width:100%';
     const lbl=document.createElement('div');
     lbl.textContent=`${p}`;
     lbl.style.cssText='position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:2px 10px;border-radius:20px;pointer-events:none;font-family:Cairo,sans-serif';
-    wrapper.appendChild(canvas); wrapper.appendChild(lbl); container.appendChild(wrapper);
-    await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+    wrapper.appendChild(canvas); wrapper.appendChild(lbl);
+    container.appendChild(wrapper);
+    await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
   }
-  _pdfPage=1; updatePdfNav(); setTimeout(initPdfScrollSync,200);
+  _pdfPage=1; updatePdfNav();
+  setTimeout(initPdfScrollSync, 200);
 }
+
 function updatePdfNav(){
-  const inp=document.getElementById('pdf-page-inp'); if(inp) inp.value=_pdfPage;
-  const prev=document.getElementById('pdf-prev'); const next=document.getElementById('pdf-next');
+  const inp=document.getElementById('pdf-page-inp');
+  if(inp) inp.value=_pdfPage;
+  const prev=document.getElementById('pdf-prev');
+  const next=document.getElementById('pdf-next');
   if(prev) prev.style.opacity=_pdfPage<=1?'.35':'1';
   if(next) next.style.opacity=_pdfPage>=_pdfTotal?'.35':'1';
-  const zl=document.getElementById('pdf-zoom-lbl'); if(zl) zl.textContent=_pdfScale==='fit'?'ملاءمة':Math.round(_pdfScale*100)+'%';
+  const zl=document.getElementById('pdf-zoom-lbl');
+  if(zl) zl.textContent=_pdfScale==='fit'?'ملاءمة':Math.round(_pdfScale*100)+'%';
 }
 function pdfPrev(){ if(!_pdfDoc||_pdfPage<=1) return; _pdfPage--; const el=document.getElementById(`pdf-pg-${_pdfPage}`); if(el){el.scrollIntoView({behavior:'smooth',block:'start'});updatePdfNav();} }
 function pdfNext(){ if(!_pdfDoc||_pdfPage>=_pdfTotal) return; _pdfPage++; const el=document.getElementById(`pdf-pg-${_pdfPage}`); if(el){el.scrollIntoView({behavior:'smooth',block:'start'});updatePdfNav();} }
@@ -1915,12 +2454,15 @@ function pdfZoomIn(){ _pdfScale=Math.min(3.0,(_pdfScale==='fit'?1.2:_pdfScale)+0
 function pdfZoomOut(){ _pdfScale=Math.max(0.5,(_pdfScale==='fit'?1.2:_pdfScale)-0.2); pdfRenderAll(); }
 function pdfFit(){ _pdfScale='fit'; pdfRenderAll(); }
 function initPdfScrollSync(){
-  const c=document.getElementById('pdf-container'); if(!c) return;
+  const c=document.getElementById('pdf-container');
+  if(!c) return;
   c.addEventListener('scroll',()=>{
     if(!_pdfDoc) return;
     for(let p=1;p<=_pdfTotal;p++){
-      const el=document.getElementById(`pdf-pg-${p}`); if(!el) continue;
-      const rect=el.getBoundingClientRect(); const cRect=c.getBoundingClientRect();
+      const el=document.getElementById(`pdf-pg-${p}`);
+      if(!el) continue;
+      const rect=el.getBoundingClientRect();
+      const cRect=c.getBoundingClientRect();
       if(rect.top>=cRect.top-10){_pdfPage=p;updatePdfNav();break;}
     }
   },{passive:true});
@@ -1931,11 +2473,11 @@ function closeFV(){
   const v=body.querySelector('video'); if(v){v.pause();v.src='';}
   const a=body.querySelector('audio'); if(a){a.pause();a.src='';}
   body.innerHTML='';
-  _pdfDoc=null;_pdfPage=1;_pdfTotal=1;_pdfScale=1.2;
+  _pdfDoc=null; _pdfPage=1; _pdfTotal=1; _pdfScale=1.2;
 }
 
 // ══════════════════════════════════════════
-//  SETTINGS
+//  ADMIN SETTINGS
 // ══════════════════════════════════════════
 function loadAdminSettings(){
   document.getElementById('sname').value=dbGetSetting('platform_name');
@@ -1945,10 +2487,10 @@ function loadAdminSettings(){
   if(cAdmin) document.getElementById('anphone').value=cAdmin.phone;
 }
 function saveSettings(){
-  dbSetSetting('platform_name',document.getElementById('sname').value.trim());
-  dbSetSetting('platform_desc',document.getElementById('sdesc').value.trim());
-  dbSetSetting('platform_phone',document.getElementById('sphone').value.trim());
-  dbSetSetting('platform_email',document.getElementById('semail').value.trim());
+  dbSetSetting('platform_name', document.getElementById('sname').value.trim());
+  dbSetSetting('platform_desc', document.getElementById('sdesc').value.trim());
+  dbSetSetting('platform_phone', document.getElementById('sphone').value.trim());
+  dbSetSetting('platform_email', document.getElementById('semail').value.trim());
   toast('تم حفظ الإعدادات ✅','s');
 }
 function saveAdminCreds(){
@@ -1957,8 +2499,8 @@ function saveAdminCreds(){
   const ps2=document.getElementById('anpass2').value.trim();
   if(!ph){ toast('أدخل رقم الهاتف','e'); return; }
   if(ps&&ps!==ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
-  dbUpdateAdminCreds(cAdmin.id,ph,ps||null);
-  cAdmin.phone=ph; if(ps)cAdmin.pass=ps;
+  dbUpdateAdminCreds(cAdmin.id, ph, ps||null);
+  cAdmin.phone=ph; if(ps) cAdmin.pass=ps;
   document.getElementById('anpass').value='';
   document.getElementById('anpass2').value='';
   toast('تم تحديث بيانات الدخول ✅','s');
@@ -1967,19 +2509,35 @@ function saveAdminCreds(){
 // ══════════════════════════════════════════
 //  TOAST
 // ══════════════════════════════════════════
-function toast(msg,t='s'){
+function toast(msg, t='s'){
   const icons={s:'✅',e:'❌',i:'ℹ️'};
-  const el=document.createElement('div'); el.className=`toast ${t}`;
-  el.innerHTML=`<span>${icons[t]}</span><span>${msg}</span>`;
+  const el=document.createElement('div');
+  el.className=`toast ${t}`;
+  el.innerHTML=`<span>${icons[t]||'ℹ️'}</span><span>${msg}</span>`;
   document.getElementById('tc').appendChild(el);
-  setTimeout(()=>el.remove(),3200);
+  setTimeout(()=>{
+    el.style.animation='fadeOut .3s ease forwards';
+    setTimeout(()=>el.remove(), 300);
+  }, 3000);
 }
 
-document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.add('hidden'); }));
-document.getElementById('fvModal').addEventListener('click',e=>{ if(e.target===document.getElementById('fvModal')) closeFV(); });
+// ══════════════════════════════════════════
+//  ESCAPE HTML
+// ══════════════════════════════════════════
+function esc(s){
+  if(s==null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
 // ══════════════════════════════════════════
-//  START
+//  MODAL CLOSE ON BG
+// ══════════════════════════════════════════
+document.querySelectorAll('.mo').forEach(m=>{
+  m.addEventListener('click', e=>{ if(e.target===m) m.classList.add('hidden'); });
+});
+
+// ══════════════════════════════════════════
+//  INIT
 // ══════════════════════════════════════════
 initDB();
 </script>
