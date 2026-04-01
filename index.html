@@ -2580,48 +2580,9 @@ document.querySelectorAll('.mo').forEach(m=>{
 // ══════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════
-async function initDB() {
-  try {
-    const initSqlJsLib = await new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
-      script.onload = () => resolve(window.initSqlJs);
-      script.onerror = () => reject('فشل تحميل SQL');
-      document.head.appendChild(script);
-    });
-
-    const SQL = await initSqlJsLib({
-      locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${file}`
-    });
-
-    db = new SQL.Database();
-
-    // ✅ إنشاء الجداول لو مش موجودة
-    db.run(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        phone TEXT UNIQUE,
-        pass TEXT,
-        level INTEGER,
-        division TEXT,
-        semester INTEGER,
-        active INTEGER,
-        joined TEXT
-      );
-    `);
-
-    // ✅ تفعيل الأزرار بعد التحميل
-    document.getElementById('regBtn')?.removeAttribute('disabled');
-    document.getElementById('loginBtn')?.removeAttribute('disabled');
-
-    toast('✅ النظام جاهز','s');
-
-  } catch (err) {
-    console.error(err);
-    toast('❌ فشل تحميل قاعدة البيانات','e');
-  }
-}
+window.onload = () => {
+  setTimeout(initDB, 100);
+};
 </script>
 </body>
 </html>
