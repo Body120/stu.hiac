@@ -1480,57 +1480,98 @@ function closeDrawer() {
 // ══════════════════════════════════════════
 //  AUTH
 // ══════════════════════════════════════════
-function swAuth(t) {
-  document.getElementById('fl').classList.toggle('hidden', t!=='login');
-  document.getElementById('fr').classList.toggle('hidden', t!=='register');
-  document.getElementById('tl').classList.toggle('active', t==='login');
-  document.getElementById('tr').classList.toggle('active', t!=='login');
-}
-
-function doLogin() {
-  const ph = document.getElementById('lph').value.trim();
-  const ps = document.getElementById('lps').value.trim();
-  if(!ph||!ps){ toast('أدخل رقم الهاتف وكلمة المرور','e'); return; }
-  const u = dbFindUser(ph, ps);
-  if(!u){ toast('رقم الهاتف أو كلمة المرور غير صحيحة','e'); return; }
-  cUser = u;
-  cSemester = parseInt(u.semester) || 1;
-  cLvl = parseInt(u.level) || 1;
-  loadUser();
-  toast('أهلاً '+u.name.split(' ')[0]+' 👋','s');
-}
-
 function doReg() {
-  const n = document.getElementById('rn').value.trim();
-  const ph = document.getElementById('rph').value.trim();
-  const ps = document.getElementById('rps').value.trim();
-  const ps2 = document.getElementById('rps2').value.trim();
-  const lv = document.getElementById('rlv').value;
-  const dv = document.getElementById('rdv').value;
-  const sem = document.getElementById('rsem').value;
 
-  if(n.split(' ').filter(s=>s.length>0).length < 4){ toast('أدخل الاسم الرباعي كاملاً (4 أجزاء)','e'); return; }
-  if(!ph || ph.length < 11 || !/^0\d{10}$/.test(ph)){ toast('رقم الهاتف غير صحيح (11 رقم يبدأ بـ 0)','e'); return; }
-  if(ps.length < 6){ toast('كلمة المرور يجب أن تكون 6 أحرف على الأقل','e'); return; }
-  if(ps !== ps2){ toast('كلمتا المرور غير متطابقتان','e'); return; }
-  if(!lv){ toast('اختر الفرقة الدراسية','e'); return; }
-  if(!dv){ toast('اختر الشعبة','e'); return; }
+  // ✅ منع التسجيل قبل تحميل قاعدة البيانات
+  if (!db) {
+    toast('⏳ جاري تحميل النظام... حاول بعد لحظة','e');
+    return;
+  }
 
-  if(dbPhoneExists(ph)){ toast('رقم الهاتف مسجّل مسبقاً — جرّب تسجيل الدخول','e'); return; }
+  const name = document.getElementById('rn').value.trim();
+  const phone = document.getElementById('rph').value.trim();
+  const pass = document.getElementById('rps').value.trim();
+  const pass2 = document.getElementById('rps2').value.trim();
+  const level = document.getElementById('rlv').value;
+  const division = document.getElementById('rdv').value;
+  const semester = parseInt(document.getElementById('rsem').value) || 1;
 
-  const uid = dbAddUser(n, ph, ps, parseInt(lv), dv, parseInt(sem));
-  if(!uid){ toast('حدث خطأ في التسجيل، حاول مجدداً','e'); return; }
+  // ✅ Validation
+  if (name.split(' ').filter(w => w.length > 0).length < 4) {
+    toast('❌ أدخل الاسم الرباعي كامل','e');
+    return;
+  }
 
-  const u = dbFindUser(ph, ps);
-  if(!u){ toast('حدث خطأ، حاول تسجيل الدخول','e'); return; }
+  if (!/^0\d{10}$/.test(phone)) {
+    toast('❌ رقم الهاتف غير صحيح','e');
+    return;
+  }
 
-  cUser = u;
-  cSemester = parseInt(sem)||1;
-  cLvl = parseInt(lv)||1;
+  if (pass.length < 6) {
+    toast('❌ كلمة المرور ضعيفة','e');
+    return;
+  }
+
+  if (pass !== pass2) {
+    toast('❌ كلمتا المرور غير متطابقتان','e');
+    return;
+  }
+
+  if (!level) {
+    toast('❌ اختر الفرقة','e');
+    return;
+  }
+
+  if (!division) {
+    toast('❌ اختر الشعبة','e');
+    return;
+  }
+
+  // ✅ منع التكرار
+  if (dbPhoneExists(phone)) {
+    toast('⚠️ الرقم مسجل بالفعل','e');
+    return;
+  }
+
+  let userId = null;
+
+  try {
+    userId = dbAddUser(
+      name,
+      phone,
+      pass,
+      parseInt(level),
+      division,
+      semester
+    );
+  } catch (e) {
+    console.error(e);
+    toast('❌ خطأ في قاعدة البيانات','e');
+    return;
+  }
+
+  if (!userId) {
+    toast('❌ فشل إنشاء الحساب','e');
+    return;
+  }
+
+  // ✅ تسجيل دخول تلقائي
+  const user = dbFindUser(phone, pass);
+
+  if (!user) {
+    toast('⚠️ تم إنشاء الحساب لكن فشل تسجيل الدخول','e');
+    return;
+  }
+
+  cUser = user;
+  cLvl = parseInt(user.level) || 1;
+  cSemester = parseInt(user.semester) || 1;
+
   updateLandingStats();
-  dbLog(`تسجيل جديد: ${n} — فرقة ${lv}`, 'ok');
+  dbLog(`مستخدم جديد: ${name}`, 'ok');
   loadUser();
-  toast('تم إنشاء حسابك بنجاح 🎉','s');
+
+  toast('🎉 تم إنشاء الحساب بنجاح','s');
 }
 
 function openAdminLogin() { openM('alm'); }
@@ -2539,7 +2580,48 @@ document.querySelectorAll('.mo').forEach(m=>{
 // ══════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════
-initDB();
+async function initDB() {
+  try {
+    const initSqlJsLib = await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
+      script.onload = () => resolve(window.initSqlJs);
+      script.onerror = () => reject('فشل تحميل SQL');
+      document.head.appendChild(script);
+    });
+
+    const SQL = await initSqlJsLib({
+      locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${file}`
+    });
+
+    db = new SQL.Database();
+
+    // ✅ إنشاء الجداول لو مش موجودة
+    db.run(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        phone TEXT UNIQUE,
+        pass TEXT,
+        level INTEGER,
+        division TEXT,
+        semester INTEGER,
+        active INTEGER,
+        joined TEXT
+      );
+    `);
+
+    // ✅ تفعيل الأزرار بعد التحميل
+    document.getElementById('regBtn')?.removeAttribute('disabled');
+    document.getElementById('loginBtn')?.removeAttribute('disabled');
+
+    toast('✅ النظام جاهز','s');
+
+  } catch (err) {
+    console.error(err);
+    toast('❌ فشل تحميل قاعدة البيانات','e');
+  }
+}
 </script>
 </body>
 </html>
